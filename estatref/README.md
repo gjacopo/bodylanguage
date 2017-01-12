@@ -13,21 +13,13 @@ Currently, the output `html` table contains the following fields (headers):
 | Link | Dataset | Project | Title | Keywords |	Source | Year | Lang. |
 |------|---------|---------|-------|----------|--------|------|-------|
 
-but this can be modified easily following again the instructions of http://www.markschenk.com/tools/jabref/. 
-When the bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-received_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created; this table can be visualised at this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-standalone.html)
+but this can be easily modified following again the instructions of http://www.markschenk.com/tools/jabref/. 
+When the bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-received_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created. Note that you can visualise it at this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-standalone.html)
 
-Further, the `pub-CROS` page (`.html` file and `_files` folder) and visualise it on your local, or load this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-CROS.html)
+Further, the `pub-CROS` page (`.html` file and `_files` folder) was created so as to integrate the reference table into the CROS framework and to look like that the original [page](https://ec.europa.eu/eurostat/cros/content/publications-received_en). You can visualise on your local, or load this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-CROS.html). Note that there is currently an incompatibility of the javascript script in the layout file with some CSS of the CROS page, namely:
 
-Note currently the incompatibility of the table with the loaded CSS
+   ```
+   <link type="text/css" rel="stylesheet" href="CROS-publication-2016_files/css_P0C19k7C3TsKm7hg3wFHvSzcEa7tBnpz4vdfXBuz5_A.css" media="all">
+   ```
 
-  <link type="text/css" rel="stylesheet" href="CROS-publication-2016_files/css_P0C19k7C3TsKm7hg3wFHvSzcEa7tBnpz4vdfXBuz5_A.css" media="all">
-  
-This creates issue when launching the search (table spans on 1 column only).
-
--	duplicated entry "Wage and Income Inequality in the European Union" (to be sure, check the DOI at the end of the publication).
--	Erroneous project title for publication "Early retirement across Europe. Does non-standard employment increase participation of older workers?" (http://ec.europa.eu/eurostat/cros/system/files/146-2014-early_retirement_across_europe_.pdf)
-
-[CROS online page of publications](https://ec.europa.eu/eurostat/cros/content/publications-received_en).
-
-* download the 
-
+since this creates issue when launching the search (table spans on 1 column only).
