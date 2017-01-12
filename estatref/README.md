@@ -8,6 +8,7 @@ The layout files stored herein, namely:
 enable to export bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org) bibliography reference manager. The files haven been created following the examples in http://www.markschenk.com/tools/jabref/.
 
 The output `html` table contains the following fields (headers):
+
 | Link | Dataset | Project | Title | Keywords |	Source | Year | Lang. |
 |------|---------|---------|-------|----------|--------|------|-------|
 
