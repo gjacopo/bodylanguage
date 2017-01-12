@@ -1,12 +1,15 @@
 ## estatref
 
-Layout files for `JabRef`
+The layout files stored herein, namely: 
+* `tablerefs-estat.layout`, 
+* `tablerefs-estat.begin.layout`, and
+* `tablerefs-estat.end.layout`
 
-The purpose of the layout files stored herein is to enable a special export of bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org). The files: `tablerefs-estat.layout`, `tablerefs-estat.begin.layout` and `tablerefs-estat.end.layout` haven been created following the examples in http://www.markschenk.com/tools/jabref/.
+enable to export bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org) bibliography reference manager. The files haven been created following the examples in http://www.markschenk.com/tools/jabref/.
 
 The output `html` table contains the following fields (headers):
 | Link | Dataset | Project | Title | Keywords |	Source | Year | Lang. |
------------------------------------------------------------------------
+|------|---------|---------|-------|----------|--------|------|-------|
 
 Note currently the incompatibility of the table with the loaded CSS
 
