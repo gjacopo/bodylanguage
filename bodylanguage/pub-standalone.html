@@ -1,0 +1,1014 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>References of publications based on DG ESTAT microdata</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<script type="text/javascript">
+<!--
+// QuickSearch script for JabRef HTML export (no Abstract/BibTeX)
+// Version: 3.0
+//
+// Copyright (c) 2006-2011, Mark Schenk
+//
+// This software is distributed under a Creative Commons Attribution 3.0 License
+// http://creativecommons.org/licenses/by/3.0/
+//
+// Features:
+// - intuitive find-as-you-type searching
+//    ~ case insensitive
+//    ~ ignore diacritics (optional)
+//
+// - search with/without Regular Expressions
+// - match BibTeX key
+//
+
+// Search settings
+var noSquiggles = true; 	// ignore diacritics when searching
+var searchRegExp = false; 	// enable RegExp searches
+
+
+if (window.addEventListener) {
+	window.addEventListener("load",initSearch,false); }
+else if (window.attachEvent) {
+	window.attachEvent("onload", initSearch); }
+
+function initSearch() {
+	// check for quick search table and searchfield
+	if (!document.getElementById('qs_table')||!document.getElementById('quicksearch')) { return; }
+
+	// load all the rows and sort into arrays
+	loadTableData();
+	
+	//find the query field
+	qsfield = document.getElementById('qs_field');
+
+	// previous search term; used for speed optimisation
+	prevSearch = '';
+
+	//find statistics location
+	stats = document.getElementById('stat');
+	setStatistics(-1);
+	
+	// set up preferences
+	initPreferences();
+
+	// shows the searchfield
+	document.getElementById('quicksearch').style.display = 'block';
+	document.getElementById('qs_field').onkeyup = quickSearch;
+}
+
+function loadTableData() {
+	// find table and appropriate rows
+	searchTable = document.getElementById('qs_table');
+	var allRows = searchTable.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+	// split all rows into entryRows and infoRows (e.g. abstract, review, bibtex)
+	entryRows = new Array();
+
+	// get data from each row
+	entryRowsData = new Array();
+	
+	BibTeXKeys = new Array();
+	
+	for (var i=0, k=0, j=0; i<allRows.length;i++) {
+		if (allRows[i].className.match(/entry/)) {
+			entryRows[j] = allRows[i];
+			entryRowsData[j] = stripDiacritics(getTextContent(allRows[i]));
+			allRows[i].id ? BibTeXKeys[j] = allRows[i].id : allRows[i].id = 'autokey_'+j;
+			j ++;
+		}
+	}
+	//number of entries and rows
+	numEntries = entryRows.length;
+}
+
+function quickSearch(){
+	
+	tInput = qsfield;
+
+	if (tInput.value.length == 0) {
+		showAll();
+		setStatistics(-1);
+		qsfield.className = '';
+		return;
+	} else {
+		t = stripDiacritics(tInput.value);
+
+		if(!searchRegExp) { t = escapeRegExp(t); }
+			
+		// only search for valid RegExp
+		try {
+			textRegExp = new RegExp(t,"i");
+			qsfield.className = '';
+		}
+			catch(err) {
+			prevSearch = tInput.value;
+			qsfield.className = 'invalidsearch';
+			return;
+		}
+	}
+	
+	// count number of hits
+	var hits = 0;
+
+	// start looping through all entry rows
+	for (var i = 0; cRow = entryRows[i]; i++){
+
+		// only show search the cells if it isn't already hidden OR if the search term is getting shorter, then search all
+		if(cRow.className.indexOf('noshow')==-1 || tInput.value.length <= prevSearch.length){
+			var found = false; 
+
+			if (entryRowsData[i].search(textRegExp) != -1 || BibTeXKeys[i].search(textRegExp) != -1){ 
+				found = true;
+			}
+			
+			if (found){
+				cRow.className = 'entry show';
+				hits++;
+			} else {
+				cRow.className = 'entry noshow';
+			}
+		}
+	}
+
+	// update statistics
+	setStatistics(hits)
+	
+	// set previous search value
+	prevSearch = tInput.value;
+}
+
+
+// Strip Diacritics from text
+// http://stackoverflow.com/questions/990904/javascript-remove-accents-in-strings
+
+// String containing replacement characters for stripping accents 
+var stripstring = 
+    'AAAAAAACEEEEIIII'+
+    'DNOOOOO.OUUUUY..'+
+    'aaaaaaaceeeeiiii'+
+    'dnooooo.ouuuuy.y'+
+    'AaAaAaCcCcCcCcDd'+
+    'DdEeEeEeEeEeGgGg'+
+    'GgGgHhHhIiIiIiIi'+
+    'IiIiJjKkkLlLlLlL'+
+    'lJlNnNnNnnNnOoOo'+
+    'OoOoRrRrRrSsSsSs'+
+    'SsTtTtTtUuUuUuUu'+
+    'UuUuWwYyYZzZzZz.';
+
+function stripDiacritics(str){
+
+    if(noSquiggles==false){
+        return str;
+    }
+
+    var answer='';
+    for(var i=0;i<str.length;i++){
+        var ch=str[i];
+        var chindex=ch.charCodeAt(0)-192;   // Index of character code in the strip string
+        if(chindex>=0 && chindex<stripstring.length){
+            // Character is within our table, so we can strip the accent...
+            var outch=stripstring.charAt(chindex);
+            // ...unless it was shown as a '.'
+            if(outch!='.')ch=outch;
+        }
+        answer+=ch;
+    }
+    return answer;
+}
+
+// http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+// NOTE: must escape every \ in the export code because of the JabRef Export...
+function escapeRegExp(str) {
+  return str.replace(/[-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+function setStatistics (hits) {
+	if(hits < 0) { hits=numEntries; }
+	if(stats) { stats.firstChild.data = hits + '/' + numEntries}
+}
+
+function getTextContent(node) {
+	// Function written by Arve Bersvendsen
+	// http://www.virtuelvis.com
+	
+	if (node.nodeType == 3) {
+	return node.nodeValue;
+	} // text node
+	if (node.nodeType == 1 && node.className != "infolinks") { // element node
+	var text = [];
+	for (var chld = node.firstChild;chld;chld=chld.nextSibling) {
+		text.push(getTextContent(chld));
+	}
+	return text.join("");
+	} return ""; // some other node, won't contain text nodes.
+}
+
+function showAll(){
+	for (var i = 0; i < numEntries; i++){ entryRows[i].className = 'entry show'; }
+}
+
+function clearQS() {
+	qsfield.value = '';
+	showAll();
+}
+
+function redoQS(){
+	showAll();
+	quickSearch(qsfield);
+}
+
+function updateSetting(obj){
+	var option = obj.id;
+	var checked = obj.value;
+
+	switch(option)
+	 {
+	 case "opt_useRegExp":
+	   searchRegExp=!searchRegExp;
+	   redoQS();
+	   break;
+	 case "opt_noAccents":
+	   noSquiggles=!noSquiggles;
+	   loadTableData();
+	   redoQS();
+	   break;
+	 }
+}
+
+function initPreferences(){
+	if(noSquiggles){document.getElementById("opt_noAccents").checked = true;}
+	if(searchRegExp){document.getElementById("opt_useRegExp").checked = true;}
+}
+
+function toggleSettings(){
+	var togglebutton = document.getElementById('showsettings');
+	var settings = document.getElementById('settings');
+	
+	if(settings.className == "hidden"){
+		settings.className = "show";
+		togglebutton.innerText = "close settings";
+		togglebutton.textContent = "close settings";
+	}else{
+		settings.className = "hidden";
+		togglebutton.innerText = "settings...";		
+		togglebutton.textContent = "settings...";
+	}
+}
+
+-->
+</script>
+<style type="text/css">
+body { background-color: white; font-family: Arial, sans-serif; font-size: 13px; line-height: 1.2; padding: 1em; color: #2E2E2E; margin: auto 2em; }
+
+form#quicksearch { width: auto; border-style: solid; border-color: gray; border-width: 1px 0px; padding: 0.7em 0.5em; display:none; position:relative; }
+span#searchstat {padding-left: 1em;}
+
+div#settings { margin-top:0.7em; /* border-bottom: 1px transparent solid; background-color: #efefef; border: 1px grey solid; */ }
+div#settings ul {margin: 0; padding: 0; }
+div#settings li {margin: 0; padding: 0 1em 0 0; display: inline; list-style: none; }
+div#settings li + li { border-left: 2px #efefef solid; padding-left: 0.5em;}
+div#settings input { margin-bottom: 0px;}
+
+div#settings.hidden {display:none;}
+
+#showsettings { border: 1px grey solid; padding: 0 0.5em; float:right; line-height: 1.6em; text-align: right; }
+#showsettings:hover { cursor: pointer; }
+
+.invalidsearch { background-color: red; }
+input[type="button"] { background-color: #efefef; border: 1px #2E2E2E solid;}
+
+table { width: 100%; empty-cells: show; border-spacing: 0em 0.2em; margin: 1em 0em; border-style: none; }
+th, td { border: 1px gray solid; border-width: 1px 1px; padding: 0.5em; vertical-align: top; text-align: left; }
+th { background-color: #efefef; }
+td + td, th + th { border-left: none; }
+
+td a { color: navy; text-decoration: none; }
+td a:hover  { text-decoration: underline; }
+
+tr.noshow { display: none;}
+tr.highlight td { background-color: #EFEFEF; border-top: 2px #2E2E2E solid; font-weight: bold; }
+tr.abstract td, tr.review td, tr.bibtex td { background-color: #EFEFEF; text-align: justify; border-bottom: 2px #2E2E2E solid; }
+tr.nextshow td { border-bottom: 1px gray solid; }
+
+tr.bibtex pre { width: 100%; overflow: auto; white-space: pre-wrap;}
+p.infolinks { margin: 0.3em 0em 0em 0em; padding: 0px; }
+
+@media print {
+	p.infolinks, #qs_settings, #quicksearch, t.bibtex { display: none !important; }
+	tr { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<form action="" id="quicksearch">
+<input type="text" id="qs_field" autocomplete="off" placeholder="Type to search..." /> <input type="button" onclick="clearQS()" value="clear" />
+<span id="searchstat">Matching entries: <span id="stat">0</span></span>
+<div id="showsettings" onclick="toggleSettings()">settings...</div>
+<div id="settings" class="hidden">
+<ul>
+<li><input type="checkbox" class="search_setting" id="opt_useRegExp" onchange="updateSetting(this)"><label for="opt_useRegExp"> use RegExp</label></li>
+<li><input type="checkbox" class="search_setting" id="opt_noAccents" onchange="updateSetting(this)"><label for="opt_noAccents"> ignore accents</label></li>
+</ul>
+</div>
+</form>
+<table id="qs_table" border="1">
+<!--
+<thead><tr><th width="20%">Author</th><th width="30%">Title</th><th width="5%">Year</th><th width="30%">Journal/Proceedings</th><th width="10%">Reftype</th><th width="5%">DOI/URL</th></tr></thead>
+-->
+<thead><tr>
+<th width="3%">Link</th>
+<th width="5%">Dataset</th>
+<th width="20%">Project</th>
+<th width="20%">Title</th>
+<th width="25%">Keywords</th>
+<th width="20%">Source</th>
+<th width="4%"><center>Year</center></th>
+<th width="3%">Lang.</th>
+<!-- <th width="5%">Timestamp</th> -->
+</tr></thead>
+<tbody><tr id="BBBSV16" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/28-2013-3-durchlaessigleitarbeitsm_europaescher_arbeitsmarkte_0.pdf">URL</a><!----></center></td>
+	<!-- <td>Bachmann, R., Bechara, P., Bredtmann, J., Schaffner, S. and Vonnahme, C.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Labour Market Transitions in Turbulent Times</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/28-2013-3-durchlaessigleitarbeitsm_europaescher_arbeitsmarkte_0.pdf">Durchlässigkeit europäischer Arbeitsmärkte</a></em></td>
+	<td><i>tenure; labour market transitions; labour market dynamics; worker flows; great recession; crisis; business cycle; shift-share analysis; demographic change</i></td>
+	<td>Bertelsmann Stiftung
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2016</center></td>
+	<td><center>DE</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="BFFGR15" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2806/420768">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/28-2013-1-job_tenure_in_turbulent_times_0.pdf">URL</a><!--<a href="978-92-897-1385-6">ISBN</a>--></center></td>
+	<!-- <td>Bachmann, R., Felder, R., Frings H., Giesecke, M. and Rzepka, S.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Labour Market Transitions in Turbulent Times</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/28-2013-1-job_tenure_in_turbulent_times_0.pdf">Job tenure in turbulent times</a></em></td>
+	<td><i>tenure; labour market transitions; labour market dynamics; worker flows; great recession; crisis; business cycle; shift-share analysis; demographic change</i></td>
+	<td>European Foundation for the Improvement of Living and Working Conditions (Eurofound)
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="Bankhead16" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/317-2015-comparative_empirical_analysis_-_estonia_and_latvia.pdf">URL</a><!----></center></td>
+	<!-- <td>Bankhead, R.</td> -->
+	<td><b>SES</b></td>
+	<td>Gender Pay Gap in Latvia and Estonia: a comparative empirical analysis</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/317-2015-comparative_empirical_analysis_-_estonia_and_latvia.pdf">The Gender Wage Gaps in Estonia and Latvia: A Comparative Empirical Analysis</a></em></td>
+	<td><i></i></td>
+	<td>University of Nottingham
+	
+	
+	</td>
+	<!-- <td>phdthesis</td> -->
+	<td><center>2016</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="BV14" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2139/ssrn.2510401">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/146-2014-early_retirement_across_europe_.pdf">URL</a><!----></center></td>
+	<!-- <td>Been, J. and van Vliet, O.</td> -->
+	<td><b>LFS</b></td>
+	<td>Reforming Social Security</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/146-2014-early_retirement_across_europe_.pdf">Early Retirement Across Europe. Does Non-Standard Employment Increase Participation of Older Workers?</a></em></td>
+	<td><i>early retirement; part-time employment; self-employment; social insurance programs; labor market institutions</i></td>
+	<td>Netspar
+	(10-2014-044)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2014</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="BBCL15" class="entry">
+	<td><center><a href="http://dx.doi.org/10.3386/w20888">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/267-2014-the_effect_of_regulatory_harmonization_.pdf">URL</a><!----></center></td>
+	<!-- <td>Bloomfield, M., Brüggemann, U., Christensen, H. and Leuz, C.</td> -->
+	<td><b>ECHP EU-SILC LFS SES</b></td>
+	<td>Cross-Border Labour Migration and the Harmonization of Professional Standards</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/267-2014-the_effect_of_regulatory_harmonization_.pdf">The Effect of Regulatory Harmonization on Cross-border Labor Migration: Evidence from the Accounting Profession</a></em></td>
+	<td><i>accounting harmonization; regulation; IFRS; European Union; labor migration and mobility</i></td>
+	<td>National Bureau of Economic Research
+	(20888)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="BH14" class="entry">
+	<td><center><a href="http://www.steunpuntwerk.be/node/3051">URL</a><!----></center></td>
+	<!-- <td>Braes, S. and Herremans, W.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Monitoring and benchmarking of the Flemish labour market in a European comparative perspective</td>
+	<td><em><a href="http://www.steunpuntwerk.be/node/3051">Opleidingsmismatch tussen vraag en aanbod. De positie van Vlaanderen in Europa</a></em></td>
+	<td><i>NEET; youth; education; labour market; youth unemployment; flexibility; labour mobility</i></td>
+	<td>
+	Over.Werk. Tijdschrift van het Steunpunt WerkVol. 24(1), pp. 37-43
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2014</center></td>
+	<td><center>NL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="Cedefop15a" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2801/392276">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/29-2014-1-job-related_adult_learning_and__0.pdf">URL</a><!--<a href="978-92-896-1930-1">ISBN</a>--></center></td>
+	<!-- <td>Cedefop</td> -->
+	<td><b>AES CVTS</b></td>
+	<td>Analysis of the Continuing Vocational Training and Adult Education Surveys, carried out in the framework of service contract no.2012-0156.</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/29-2014-1-job-related_adult_learning_and__0.pdf">Job-related adult learning and continuing vocational training in Europe: a statistical picture</a></em></td>
+	<td><i>lifelong learning; adult learning; job-related non-formal education; employer-sponsored further education; continuing vocational education; human resource development; inequality in participation in further education; funding of lifelong learning; cost-sharing schemes in adult learning</i></td>
+	<td>European Centre for the Development of Vocational Training (Cedefop)
+	(48)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="Cedefop15b" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2801/219228">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/29-2014-2-unequal_access_to_job-related_learing_.pdf">URL</a><!--<a href="978-92-896-1991-2">ISBN</a>--></center></td>
+	<!-- <td>Cedefop</td> -->
+	<td><b>AES CVTS</b></td>
+	<td>Analysis of the Continuing Vocational Training and Adult Education Surveys, carried out in the framework of service contract no.2012-0156.</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/29-2014-2-unequal_access_to_job-related_learing_.pdf">Unequal access to job-related learning: evidence from the adult education survey</a></em></td>
+	<td><i>lifelong learning; adult learning; job-related non-formal education; employer-sponsored further education; continuing vocational education; human resource development; inequality in participation in further education; funding of lifelong learning; cost-sharing schemes in adult learning</i></td>
+	<td>European Centre for the Development of Vocational Training (Cedefop)
+	(52)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="CHSGB15" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2806/683858">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/28-2013-2-restructuring_in_the_public_sector_0.pdf">URL</a><!--<a href="978-92-897-1399-3">ISBN</a>--></center></td>
+	<!-- <td>Celikel-Esser, F., Hurley, J., Storrie, D., Gerogiannis, E. and Broughton, A.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Labour Market Transitions in Turbulent Times</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/28-2013-2-restructuring_in_the_public_sector_0.pdf">ERM Annual report 2014: Restructuring in the public sector</a></em></td>
+	<td><i>tenure; labour market transitions; labour market dynamics; worker flows; great recession; crisis; business cycle; shift-share analysis; demographic change</i></td>
+	<td>European Foundation for the Improvement of Living and Working Conditions (Eurofound)
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="BGS15" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2870/870237">DOI</a> <a href="https://ec.europa.eu/migrant-integration/librarydoc/the-migration-and-integration-of-moroccan-and-ukrainian-migrants-in-italy-policies-and-measures">URL</a><!--<a href="9789290842804">ISBN</a>--></center></td>
+	<!-- <td>Di Bartolomeo, A., Gabrielli, G. and Strozza, S.</td> -->
+	<td><b>LFS</b></td>
+	<td>The INTERACT Project - Research on the integration of third-country nationals in the European Union as a three-way process.</td>
+	<td><em><a href="https://ec.europa.eu/migrant-integration/librarydoc/the-migration-and-integration-of-moroccan-and-ukrainian-migrants-in-italy-policies-and-measures">The migration and integration of Moroccan and Ukrainian migrants in Italy : policies and measures</a></em></td>
+	<td><i>integration; immigration; emigration polices; diaspora polices; labour market; educationv political participationv naturalisation; third country nationals</i></td>
+	<td>European University Institute
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="DLRRS15" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2861/48742">DOI</a> <a href="https://ec.europa.eu/eurostat/cros/system/files/05-2014-wage_and_income_inequality_in_the_eu_0.pdf">URL</a><!--<a href="978-92-823-6318-8">ISBN</a>--></center></td>
+	<!-- <td>Dreger, C., Lopez-bazo E. Ramos, R., Royuela, V. and SurinachH, J.</td> -->
+	<td><b>EU-SILC LFS SES</b></td>
+	<td>Wage Dispersion in the European Union</td>
+	<td><em><a href="https://ec.europa.eu/eurostat/cros/system/files/05-2014-wage_and_income_inequality_in_the_eu_0.pdf">Wage and Income Inequality in the European Union</a></em></td>
+	<td><i>pay; pay policy; social inequality; labour market; income; collective bargaining; employment policy; European Union; wage determination; low pay; collective bargaining; equal pay; outsourcing; technological change; distribution of income; globalisation</i></td>
+	<td>European Parliament - Directorate General for International Policies
+	(IP/A/EMPL/2013-05)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="DRA16" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2806/004233">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/203-2015-extending_working_time_lives_0.pdf">URL</a><!--<a href="978-92-897-1541-6">ISBN</a>--></center></td>
+	<!-- <td>Dubois, H., Runceanu, G. and Anderson, R.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Extending working lives through flexible retirement schemes</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/203-2015-extending_working_time_lives_0.pdf">Extending working lives through flexible retirement schemes: Partial retirement</a></em></td>
+	<td><i>retirement; work; pension</i></td>
+	<td>European Foundation for the Improvement of Living and Working Conditions (Eurofound)
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2016</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="BIB16" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/08-2015-bibb_datenreport_2016.pdf">URL</a><!--<a href="978-3-945981-26-9">ISBN</a>--></center></td>
+	<!-- <td>Friedrich, M.</td> -->
+	<td><b>AES CVTS</b></td>
+	<td>Analysis of adult learning in Europe with special focus on employer-financed education and training</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/08-2015-bibb_datenreport_2016.pdf">Datenreport zum Berufsbildungsbericht 2016: Informationen und Analysen zur Entwicklung der beruflichen Bildung</a></em></td>
+	<td><i>adult learning in Europe; training behavior of adults; training participation by different groups of person; continuing vocational training; training organization in enterprises and training types</i></td>
+	<td>Bundesinstitut für Berufsbildung
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2016</center></td>
+	<td><center>DE</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="FH15" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/35-2015-strategic_cornerstones_and_rapid_firm_growth.pdf">URL</a><!----></center></td>
+	<!-- <td>Friesenbichler, K. and Hoelzl, W.</td> -->
+	<td><b>CIS</b></td>
+	<td>High growth firms in Europe</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/35-2015-strategic_cornerstones_and_rapid_firm_growth.pdf">Strategic Cornerstones and Rapid Firm Growth: Evidence from European Manufacturing</a></em></td>
+	<td><i>firm growth; dynamic strategy; innovation; CIS; Europe</i></td>
+	<td>Austrian Institute of Economic Research
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="Grammenos14" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/142-2014-aned_2014_ehis_final_report_pdf.pdf">URL</a><!----></center></td>
+	<!-- <td>Grammenos, S.</td> -->
+	<td><b>EHIS EU-SILC</b></td>
+	<td>ANED - Academic Network of European Disability Experts 2012-2014; Task 6: Comparative data and indicators on persons with disabilities</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/142-2014-aned_2014_ehis_final_report_pdf.pdf">European comparative data on Health of People with disabilities</a></em></td>
+	<td><i></i></td>
+	<td>Academic Network of European Disability Experts
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2014</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="HKL16" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/2015-133-2-trends_in_task_compostion-working_paper_01_2016.pdf">URL</a><!----></center></td>
+	<!-- <td>Hardy, W., Keister, R. and Lewandowski, P.</td> -->
+	<td><b>AES LFS</b></td>
+	<td>Investigation reasons behind low participation in life-long learning  from a cross country perspective</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/2015-133-2-trends_in_task_compostion-working_paper_01_2016.pdf">Technology or upskilling? Trends in the task composition of labour markets in Central and Eastern Europe</a></em></td>
+	<td><i>task content of jobs; routinisation; job polarisation; Central and Eastern Europe</i></td>
+	<td>Instytut Badan Strukturalnych
+	(01/2016)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2016</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="HVRVNTSS15" class="entry">
+	<td><center><a href="http://www.steunpuntwerk.be/node/3239">URL</a><!--<a href="9789088731181">ISBN</a>--></center></td>
+	<!-- <td>Herremans, W., Vanderbiesen, W., Rober, A., Vansteenkiste, S., Neefs, B., Theunissen, G., Sels, L. and Sourbron, M.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Monitoring and benchmarking of the Flemish labour market in a European comparative perspective</td>
+	<td><em><a href="http://www.steunpuntwerk.be/node/3239">Terugblik op de Vlaamse arbeidsmarkt. Ontwikkelingen sinds de jaren tachtig</a></em></td>
+	<td><i>NEET; youth; education; labour market; youth unemployment; flexibility; labour mobility</i></td>
+	<td>Steunpunt Werk en Sociale Economie
+	(1)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>NL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="Husa15" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/01-2013_2-eurooppalainen_palkkavertailu_ammateittain-tuloksia_eu-silc-aineistosta.pdf">URL</a><!--<a href="978-952-209-142-0">ISBN</a>--></center></td>
+	<!-- <td>Husa, T.</td> -->
+	<td><b>EU-SILC</b></td>
+	<td>Wages and income inequality across Europe</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/01-2013_2-eurooppalainen_palkkavertailu_ammateittain-tuloksia_eu-silc-aineistosta.pdf">Eurooppalainen palkkavertailu ammateittain: tuloksia EU-SILC-aineistosta</a></em></td>
+	<td><i>occupational wage differences; international comparisons</i></td>
+	<td>Labour Institute for Economic Research (Palkansaajien tutkimuslaitos)
+	(298)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>FI</center></td>
+	<!-- <td><center>2016.12.01</center></td> -->
+</tr>
+<tr id="ICILAS12" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/211-2014-final_deliverable_icilas_eu.pdf">URL</a><!----></center></td>
+	<!-- <td>ICILAS</td> -->
+	<td><b>EHIS EU-SILC LFS SES</b></td>
+	<td>Investigating Crucial Interdisciplinary Linkages in Ageing Societies (ICILAS)</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/211-2014-final_deliverable_icilas_eu.pdf">Final report</a></em></td>
+	<td><i></i></td>
+	<td>THALES Programme
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2012</center></td>
+	<td><center>EL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="KSY14" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/01-2013_1-_suomalainen_palkkataso_eu-vertailussa.pdf">URL</a><!--<a href="978–952–209–133–8">ISBN</a>--></center></td>
+	<!-- <td>Kangasniemi, M., Sauramo, P. and Yanar, O.</td> -->
+	<td><b>EU-SILC</b></td>
+	<td>Wages and income inequality across Europe</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/01-2013_1-_suomalainen_palkkataso_eu-vertailussa.pdf">Suomalainen palkkataso EU-vertailussa</a></em></td>
+	<td><i>wage differentials; international comparisons; wage dispersion; wage setting institutions</i></td>
+	<td>Labour Institute for Economic Research (Palkansaajien tutkimuslaitos)
+	(29)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2014</center></td>
+	<td><center>FI</center></td>
+	<!-- <td><center>2016.12.01</center></td> -->
+</tr>
+<tr id="Kaufmann15" class="entry">
+	<td><center><a href="http://dx.doi.org/10.13152/IJRVET.2.4.1">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/69-2014-1-non-formal_education_in_international_comparison._patterns_of.pdf">URL</a><!----></center></td>
+	<!-- <td>Kaufmann, K.</td> -->
+	<td><b>AES</b></td>
+	<td>Participation in adult education and training (AET) in Europe - international comparison of patterns of investment, reasons and outcomes of AET under control of country-specific macro level indicators</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/69-2014-1-non-formal_education_in_international_comparison._patterns_of.pdf">Non-Formal Education in International Comparison: Patterns of Participation and Investment in Selected European Countries</a></em></td>
+	<td><i>NFE; participation; investment patterns; international comparison; AES 2011; vocational education;, training</i></td>
+	<td>
+	International Journal for Research in Vocational Education and TrainingVol. 2(4), pp. 239-267
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="KR14" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/69-2014-2-presentation_kaufmann_reichart_aes_2011_140904.pdf">URL</a><!----></center></td>
+	<!-- <td>Kaufmann, K. and Reichart, E.</td> -->
+	<td><b>AES</b></td>
+	<td>Participation in adult education and training (AET) in Europe - international comparison of patterns of investment, reasons and outcomes of AET under control of country-specific macro level indicators</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/69-2014-2-presentation_kaufmann_reichart_aes_2011_140904.pdf">Participation in vocational adult education and training (AET) in international comparison: Patterns of investment &amp; providers</a></em></td>
+	<td><i>NFE; participation; investment patterns; international comparison; AES 2011; vocational education; training</i></td>
+	<td>
+	Proc. ECER Conference
+	
+	</td>
+	<!-- <td>inproceedings</td> -->
+	<td><center>2014</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="KL16" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/2015-133-1-a_routine_transition_causes.pdf">URL</a><!----></center></td>
+	<!-- <td>Keister, R. and Lewandowski, P.</td> -->
+	<td><b>AES LFS</b></td>
+	<td>Investigation reasons behind low participation in life-long learning  from a cross country perspective</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/2015-133-1-a_routine_transition_causes.pdf">A routine transition? Causes and consequences of the changing content of jobs in Central and Eastern Europe</a></em></td>
+	<td><i>task content of jobs; routinisation; job polarisation; Central and Eastern Europe</i></td>
+	<td>Instytut Badan Strukturalnych
+	(05/2016)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2016</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="LPPR1515" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2861/766825">DOI</a> <a href="https://ec.europa.eu/eurostat/cros/system/files/05-2014-wage_and_income_inequality_in_the_eu_0.pdf">URL</a><!--<a href="978-92-823-7237-1">ISBN</a>--></center></td>
+	<!-- <td>Lodovici, M., Patrizio, M., Pesce, F. and Roletto, E.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Women living alone: Evaluation of their specific difficulties</td>
+	<td><em><a href="https://ec.europa.eu/eurostat/cros/system/files/05-2014-wage_and_income_inequality_in_the_eu_0.pdf">Elderly women living alone: an update of their living conditions</a></em></td>
+	<td><i>poverty; pension scheme; structural adjustment; social policy; EU Member State; elderly person; household income; gender equality; retirement conditions; socioeconomic conditions; older worker; care for the elderly; ageing of the population; one person household</i></td>
+	<td>European Parliament - Directorate General for International Policies
+	(IP/A/EMPL/2013-05)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="LP15" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/aristeia_final_version_november2015_all_parts.pdf">URL</a><!----></center></td>
+	<!-- <td>Lyberaki, A. and Prontzas, E.</td> -->
+	<td><b>ECHP EU-SILC LFS</b></td>
+	<td>Informal social protection, the hybrid Greek welfare state and economic crisis dynamics (HYBRIDWELFARE)</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/aristeia_final_version_november2015_all_parts.pdf">Informal social protection, the hybrid Greek welfare state and economic crisis dynamics</a></em></td>
+	<td><i></i></td>
+	<td>Panteion University
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="Malmusi14" class="entry">
+	<td><center><a href="http://dx.doi.org/10.1093/eurpub/cku156">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/41-2014-immigrants_health_and_health_inequality_by_type_.pdf">URL</a><!----></center></td>
+	<!-- <td>Malmusi, D.</td> -->
+	<td><b>EU-SILC</b></td>
+	<td>European cross-country differences in migrants' health and healthcare access and their association with immigration policies</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/41-2014-immigrants_health_and_health_inequality_by_type_.pdf">Immigrants’ health and health inequality by type of integration policies in European countries</a></em></td>
+	<td><i></i></td>
+	<td>
+	European Journal of Public HealthVol. 25(25), pp. 293-299
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2014</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.05</center></td> -->
+</tr>
+<tr id="MBL16" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2806/75749">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/43-2015-the_gender_employment_gap-challenges_and_solutions.pdf">URL</a><!--<a href="978-92-897-1550-8">ISBN</a>--></center></td>
+	<!-- <td>Mascherini, M., Bisello, M. and Leston, I.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>The Gender Employment Gap: Challenges and Solutions</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/43-2015-the_gender_employment_gap-challenges_and_solutions.pdf">The gender employment gap: Challenges and solutions</a></em></td>
+	<td><i>gender equality; gender gap; gender segregation; pay; unpaid work; labour market participation; working women</i></td>
+	<td>European Foundation for the Improvement of Living and Working Conditions (Eurofound)
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2016</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="MLLGRNBFWCDMV15" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2806/588575">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/85-2013-social_inclusion_of_young_people.pdf">URL</a><!--<a href="978-92-897-1402-0">ISBN</a>--></center></td>
+	<!-- <td>Mascherini, M., Ludwinek, A., Ledermaier, S., Gstrein, M., Rodiga-Laßnig, P., Naylon, I., Broek, S., Fondeville, N., Ward, T., Cancedda, A., Day, L., Meierkord, A. and Van Beek, L.</td> -->
+	<td><b>LFS</b></td>
+	<td>Social inclusion of young people - effects and impact of long term unemployment on youth</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/85-2013-social_inclusion_of_young_people.pdf">Social inclusion of young people</a></em></td>
+	<td><i>youth; social inclusion; NEET, youth unemployment; youth guarantee; policy intervention</i></td>
+	<td>European Foundation for the Improvement of Living and Working Conditions (Eurofound)
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2016.12.01</center></td> -->
+</tr>
+<tr id="NH15" class="entry">
+	<td><center><a href="http://www.steunpuntwerk.be/node/3342">URL</a><!----></center></td>
+	<!-- <td>Neefs, B. and Herremans, W.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Monitoring and benchmarking of the Flemish labour market in a European comparative perspective</td>
+	<td><em><a href="http://www.steunpuntwerk.be/node/3342">Een baan voor het leven? Over jobanciënniteit en arbeidsmobiliteit op de Vlaamse arbeidsmarkt</a></em></td>
+	<td><i>NEET; youth; education; labour market; youth unemployment; flexibility; labour mobility</i></td>
+	<td>
+	Over.Werk. Tijdschrift van het Steunpunt WerkVol. 25(2), pp. 136-145
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2015</center></td>
+	<td><center>NL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="NHS14" class="entry">
+	<td><center><a href="http://www.steunpuntwerk.be/node/3202">URL</a><!--<a href="9789088731181">ISBN</a>--></center></td>
+	<!-- <td>Neefs, B., Herremans, W. and Sels, L.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Monitoring and benchmarking of the Flemish labour market in a European comparative perspective</td>
+	<td><em><a href="http://www.steunpuntwerk.be/node/3202">Vlaanderen op de kaart van Europese regionale arbeidsmarkten</a></em></td>
+	<td><i>NEET; youth; education; labour market; youth unemployment; flexibility; labour mobility</i></td>
+	<td>Steunpunt Werk en Sociale Economie
+	(7)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2014</center></td>
+	<td><center>NL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="PDDHKR14" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/77-2013-bericht_cr2014_backgroundstudy_final5_2.pdf">URL</a><!----></center></td>
+	<!-- <td>Peters, B., Dachs, B., Duenser, M., Hud, M., Koehler, C. and Rammer, C.</td> -->
+	<td><b>CIS</b></td>
+	<td>Study on firm growth, innovation and the business cycle</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/77-2013-bericht_cr2014_backgroundstudy_final5_2.pdf">Firm Growth, Innovation and the Business Cycle - Background Report for the 2014 Competitiveness Report</a></em></td>
+	<td><i>innovation; employment; reallocation; compensation effect; displacement effect</i></td>
+	<td>Centre for European Economic Research; AIT Austrian Institute of Technology
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2014</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2016.12.01</center></td> -->
+</tr>
+<tr id="RS15" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/13-2014-is_there_an_added_worker_effect-european_labor.pdf">URL</a><!----></center></td>
+	<!-- <td>Riedl, A. and Schoiswohl, F.</td> -->
+	<td><b>LFS</b></td>
+	<td>The Driving Forces of Unemployment Dynamics in Europe</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/13-2014-is_there_an_added_worker_effect-european_labor.pdf">Is there an added worker effect? – European labor supply during the crisis</a></em></td>
+	<td><i>labor force participation rate; unemployment; European countries</i></td>
+	<td>
+	Focus on European Economic IntegrationVol. 4, pp. 71-88
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2016.12.08</center></td> -->
+</tr>
+<tr id="RVR14" class="entry">
+	<td><center><a href="http://dx.doi.org/10.1787/5jxrcmg88l8r-en">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/74-2014-income_inequality_urban_size_and_economic_growth_in_oecd_regions.pdf">URL</a><!----></center></td>
+	<!-- <td>Royuela, V., Veneri, P. and Ramos, R.</td> -->
+	<td><b>EU-SILC</b></td>
+	<td>Regional inequalities, agglomeration and economic growth</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/74-2014-income_inequality_urban_size_and_economic_growth_in_oecd_regions.pdf">Income Inequality, Urban Size and Economic Growth in OECD Regions</a></em></td>
+	<td><i>inequality; economic growth; urban; OECD regions; regional income inequality; functional urban areas; poverty; inequality indicators</i></td>
+	<td>OECD Regional Development Working Papers
+	(2014/10)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2014</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="SH16" class="entry">
+	<td><center><a href="http://www.steunpuntwerk.be/node/3500">URL</a><!----></center></td>
+	<!-- <td>Scholiers, B. and Herremans, W.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Monitoring and benchmarking of the Flemish labour market in a European comparative perspective</td>
+	<td><em><a href="http://www.steunpuntwerk.be/node/3500">Wel jong, niet NEET. Een analyse van de NEET-jongeren in Vlaanderen</a></em></td>
+	<td><i>NEET; youth; education; labour market; youth unemployment; flexibility; labour mobility</i></td>
+	<td>
+	Over.Werk. Tijdschrift van het Steunpunt WerkVol. 26(1), pp. 82-91
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2016</center></td>
+	<td><center>NL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="Sparreboom16" class="entry">
+	<td><center><a href="http://dx.doi.org/10.1111/ilr.12017">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/08-2013-occupational_secregation_by_hours_of_work_in_europe_0.pdf">URL</a><!----></center></td>
+	<!-- <td>Sparreboom, T.</td> -->
+	<td><b>LFS</b></td>
+	<td>Occupational segregation and part-time work in Europe</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/08-2013-occupational_secregation_by_hours_of_work_in_europe_0.pdf">Occupational segregation by hours of work in Europe</a></em></td>
+	<td><i>segregation; part-time work; gender equality</i></td>
+	<td>
+	International Labour Review
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2016</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2016.12.01</center></td> -->
+</tr>
+<tr id="TBB15" class="entry">
+	<td><center><a href="http://dx.doi.org/10.2838/200295">DOI</a> <a href="http://ec.europa.eu/eurostat/cros/system/files/263-2014-men_women_and_pensions_en.pdf">URL</a><!--<a href="978-92-79-47780-5">ISBN</a>--></center></td>
+	<!-- <td>Tinios, P., Bettio, F. and Betti, G.</td> -->
+	<td><b>EU-SILC</b></td>
+	<td>Adequacy of pensions: a gender perspective</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/263-2014-men_women_and_pensions_en.pdf">Men, Women and Pensions</a></em></td>
+	<td><i></i></td>
+	<td>European Commission, Directorate-General for Justice and Consumers
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="VH14a" class="entry">
+	<td><center><a href="http://www.steunpuntwerk.be/node/3206">URL</a><!----></center></td>
+	<!-- <td>Vanderbiesen, W. and Herremans, W.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Monitoring and benchmarking of the Flemish labour market in a European comparative perspective</td>
+	<td><em><a href="http://www.steunpuntwerk.be/node/3206">Broos herstel van de Vlaamse arbeidsmarkt</a></em></td>
+	<td><i>NEET; youth; education; labour market; youth unemployment; flexibility; labour mobility</i></td>
+	<td>
+	Over.Werk. Tijdschrift van het Steunpunt WerkVol. 24(4), pp. 8-20
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2014</center></td>
+	<td><center>NL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="VH14b" class="entry">
+	<td><center><a href="http://www.steunpuntwerk.be/node/3107">URL</a><!----></center></td>
+	<!-- <td>Vanderbiesen, W. and Herremans, W.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Monitoring and benchmarking of the Flemish labour market in a European comparative perspective</td>
+	<td><em><a href="http://www.steunpuntwerk.be/node/3107">België: land van permanente vorming?</a></em></td>
+	<td><i>NEET; youth; education; labour market; youth unemployment; flexibility; labour mobility</i></td>
+	<td>
+	Over.Werk. Tijdschrift van het Steunpunt WerkVol. 24(2), pp. 70-79
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2014</center></td>
+	<td><center>NL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="VH15" class="entry">
+	<td><center><a href="http://www.steunpuntwerk.be/node/3400">URL</a><!----></center></td>
+	<!-- <td>Vanderbiesen, W. and Herremans, W.</td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Monitoring and benchmarking of the Flemish labour market in a European comparative perspective</td>
+	<td><em><a href="http://www.steunpuntwerk.be/node/3400">De Vlaamse arbeidsmarkt: het kantelpunt bereikt?</a></em></td>
+	<td><i>NEET; youth; education; labour market; youth unemployment; flexibility; labour mobility</i></td>
+	<td>
+	Over.Werk. Tijdschrift van het Steunpunt WerkVol. 25(4), pp. 8-23
+	
+	</td>
+	<!-- <td>article</td> -->
+	<td><center>2015</center></td>
+	<td><center>NL</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="Proba14" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/37-2013-rapport_2014-05_internasjonal_sammenligning_av_sykefravaer.pdf">URL</a><!----></center></td>
+	<!-- <td></td> -->
+	<td><b>LFS</b></td>
+	<td>International comparison of sickness absence (Internasjonalt sammenligning av sykefravær)</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/37-2013-rapport_2014-05_internasjonal_sammenligning_av_sykefravaer.pdf">Internasjonal sammenligning av sykefravær - Utarbeidet for Arbeids- og sosialdepartementet</a></em></td>
+	<td><i>international comparison; sick leave</i></td>
+	<td>Proba Research (Proba samfunnsanalyse)
+	(2014-03)
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2014</center></td>
+	<td><center>NO</center></td>
+	<!-- <td><center>2016.12.01</center></td> -->
+</tr>
+<tr id="Lux15a" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/132-2014-1-la_jeunesse_au_luxembourg_2015.pdf">URL</a><!----></center></td>
+	<!-- <td></td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Luxembourg Youth Report 2015</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/132-2014-1-la_jeunesse_au_luxembourg_2015.pdf">La Transition de l'adolescence vers l'âge adulte</a></em></td>
+	<td><i></i></td>
+	<td>Ministère de l'Éducation nationale, de l'Enfance et de la Jeunesse &amp; Université du Luxembourg
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>FR/LU</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+<tr id="Lux15b" class="entry">
+	<td><center><a href="http://ec.europa.eu/eurostat/cros/system/files/132-2014-2-youth-report-luxembourg2015_summary.pdf">URL</a><!----></center></td>
+	<!-- <td></td> -->
+	<td><b>EU-SILC LFS</b></td>
+	<td>Luxembourg Youth Report 2015</td>
+	<td><em><a href="http://ec.europa.eu/eurostat/cros/system/files/132-2014-2-youth-report-luxembourg2015_summary.pdf">The transition from youth into adulthood</a></em></td>
+	<td><i></i></td>
+	<td>Ministère de l'Éducation nationale, de l'Enfance et de la Jeunesse &amp; Université du Luxembourg
+	
+	
+	</td>
+	<!-- <td>techreport</td> -->
+	<td><center>2015</center></td>
+	<td><center>EN</center></td>
+	<!-- <td><center>2017.01.12</center></td> -->
+</tr>
+</tbody>
+</table>
+
+ <!-- file generated by JabRef
+<footer>
+ <small>Created by <a href="http://jabref.sourceforge.net">JabRef</a> on 12/01/2017.</small> 
+</footer>
+ -->
+ 
+</body>
+</html>
