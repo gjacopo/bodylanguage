@@ -14,7 +14,7 @@ Currently, the output `html` table contains the following fields (headers):
 |------|---------|---------|-------|----------|--------|------|-------|
 
 but this can be easily modified following again the instructions of http://www.markschenk.com/tools/jabref/. 
-When the bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-received_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created. Note that you can visualise it at this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-standalone.html)
+When the bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-received_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created. You can visualise the output at this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-standalone.html) and looks like ![this](pub-standalone.png).
 
 Further, the `pub-CROS` page (`.html` file and `_files` folder) was created so as to integrate the reference table into the CROS framework and to look like that the original [page](https://ec.europa.eu/eurostat/cros/content/publications-received_en). You can visualise on your local, or load this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-CROS.html). Note that there is currently an incompatibility of the javascript script in the layout file with some CSS of the CROS page, namely:
 
