@@ -1,7 +1,6 @@
-# estatref
+## estatref
 
 Layout files for `JabRef`
----
 
 The purpose of the layout files stored herein is to enable a special export of bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org). The files: `tablerefs-estat.layout`, `tablerefs-estat.begin.layout` and `tablerefs-estat.end.layout` haven been created following the examples in http://www.markschenk.com/tools/jabref/.
 
