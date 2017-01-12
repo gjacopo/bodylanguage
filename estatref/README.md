@@ -9,5 +9,5 @@ incompatibility with <link type="text/css" rel="stylesheet" href="CROS-publicati
 
 [CROS online page of publications](https://ec.europa.eu/eurostat/cros/content/publications-received_en).
 
-http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/tree/master/estatref/pub-cros.html
-http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/master/estatref/pub-cros.html
+http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-cros.html
+http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-standalone.html
