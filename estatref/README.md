@@ -5,12 +5,18 @@ The layout files stored herein, namely:
 * `tablerefs-estat.begin.layout`, and
 * `tablerefs-estat.end.layout`
 
-enable to export bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org) bibliography reference manager. The files haven been created following the examples in http://www.markschenk.com/tools/jabref/.
+enable to export bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org) bibliography reference manager. The files haven been created following the instructions and examples given in http://www.markschenk.com/tools/jabref/.
 
-The output `html` table contains the following fields (headers):
+
+Currently, the output `html` table contains the following fields (headers):
 
 | Link | Dataset | Project | Title | Keywords |	Source | Year | Lang. |
 |------|---------|---------|-------|----------|--------|------|-------|
+
+but this can be modified easily following again the instructions of http://www.markschenk.com/tools/jabref/. 
+When the bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-received_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created; this table can be visualised at this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-standalone.html)
+
+Further, the `pub-CROS` page (`.html` file and `_files` folder) and visualise it on your local, or load this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-CROS.html)
 
 Note currently the incompatibility of the table with the loaded CSS
 
@@ -23,5 +29,5 @@ This creates issue when launching the search (table spans on 1 column only).
 
 [CROS online page of publications](https://ec.europa.eu/eurostat/cros/content/publications-received_en).
 
-* download the `pub-CROS` page (`.html` file and `_files` folder) and visualise it on your local, or load this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-CROS.html)
-* download the standalone table `pub-standalone` of references in html format, or visualise the [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-standalone.html).
+* download the 
+
