@@ -12,7 +12,7 @@ Currently, the output `html` table contains the following fields (headers):
 | Link | Dataset | Project | Title | Keywords |	Source | Year | Lang. |
 |------|---------|---------|-------|----------|--------|------|-------|
 
-but this can be easily modified following again the instructions of http://www.markschenk.com/tools/jabref/. 
+but this can be easily modified following again the instructions of the site above. 
 When the `BibTeX` bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-received_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created. You can visualise the output at this [page](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-standalone.html) and renders like the following: ![pub-image](pub-standalone.png). Other possible formatted outputs have been exported and stored under the `pub-export` folder (namely, `Endnote`, `BibTeXML`, `RIS` and `csv`)
 
 As stated above, using that same `pub.bib` file, different arrangements of columns can be set by changing the layout file `pub.bib`.
