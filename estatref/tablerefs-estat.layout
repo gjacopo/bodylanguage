@@ -3,7 +3,7 @@
 	<!-- <td>\format[Authors(LastFirst,InitialsNoSpace),HTMLChars]{\author}</td> -->
 	<td><b>\format[HTMLChars]{\dataset}</b></td>
 	<td>\format[HTMLChars]{\project}</td>
-	<td><em><a href="\format{\url}">\format[HTMLChars]{\title}</a></em></td>
+	<td><em><a href="\format{\crosurl}">\format[HTMLChars]{\title}</a></em></td>
 	<td><i>\format[HTMLChars]{\keywords}</i></td>
 	<td>\begin{institution}\format[HTMLChars]{\institution}\end{institution}
 	\format[HTMLChars]{\journal}\begin{volume}Vol. \volume\end{volume}\begin{number}(\format[FormatPagesForHTML]{\number})\end{number}\format[HTMLChars]{\booktitle}\begin{pages}, pp. \format[FormatPagesForHTML]{\pages}\end{pages}
