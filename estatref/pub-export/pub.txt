@@ -2,7 +2,7 @@
 %0 Report
 %A Bachmann, R.; Bechara, P.; Bredtmann, J.; Schaffner, S. & Vonnahme, C.
 %D 2016
-%T Durchlässigkeit europäischer Arbeitsmärkte
+%T Durchlassigkeit europaischer Arbeitsmarkte
 %E 
 %B 
 %C 
@@ -37,7 +37,7 @@
 %K tenure; labour market transitions; labour market dynamics; worker flows; great recession; crisis; business cycle; shift-share analysis; demographic change
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/28-2013-3-durchlaessigleitarbeitsm_europaescher_arbeitsmarkte_0.pdf
+
 
 %+
 %^
@@ -81,7 +81,7 @@
 %K tenure; labour market transitions; labour market dynamics; worker flows; great recession; crisis; business cycle; shift-share analysis; demographic change
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/28-2013-1-job_tenure_in_turbulent_times_0.pdf
+
 
 %+
 %^
@@ -125,7 +125,7 @@
 %K 
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/317-2015-comparative_empirical_analysis_-_estonia_and_latvia.pdf
+
 
 %+
 %^
@@ -169,14 +169,14 @@
 %K early retirement; part-time employment; self-employment; social insurance programs; labor market institutions
 %X Reforming Social Security
 %Z Discussion paper
-%U http://ec.europa.eu/eurostat/cros/system/files/146-2014-early_retirement_across_europe_.pdf
+
 
 %+
 %^
 
 %0 
 %0 Report
-%A Bloomfield, M.J.; Brüggemann, U.; Christensen, H.B. & Leuz, C.
+%A Bloomfield, M.J.; BrÃ¼ggemann, U.; Christensen, H.B. & Leuz, C.
 %D 2015
 %T The Effect of Regulatory Harmonization on Cross-border Labor Migration: Evidence from the Accounting Profession
 %E 
@@ -213,7 +213,7 @@
 %K accounting harmonization; regulation; IFRS; European Union; labor migration and mobility
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/267-2014-the_effect_of_regulatory_harmonization_.pdf
+
 
 %+
 %^
@@ -301,7 +301,7 @@
 %K lifelong learning; adult learning; job-related non-formal education; employer-sponsored further education; continuing vocational education; human resource development; inequality in participation in further education; funding of lifelong learning; cost-sharing schemes in adult learning
 %X 
 %Z Cedefop research paper; Annexes: http://ec.europa.eu/eurostat/cros/system/files/29-2014-1-job-related_adult_learning_and_.-annex.pdf
-%U http://ec.europa.eu/eurostat/cros/system/files/29-2014-1-job-related_adult_learning_and__0.pdf
+
 
 %+
 %^
@@ -345,7 +345,7 @@
 %K lifelong learning; adult learning; job-related non-formal education; employer-sponsored further education; continuing vocational education; human resource development; inequality in participation in further education; funding of lifelong learning; cost-sharing schemes in adult learning
 %X 
 %Z Cedefop research paper; Annexes: http://ec.europa.eu/eurostat/cros/system/files/29-2014-2-unequal_access_to_job-related_learing_.-annex.pdf
-%U http://ec.europa.eu/eurostat/cros/system/files/29-2014-2-unequal_access_to_job-related_learing_.pdf
+
 
 %+
 %^
@@ -389,7 +389,7 @@
 %K tenure; labour market transitions; labour market dynamics; worker flows; great recession; crisis; business cycle; shift-share analysis; demographic change
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/28-2013-2-restructuring_in_the_public_sector_0.pdf
+
 
 %+
 %^
@@ -433,7 +433,7 @@
 %K integration; immigration; emigration polices; diaspora polices; labour market; educationv political participationv naturalisation; third country nationals
 %X 
 %Z Embargoed until 2019
-%U https://ec.europa.eu/migrant-integration/librarydoc/the-migration-and-integration-of-moroccan-and-ukrainian-migrants-in-italy-policies-and-measures
+
 
 %+
 %^
@@ -477,7 +477,7 @@
 %K pay; pay policy; social inequality; labour market; income; collective bargaining; employment policy; European Union; wage determination; low pay; collective bargaining; equal pay; outsourcing; technological change; distribution of income; globalisation
 %X 
 %Z 
-%U https://ec.europa.eu/eurostat/cros/system/files/05-2014-wage_and_income_inequality_in_the_eu_0.pdf
+%U http://www.europarl.europa.eu/thinktank/en/document.html?reference=IPOL_STU%282015%29536294
 
 %+
 %^
@@ -521,7 +521,7 @@
 %K retirement; work; pension
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/203-2015-extending_working_time_lives_0.pdf
+
 
 %+
 %^
@@ -534,7 +534,7 @@
 %E 
 %B 
 %C 
-%I Bundesinstitut für Berufsbildung
+%I Bundesinstitut fÃ¼r Berufsbildung
 %V 
 %6
 %N 
@@ -565,7 +565,7 @@
 %K adult learning in Europe; training behavior of adults; training participation by different groups of person; continuing vocational training; training organization in enterprises and training types
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/08-2015-bibb_datenreport_2016.pdf
+
 
 %+
 %^
@@ -609,7 +609,7 @@
 %K firm growth; dynamic strategy; innovation; CIS; Europe
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/35-2015-strategic_cornerstones_and_rapid_firm_growth.pdf
+
 
 %+
 %^
@@ -653,7 +653,7 @@
 %K 
 %X 
 %Z Final report - Task 6: Comparative data and indicators
-%U http://ec.europa.eu/eurostat/cros/system/files/142-2014-aned_2014_ehis_final_report_pdf.pdf
+
 
 %+
 %^
@@ -697,7 +697,7 @@
 %K task content of jobs; routinisation; job polarisation; Central and Eastern Europe
 %X 
 %Z Policy paper
-%U http://ec.europa.eu/eurostat/cros/system/files/2015-133-2-trends_in_task_compostion-working_paper_01_2016.pdf
+
 
 %+
 %^
@@ -785,7 +785,7 @@
 %K occupational wage differences; international comparisons
 %X 
 %Z Working paper
-%U http://ec.europa.eu/eurostat/cros/system/files/01-2013_2-eurooppalainen_palkkavertailu_ammateittain-tuloksia_eu-silc-aineistosta.pdf
+
 
 %+
 %^
@@ -829,7 +829,7 @@
 %K 
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/211-2014-final_deliverable_icilas_eu.pdf
+
 
 %+
 %^
@@ -873,7 +873,7 @@
 %K wage differentials; international comparisons; wage dispersion; wage setting institutions
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/01-2013_1-_suomalainen_palkkataso_eu-vertailussa.pdf
+
 
 %+
 %^
@@ -917,7 +917,7 @@
 %K NFE; participation; investment patterns; international comparison; AES 2011; vocational education;, training
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/69-2014-1-non-formal_education_in_international_comparison._patterns_of.pdf
+
 
 %+
 %^
@@ -961,7 +961,7 @@
 %K NFE; participation; investment patterns; international comparison; AES 2011; vocational education; training
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/69-2014-2-presentation_kaufmann_reichart_aes_2011_140904.pdf
+
 
 %+
 %^
@@ -1005,7 +1005,7 @@
 %K task content of jobs; routinisation; job polarisation; Central and Eastern Europe
 %X 
 %Z Policy paper
-%U http://ec.europa.eu/eurostat/cros/system/files/2015-133-1-a_routine_transition_causes.pdf
+
 
 %+
 %^
@@ -1049,7 +1049,7 @@
 %K poverty; pension scheme; structural adjustment; social policy; EU Member State; elderly person; household income; gender equality; retirement conditions; socioeconomic conditions; older worker; care for the elderly; ageing of the population; one person household
 %X 
 %Z Study for the FEMM Commitee
-%U https://ec.europa.eu/eurostat/cros/system/files/05-2014-wage_and_income_inequality_in_the_eu_0.pdf
+
 
 %+
 %^
@@ -1093,7 +1093,7 @@
 %K 
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/aristeia_final_version_november2015_all_parts.pdf
+
 
 %+
 %^
@@ -1137,7 +1137,7 @@
 %K 
 %X 
 %Z supplementary data: http://eurpub.oxfordjournals.org/content/eurpub/suppl/2014/08/20/cku156.DC1/ejph-2014-05-om-0401-z.pdf
-%U http://ec.europa.eu/eurostat/cros/system/files/41-2014-immigrants_health_and_health_inequality_by_type_.pdf
+
 
 %+
 %^
@@ -1181,14 +1181,14 @@
 %K gender equality; gender gap; gender segregation; pay; unpaid work; labour market participation; working women
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/43-2015-the_gender_employment_gap-challenges_and_solutions.pdf
+
 
 %+
 %^
 
 %0 
 %0 Report
-%A Mascherini, M.; Ludwinek, A.; Ledermaier, S.; Gstrein, M.; Rodiga-Laßnig, P.; Naylon, I.; Broek, S.; Fondeville, N.; Ward, T.; Cancedda, A.; Day, L.; Meierkord, A. & Van Beek, L.
+%A Mascherini, M.; Ludwinek, A.; Ledermaier, S.; Gstrein, M.; Rodiga-LaÃŸnig, P.; Naylon, I.; Broek, S.; Fondeville, N.; Ward, T.; Cancedda, A.; Day, L.; Meierkord, A. & Van Beek, L.
 %D 2015
 %T Social inclusion of young people
 %E 
@@ -1225,7 +1225,7 @@
 %K youth; social inclusion; NEET, youth unemployment; youth guarantee; policy intervention
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/85-2013-social_inclusion_of_young_people.pdf
+
 
 %+
 %^
@@ -1234,7 +1234,7 @@
 %0 Journal Article
 %A Neefs, B. & Herremans, W.
 %D 2015
-%T Een baan voor het leven? Over jobanciënniteit en arbeidsmobiliteit op de Vlaamse arbeidsmarkt
+%T Een baan voor het leven? Over jobanciÃ«nniteit en arbeidsmobiliteit op de Vlaamse arbeidsmarkt
 %E 
 %B Over.Werk. Tijdschrift van het Steunpunt Werk
 %C 
@@ -1357,7 +1357,7 @@
 %K innovation; employment; reallocation; compensation effect; displacement effect
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/77-2013-bericht_cr2014_backgroundstudy_final5_2.pdf
+
 
 %+
 %^
@@ -1401,7 +1401,7 @@
 %K labor force participation rate; unemployment; European countries
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/13-2014-is_there_an_added_worker_effect-european_labor.pdf
+
 
 %+
 %^
@@ -1445,7 +1445,7 @@
 %K inequality; economic growth; urban; OECD regions; regional income inequality; functional urban areas; poverty; inequality indicators
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/74-2014-income_inequality_urban_size_and_economic_growth_in_oecd_regions.pdf
+
 
 %+
 %^
@@ -1533,7 +1533,7 @@
 %K segregation; part-time work; gender equality
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/08-2013-occupational_secregation_by_hours_of_work_in_europe_0.pdf
+
 
 %+
 %^
@@ -1577,7 +1577,7 @@
 %K 
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/263-2014-men_women_and_pensions_en.pdf
+
 
 %+
 %^
@@ -1630,7 +1630,7 @@
 %0 Journal Article
 %A Vanderbiesen, W. & Herremans, W.
 %D 2014
-%T België: land van permanente vorming?
+%T Belgiae: land van permanente vorming?
 %E 
 %B Over.Werk. Tijdschrift van het Steunpunt Werk
 %C 
@@ -1718,7 +1718,7 @@
 %0 Report
 %A 
 %D 2014
-%T Internasjonal sammenligning av sykefravær - Utarbeidet for Arbeids- og sosialdepartementet
+%T Internasjonal sammenligning av sykefravaer - Utarbeidet for Arbeids- og sosialdepartementet
 %E 
 %B 
 %C 
@@ -1753,7 +1753,7 @@
 %K international comparison; sick leave
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/37-2013-rapport_2014-05_internasjonal_sammenligning_av_sykefravaer.pdf
+
 
 %+
 %^
@@ -1762,11 +1762,11 @@
 %0 Report
 %A 
 %D 2015
-%T La Transition de l'adolescence vers l'âge adulte
+%T La Transition de l'adolescence vers l'age adulte
 %E 
 %B 
 %C 
-%I Ministère de l'Éducation nationale, de l'Enfance et de la Jeunesse \& Université du Luxembourg
+%I Ministere de l'Education nationale, de l'Enfance et de la Jeunesse \& Universite du Luxembourg
 %V 
 %6
 %N 
@@ -1797,7 +1797,7 @@
 %K 
 %X 
 %Z 
-%U http://ec.europa.eu/eurostat/cros/system/files/132-2014-1-la_jeunesse_au_luxembourg_2015.pdf
+
 
 %+
 %^
@@ -1810,7 +1810,7 @@
 %E 
 %B 
 %C 
-%I Ministère de l'Éducation nationale, de l'Enfance et de la Jeunesse \& Université du Luxembourg
+%I MinistÃ¨re de l'Ã‰ducation nationale, de l'Enfance et de la Jeunesse \& UniversitÃ© du Luxembourg
 %V 
 %6
 %N 
@@ -1841,7 +1841,7 @@
 %K 
 %X 
 %Z summary
-%U http://ec.europa.eu/eurostat/cros/system/files/132-2014-2-youth-report-luxembourg2015_summary.pdf
+
 
 %+
 %^
