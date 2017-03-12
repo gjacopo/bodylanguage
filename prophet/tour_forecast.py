@@ -137,8 +137,6 @@ fig.tight_layout()
 #A weekly seasonal component using dummy variables.
 #A user-provided list of important holidays.
 
-# Reference
-# Taylor, S.J. and Letham, B. (2017): [Forecasting at Scale](https://facebookincubator.github.io/prophet/static/prophet_paper_20170113.pdf).
 
 # Stan http://mc-stan.org
 NYEARS=5
@@ -170,3 +168,4 @@ fig.savefig('tour_occ_nim_predict.png')
 fig = m.plot_components(fcst, uncertainty=True);
 fig.suptitle("Forecast components", fontsize=16)
 
+if __name__ == "__main__":
