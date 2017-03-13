@@ -94,51 +94,60 @@ def predict_prophet(df, nyears):
     fcst = m.predict(future)
     return m, fcst
 
+def plot_historical(df, ylabel="", last=""):
+    xlabel = "Time"
+    fig = plt.figure(facecolor='w', figsize=(10, 6))
+    ax = fig.add_subplot(111)
+    ax.plot(df['ds'], df['y'], 'k.')
+    ax.plot(df['ds'], df['y'], ls='-', c='#0072B2')
+    ax.grid(True, which='major', c='gray', ls='-', lw=1, alpha=0.2)
+    ax.set_xlabel(xlabel, fontsize=14); 
+    ax.set_ylabel(ylabel, fontsize=14)
+    fig.suptitle("Historical data (last: {})".format(last), fontsize=16)
+    fig.tight_layout()
+    
+def plot_predict(m, fcst, ylabel="", period="", last=""):
+    xlabel = "Time"
+    fig = m.plot(fcst, uncertainty=True) 
+    plt.axvline(pd.to_datetime(last), color='r', linestyle='--', lw=2)
+    plt.xlabel(xlabel, fontsize=14); 
+    plt.ylabel(ylabel, fontsize=14)
+    fig.suptitle("Forecast data ({} years)".format(period), fontsize=16)
+    # fig.savefig('tour_occ_nim_predict.png')  
+    fig = m.plot_components(fcst, uncertainty=True);
+    fig.suptitle("Forecast components", fontsize=16)
 
-## input data loading and formatting
+def run_forecast(indicator, geo, filters, period):
+    # input data loading and formatting
+    url = build_url(indicator, geo=geo, **filters)  
+    resp = get_response(url)
+    df, ds_last = build_dataframe(resp)  
+    df.head(); df.tail()
+    ylabel = "{} : {} - {}".format(indicator[0], filters['indic_to'][1], geo)  
+    plot_historical(df, ylabel=ylabel, last=ds_last)
+    
+    # forecast configuration and estimation    
+    m, fcst = predict_prophet(df, period)
+    # fcst[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
+    plot_predict(m, fcst, ylabel=ylabel, period=period, last=ds_last)
 
-INDICATOR       = (u'tour_occ_nim', "Tour accomodation")
-# http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tour_occ_nim&lang=en
 GEO             = "EU28"
 # TIME          = all
+NYEARS          = 1
 
+    
+INDICATOR       = (u'tour_occ_nim', "Tour accomodation")
+# http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tour_occ_nim&lang=en
 FILTERS       = {'unit': (u'NR', "Number of nights"),
                 'nace_r2': (u'I551', "Hotels; holiday and other short-stay accommodation..."),
                 'indic_to': (u'B006', "Nights spent, total")
-                }
-                
-url = build_url(INDICATOR, geo=GEO, **FILTERS)
-      
-#URL             = "{}/{}?geo={}&unit={}&nace_r2={}&indic_to={}".format(
-#                  API_URL, INDICATOR[0], GEO, UNIT[0], NACE_R2[0], INDIC_TO[0])
-  
-resp = get_response(url)
-df, ds_last = build_dataframe(resp)  
-df.head(); df.tail()
+                }             
+run_forecast(INDICATOR, GEO, FILTERS, NYEARS)
 
-xlabel = "Time"
-ylabel = "{} : {} - {}".format(INDICATOR[0], FILTERS['indic_to'][1], GEO)  
-fig = plt.figure(facecolor='w', figsize=(10, 6))
-ax = fig.add_subplot(111)
-ax.plot(df['ds'], df['y'], 'k.')
-ax.plot(df['ds'], df['y'], ls='-', c='#0072B2')
-ax.grid(True, which='major', c='gray', ls='-', lw=1, alpha=0.2)
-ax.set_xlabel(xlabel, fontsize=14); ax.set_ylabel(ylabel, fontsize=14)
-fig.suptitle("Historical data (last: {})".format(ds_last), fontsize=16)
-fig.tight_layout()
-    
-## forecast configuration and estimation
-
-NYEARS          = 5
-    
-m, fcst = predict_prophet(df, NYEARS)
-# fcst[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
-
-fig = m.plot(fcst, uncertainty=True) 
-plt.axvline(pd.to_datetime(ds_last), color='r', linestyle='--', lw=2)
-plt.xlabel(xlabel, fontsize=14); plt.ylabel(ylabel, fontsize=14)
-fig.suptitle("Forecast data ({} years)".format(NYEARS), fontsize=16)
-# fig.savefig('tour_occ_nim_predict.png')  
-fig = m.plot_components(fcst, uncertainty=True);
-fig.suptitle("Forecast components", fontsize=16)
-
+INDICATOR       = (u'tour_occ_nim', "Tour accomodation")
+# http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tour_occ_nim&lang=en
+FILTERS       = {'unit': (u'NR', "Number of nights"),
+                'nace_r2': (u'I551', "Hotels; holiday and other short-stay accommodation..."),
+                'indic_to': (u'B006', "Nights spent, total")
+                }             
+run_forecast(INDICATOR, GEO, FILTERS, NYEARS)
