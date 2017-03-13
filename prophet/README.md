@@ -22,7 +22,7 @@ In practice, non-linear trends are fit with yearly and weekly seasonality (plus 
 
 **Usage**
 
-Facebook has open sourced  [`Prophet software`](https://github.com/facebookincubator/prophet), a forecasting project with an [interface](https://pypi.python.org/pypi/fbprophet/) available in `Python`. We will use this resource. 
+Facebook has open sourced  [`Prophet software`](https://github.com/facebookincubator/prophet), a forecasting project with an [interface](https://pypi.python.org/pypi/fbprophet/) available in `Python`. We use this resource. 
 
 Run the [`tour_forecast.py`](tour_forecast.py) source code or explore the [`tour_forecast.ipynb`](tour_forecast.ipynb) notebook to produce the following forecast estimates of ESTAT *tour_occ_nim* monthly indicator:
 
