@@ -133,7 +133,7 @@ def run_forecast(indicator, geo, filters, period, label="indic_to"):
 
 GEO             = "EU28"
 # TIME          = all
-NYEARS          = 5
+NYEARS          = 1
 
 ## run tour_occ_nim estimation    
 indicator       = (u'tour_occ_nim', "Tour accomodation")
