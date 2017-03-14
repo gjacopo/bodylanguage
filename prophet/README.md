@@ -28,7 +28,7 @@ Run the [`tour_forecast.py`](tour_forecast.py) source code or explore the [`tour
 
 <img src="tour_occ_nim_predict.png" alt="tour_occ_nim prediction" width="800">
 
-Another example is provided by the prediction of unemployment [*une_rt_m*](http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=une_rt_m&lang=en) monthly indicator:
+Another example is provided by the 1-year prediction of unemployment [*une_rt_m*](http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=une_rt_m&lang=en) monthly indicator:
 
 <img src="une_rt_m_predict.png" alt="une_rt_m prediction" width="800">
 
