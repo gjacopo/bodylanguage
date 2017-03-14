@@ -117,13 +117,13 @@ def plot_predict(m, fcst, ylabel="", period="", last=""):
     fig = m.plot_components(fcst, uncertainty=True);
     fig.suptitle("Forecast components", fontsize=16)
 
-def run_forecast(indicator, geo, filters, period):
+def run_forecast(indicator, geo, filters, period, label="indic_to"):
     # input data loading and formatting
     url = build_url(indicator, geo=geo, **filters)  
     resp = get_response(url)
     df, ds_last = build_dataframe(resp)  
     df.head(); df.tail()
-    ylabel = "{} : {} - {}".format(indicator[0], filters['indic_to'][1], geo)  
+    ylabel = "{} : {} - {}".format(indicator[0], filters[label][1], geo)  
     plot_historical(df, ylabel=ylabel, last=ds_last)
     
     # forecast configuration and estimation    
@@ -133,21 +133,26 @@ def run_forecast(indicator, geo, filters, period):
 
 GEO             = "EU28"
 # TIME          = all
-NYEARS          = 1
+NYEARS          = 5
 
-    
-INDICATOR       = (u'tour_occ_nim', "Tour accomodation")
-# http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tour_occ_nim&lang=en
-FILTERS       = {'unit': (u'NR', "Number of nights"),
+## run tour_occ_nim estimation    
+indicator       = (u'tour_occ_nim', "Tour accomodation")
+## http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tour_occ_nim&lang=en
+filters       = {'unit': (u'NR', "Number of nights"),
                 'nace_r2': (u'I551', "Hotels; holiday and other short-stay accommodation..."),
                 'indic_to': (u'B006', "Nights spent, total")
                 }             
-run_forecast(INDICATOR, GEO, FILTERS, NYEARS)
+run_forecast(indicator, GEO, filters, NYEARS)
 
-INDICATOR       = (u'tour_occ_nim', "Tour accomodation")
-# http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tour_occ_nim&lang=en
-FILTERS       = {'unit': (u'NR', "Number of nights"),
-                'nace_r2': (u'I551', "Hotels; holiday and other short-stay accommodation..."),
-                'indic_to': (u'B006', "Nights spent, total")
+## run une_rt_m estimation    
+indicator       = (u'une_rt_m', "Unemployment")
+# http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=une_rt_m&unit=THS_PER&age=TOTAL&sex=T&s_adj=NSA
+filters       = {'unit': (u'THS_PER', "Population count"),
+                'age': (u'TOTAL', "Age"),
+                'sex': (u'T', "Sex"),
+                # 's_adj': (u'SA', "Seasonally adjusted data")
+                's_adj': (u'NSA', "Unadjusted data")
                 }             
-run_forecast(INDICATOR, GEO, FILTERS, NYEARS)
+run_forecast(indicator, GEO, filters, NYEARS, label='s_adj')
+
+
