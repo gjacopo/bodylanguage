@@ -67,7 +67,6 @@ def build_dataframe(resp):
     idx2lbl = {v:k for (k,v) in lbl2idx.items()}
     data = resp['value']
     data = {idx2lbl[int(k)]:v for (k,v) in data.items()}
-
     try:
         assert None # not needed, and also because it adds a day date
         from datetime import datetime
