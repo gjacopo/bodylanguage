@@ -22,7 +22,7 @@
 <li>a user-provided list of important holidays.</li>
 </ol>
 <p>We will (<strong>blindly: we make no assumption whatsoever here</strong>, beyond the obvious seasonality of the data) use the features 1. and 2. of the model to <strong>build forecast estimates of Eurostat <a href="http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tour_occ_nim&amp;lang=en"><em>tour_occ_nim</em></a> monthly indicator for EU28 area</strong>:</p>
-<p><img src="tour_occ_nim_table.png"></p>
+<p><img src="docs/tour_occ_nim_table.png"></p>
 
 </div>
 </div>
@@ -176,7 +176,7 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If you copy paste this URL in your browser as is, you can display the data as they are returned by the REST service, in <a href="https://json-stat.org"><code>jsonstat</code></a> format:</p>
-<p><img src="tour_occ_nim_json.png"></p>
+<p><img src="docs/tour_occ_nim_json.png"></p>
 <p>Next, we want to store the data in a <code>pandas.DataFrame</code> object (since the input to <code>Prophet</code> is always a <code>pandas.DataFrame</code>). From here, it should be possible to perform this operation using any of  <a href="https://pypi.python.org/pypi/pyjstat/"><code>pyjstat</code></a> or <a href="https://github.com/26fe/jsonstat.py"><code>jsonstat.py</code></a> dedicated packages, <em>e.g.</em>:</p>
 <div class="highlight"><pre><span></span><span class="n">collection</span> <span class="o">=</span> <span class="n">jsonstat</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 <span class="n">tour_occ_nim</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">dataset</span><span class="p">(</span><span class="s1">&#39;tour_occ_nim&#39;</span><span class="p">)</span>
@@ -563,10 +563,10 @@
 
 
 
-<div id="bea11a2b-ebee-4d0e-b444-9ecab26c1727"></div>
+<div id="2e002565-7e85-427a-be22-ddd30e862773"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#bea11a2b-ebee-4d0e-b444-9ecab26c1727');
+var element = $('#2e002565-7e85-427a-be22-ddd30e862773');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -1542,10 +1542,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="7c4b1bea-e2a9-4b28-a4a2-cbb7caa96830"></div>
+<div id="70df44d8-556c-40a5-8a42-d6980d15d012"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7c4b1bea-e2a9-4b28-a4a2-cbb7caa96830');
+var element = $('#70df44d8-556c-40a5-8a42-d6980d15d012');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -2354,10 +2354,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="f43c302b-9a03-4ad1-acfb-48d1d9018f62"></div>
+<div id="7b838195-67ad-461b-9b97-04499cece37d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f43c302b-9a03-4ad1-acfb-48d1d9018f62');
+var element = $('#7b838195-67ad-461b-9b97-04499cece37d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
