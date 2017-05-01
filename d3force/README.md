@@ -17,14 +17,20 @@ The webpage [peps01_slice.html](https://github.com/gjacopo/bodylanguage/blob/mas
 </tr>
 </table>
 
-To see the actual interactive visualisation, you need to download the webpage and display it locally in your browser. You can get a preview of this page using `rawgit`: check this [address](https://cdn.rawgit.com/gjacopo/bodylanguage/b245c372/d3force/peps01_slice.html), though some features of the visualisation are disabled.
-
 **Usage** 
 
+To see the actual interactive visualisation, you need to download the webpage and display it locally in your browser. You can get a preview of this page using `rawgit`: check this [address](https://cdn.rawgit.com/gjacopo/bodylanguage/b245c372/d3force/peps01_slice.html), though the visualisation is much slower and some of its features are disabled.
+
+We provide hereby two `Python` modules that will enable you to prepare the selected social indicators data for the visualisation:
+* `data.py` contains the classes/methods that will help you download the data from ESTAT website;
+* `display.py` contains the classes/methods that will enable you to format the data to be inserted in the webpage.
+
+Note in particular that `display.py` implements some circle packing algorithms for optimally filling a circle with other circles: this is used to position the circle centers in the initial overall display.
 
 **<a name="References"></a>References**
 
 * `d3` documentation: [wiki gallery](https://github.com/d3/d3/wiki/Gallery).
-* _New York Times_: [Four ways to slice Obama's 2013 budget proposal](http://www.nytimes.com/interactive/2012/02/13/us/politics/2013-budget-proposal-graphic.html).
+* S. Carter's `d3-force`-based display: [Four ways to slice Obama's 2013 budget proposal](http://www.nytimes.com/interactive/2012/02/13/us/politics/2013-budget-proposal-graphic.html), _New York Times_.
 * Eurostat press release 199/2016: [The share of persons at risk of poverty or social exclusion in the EU back to its pre-crisis level](http://ec.europa.eu/eurostat/documents/2995521/7695750/3-17102016-BP-EN.pdf).
 * Eurostat bubble chart: [My country in a bubble](http://ec.europa.eu/eurostat/cache/BubbleChart/).
+* Algorithm for [circle packing](http://mathworld.wolfram.com/CirclePacking.html), _Wolfram_.
