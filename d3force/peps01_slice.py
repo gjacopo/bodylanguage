@@ -130,7 +130,7 @@ category_data = json.dumps(category_df.to_dict(orient="records"))
 category_data.replace('NaN','Infinity') # in case...
 
 ###############################################################################              
-## prepare data for status display
+## prepare data for overall status display and display by sex 
 
 df_status = df[~(df['sex']=='T')                         \
               & ~(df['geo']==data.GEO_LABELS['EU28'])   \
@@ -155,10 +155,6 @@ t.position()
 t.plot()
 circles = [t.circles[i][:2]                             \
            for i in sorted(range(len(t.circles)), key=lambda k: t.circles[k][2], reverse=True)]
-#my, My = min([circ[1] for circ in t.circles]), max([circ[1] for circ in t.circles])
-#sy = (My-my)/(len(data_break)-1)
-#centre = sorted([(int(circ[0]),int(circ[1]-my+1))                               \
-#                 for circ in circles],key=lambda item: item[1],reverse=True)  
 centre = sorted([(int(circ[0]),int(circ[1])) for circ in circles], key=lambda item: item[1],reverse=True)   
 # note that we further modify the x-axis depending on the 'sex' of the displayed data
 [d.update({'positions': {'total':{'x':win_status.centerX-centre[d['id']][0] + (200 if d['sex']=='F' else -200),   \
@@ -168,7 +164,8 @@ centre = sorted([(int(circ[0]),int(circ[1])) for circ in circles], key=lambda it
           }) for d in data_status]                           
 
 ###############################################################################              
-# prepare the charter for display by geo area
+## prepare the charter for display by geo area
+
 win_geo = display.ChartWindow(rowPos=[275+i*175 for i in range(7)],
                               width=970, height=1300, 
                               rrange=[1,90], domain=[0,10000]) 
@@ -193,7 +190,7 @@ for geo in GEO:
                                     }) for i, d in enumerate(array)]
                                     
 ###############################################################################              
-# prepare the charter for display of changes
+# prepare the charter for display of total changes
 
 df_total = df[(df['sex']=='T')                          \
               & (df['age']==data.AGE_LABELS['TOTAL'])   \
@@ -209,18 +206,19 @@ data_total = df_total.to_dict(orient="records")
                         }                                               \
           }) for d in data_total]                           
 
-###############################################################################              
-## prepare output data
+# update output data
                          
 data_status.extend(data_total)   
 rate_data_status = json.dumps(data_status)
 rate_data_status.replace('NaN','Infinity')
 
-                               
 ###############################################################################              
-## prepare data for breakdown
+## OBSOLETE
+## not used in proposed display
+                              
+## prepare data with all possible breakdowns
 
-df_break = df[~(df['sex']=='T')        \
+df_break = df[~(df['sex']=='T')                         \
               & ~(df['geo']==data.GEO_LABELS['EU28'])   \
               & ~(df['age']==data.AGE_LABELS['TOTAL'])]
 df_break['id'] = len(df_break) - np.array(df_break['change']).argsort().argsort() - 1
@@ -243,18 +241,6 @@ centre = sorted([(int(circ[0]),int(circ[1])) for circ in circles], key=lambda it
                                   }                                             \
                         }                                                       \
           }) for d in data_break]
-                        
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-###############################################################################              
-## prepare data for breakdown display by age
 
 df_age = df[~(df['sex']=='T')                         \
               & (df['geo']==data.GEO_LABELS['EU28'])]
@@ -291,119 +277,6 @@ for age in AGE:
                                    'y':pos['y'] - pos['offy'] -cent_break[i][1]}    \
                                     }) for i, d in enumerate(array_break)]
  
-rate_array_data.extend(data_age)   
-# rate_array_data.extend(array_data_total)   
-    
-rate_array_data = json.dumps(rate_array_data)
-rate_array_data.replace('NaN','Infinity')
-     
-###############################################################################              
-## prepare data for breakdown display by geo
-
-geo_df = df[(df['sex']=='T') & (df['age']==data.AGE_LABELS['TOTAL'])]
-geo_df.drop(['sex', 'age'], axis='columns', inplace=True)    
-
-n_geo_child     = (len(AGE)-1)*(len(SEX)-1) # -1: get rid of 'T'/'TOTAL' labels
-geo_cat_data = [{"label": data.GEO_LABELS[geo], 
-             "total": np.float(np.around(geo_df[geo_df['geo']==data.GEO_LABELS[geo]][TIME[1]].values, decimals=DECIMALS)),
-             "num_children": n_geo_child,
-             "short_label": geo
-             } for geo in GEO if geo!='EU28']
-geo_cat_list = list([data.GEO_LABELS[geo] for geo in data.GEO_LABELS.keys() if geo!='EU28'])    
-
-df_break = df[~(df['sex']=='T') & ~(df['geo']=='EU28') & ~(df['age']=='TOTAL')]
-df_break['id'] = len(df_break) - np.array(df_break['change']).argsort().argsort() - 1
-# note: this can be retrieved using rank:
-#    df['change'].rank(ascending=False,method='first')
-# while:
-#    len(df) - df['change'].argsort().argsort() - 1
-# provides "weird" output
-df_break['age'] = df_break['age'].map(AGE_LABELS)
-data_break = df_break.to_dict(orient="records")
-
-df_total = df[(df['sex']=='T') & (df['age']=='TOTAL')]
-df_total['id'] = len(df_total) - np.array(df_total['change']).argsort().argsort() - 1
-data_total = df_total.to_dict(orient="records")
-          
-# prepare the charter considering the window configuration
-geo_win = ChartWindow(width=1000, height=2000, rrange=[1,90], domain=[0,600]) 
-
-# (x,y) "total" positions for total overlay
-rates_break = [np.int(geo_win.rScale(d['2015']))    \
-               if ~np.isnan(d['2015']) else 1.      \
-                for d in data_break] 
-# note: 2015 rates are sorted already in descending order already
-t = PackedCircles(rad=rates_break)
-t.position()
-circles = [t.circles[i]                             \
-           for i in sorted(range(len(t.circles)), key=lambda k: t.circles[k][2], reverse=True)]
-#my, My = min([circ[1] for circ in t.circles]), max([circ[1] for circ in t.circles])
-#sy = (My-my)/(len(data_break)-1)
-t = PackedCircles(circles = circles) 
-t.plot()
-#centre = sorted([(int(circ[0]),int(circ[1]-my+1))                               \
-#                 for circ in t.circles],key=lambda item: item[1],reverse=True)  
-centre = sorted([(int(circ[0]),int(circ[1])) for circ in t.circles], key=lambda item: item[1],reverse=True)   
-[d.update({'positions': {'total':{'x':geo_win.centerX-centre[d['id']][0],   \
-                                  'y':geo_win.centerY-centre[d['id']][1]    \
-                                  }                                             \
-                        }                                                       \
-          }) for d in data_break]
-
-# (x,y) age positions for age table
-posLookup = win.table_cells(AGE_LABELS.values())
-for age in AGE_LABELS.values():
-    if age == AGE_LABELS['Y_GE18']: continue
-    print('* group age category {}'.format(age))
-    array_break = [d for d in array_data_break if d['age']==age]
-    rates = [np.int(ChartWindow.rScale(d['2015'])) if ~np.isnan(d['2015']) else 1.  \
-            for d in array_break]
-    c = PackedCircles(rad=rates)
-    c.position()
-    circles = [c.circles[i][:2] for i in sorted(range(len(c.circles)), key=lambda k: c.circles[k][2], reverse=True)]
-    mx0, my0 = min([circ[0] for circ in circles]), min([circ[1] for circ in circles])
-    cent_break = [(int(circ[0]),int(circ[1]-my0+1)) for circ in circles]
-    pos = posLookup[age]
-    [d['positions'].update({'age':{'x':pos['x'] + pos['offx'] - cent_break[i][0],   \
-                                   'y':pos['y'] - pos['offy'] -cent_break[i][1]}    \
-                                    }) for i, d in enumerate(array_break)]
-
-# (x,y) status positions for status disk including total counts
-posLookup = win.quincunx_cells(GRP_STATUS)
-for wstatus in list(set(STATUS).union(set(GRP_STATUS))):
-    print('* group status category {}'.format(wstatus))
-    if wstatus in ('EMP','NEMP','EMP+NEMP'):       
-        val_wstatus = ('EMP','NEMP')
-        pos = posLookup['EMP+NEMP']
-    elif wstatus == 'POP':
-        val_wstatus = (wstatus,)
-        pos = {'x':-100, 'y':-50, 'offx':0, 'offy':0}
-    else:                           
-        val_wstatus = (wstatus,)
-        pos = posLookup[wstatus]
-    [d.update({'positions': {'total':{'x':-200, 'y':pos['y']},              \
-                             'age':{'x':-200, 'y':pos['y']},                \
-                             'wstatus':{'x':pos['x'], 'y':pos['y']}}}) 
-        for d in array_data_total if d['wstatus']==wstatus]
-    array_break = [d for d in array_data_break if d['wstatus'] in val_wstatus]
-    if array_break == []: 
-        continue
-    rates_break = [np.int(ChartWindow.rScale(d[TIME[1]])) if ~np.isnan(d[TIME[1]]) else 1.\
-            for d in array_break]
-    c = PackedCircles(rad=rates_break)
-    c.position()
-    circles = [c.circles[i][:2] for i in sorted(range(len(c.circles)), key=lambda k: c.circles[k][2], reverse=True)]
-    mx0, my0 = min([circ[0] for circ in circles]), min([circ[1] for circ in circles])
-    cent_break = [(int(circ[0]),int(circ[1]-my0+1)) for circ in circles]
-    [d['positions'].update({'wstatus':{'x':pos['x']+pos['offx']-cent_break[i][0],
-                                       'y':pos['y']-pos['offy']-cent_break[i][1]}   \
-                                    }) for i, d in enumerate(array_break)]         
-          
-rate_array_data = []
-rate_array_data.extend(array_data_break)   
-rate_array_data.extend(array_data_total)   
-    
-rate_array_data = json.dumps(rate_array_data)
-rate_array_data.replace('NaN','Infinity')
-                                  
-                     
+data_break.extend(data_age)   
+data_break = json.dumps(data_break)
+data_break.replace('NaN','Infinity')
