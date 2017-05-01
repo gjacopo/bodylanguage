@@ -10,7 +10,7 @@ This page provides relevant tools used to prepare selected social indicator data
 
 **Description**
 
-The webpage [peps01_slice.html](https://github.com/gjacopo/bodylanguage/blob/master/d3force/peps01_slice.html) illustrates some important figures related to ESTAT indicator _ilc_peps01_ on *people at risk of poverty or social exclusion* by age and sex (see also the  news release [below](#References)). The front page (first tab selected) looks like this:
+The webpage [_peps01_slice.html_](https://github.com/gjacopo/bodylanguage/blob/master/d3force/peps01_slice.html) illustrates some important figures related to ESTAT indicator _ilc_peps01_ on *people at risk of poverty or social exclusion* by age and sex (see also the  news release [below](#References)). The front page (first tab selected) looks like this:
 <table>
 <tr>
 <td><kbd><img src="peps01-d3force.png" alt="PEPS01 display"></kbd></td>
@@ -19,11 +19,13 @@ The webpage [peps01_slice.html](https://github.com/gjacopo/bodylanguage/blob/mas
 
 **Usage** 
 
-To see the actual interactive visualisation, you need to download the webpage and display it locally in your browser. You can get a preview of this page using `rawgit`: check this [address](https://cdn.rawgit.com/gjacopo/bodylanguage/b245c372/d3force/peps01_slice.html), though the visualisation is much slower and some of its features are disabled.
+All html/javascript/css resources used by the original _"Four ways to slice..."_ publication have been embedded in the webpage _peps01_slice.html_. The code has been modified accordingly for the specific visualisation.
+
+To actually see the interactive visualisation, you need to download the webpage and display it locally in your browser. You can get a preview of this page using `rawgit`: check this [address](https://cdn.rawgit.com/gjacopo/bodylanguage/b245c372/d3force/peps01_slice.html), though the visualisation is much slower and some of its features are disabled.
 
 We provide hereby two `Python` modules that will enable you to prepare the selected social indicators data for the visualisation:
-* `data.py` contains the classes/methods that will help you download the data from ESTAT website;
-* `display.py` contains the classes/methods that will enable you to format the data to be inserted in the webpage.
+* [`data.py`](data.py) contains the classes/methods that will help you download the data from ESTAT website;
+* [`display.py`](display.py) contains the classes/methods that will enable you to format the data to be inserted in the webpage.
 
 Note in particular that `display.py` implements some circle packing algorithms for optimally filling a circle with other circles: this is used to position the circle centers in the initial overall display.
 
