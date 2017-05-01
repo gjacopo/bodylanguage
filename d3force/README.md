@@ -9,6 +9,7 @@ Applying `d3` force layout for exploring EU-SILC indicators
 http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/d3force/peps01_slice.html
 
 **Description**
+<img src="peps01-d3force.png">
 
 **Usage** 
 
