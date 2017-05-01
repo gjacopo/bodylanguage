@@ -29,7 +29,7 @@ We provide hereby two `Python` modules that will enable you to prepare the selec
 
 Note in particular that `display.py` implements some circle packing algorithms for optimally filling a circle with other circles: this is used to position the circle centers in the initial overall display. 
 
-Data requested for the visualisation proposed in _peps01_slice.html_ webpage are formatted in the _peps01_slice.py_ script. They are output as `json` but can be copied 'as is' in the webpage source code.
+Data requested for the visualisation proposed in _peps01_slice.html_ webpage are formatted in the [`peps01_slice.py`](peps01_slice.py) script. They are output as `json` but can be copied 'as is' in the webpage source code.
 
 **<a name="References"></a>References**
 
