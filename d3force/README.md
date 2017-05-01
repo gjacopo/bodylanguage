@@ -10,7 +10,7 @@ http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/maste
 
 **Description**
 
-**Usage**
+**Usage** 
 
 
 **<a name="Reference"></a>Reference**
