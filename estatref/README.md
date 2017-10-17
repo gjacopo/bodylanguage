@@ -17,7 +17,7 @@ When the `BibTeX` bibliography `pub.bib` (storing publications provided on the C
 
 As stated above, using that same `pub.bib` file, different arrangements of columns can be set by changing the layout file `pub.bib`. Other possible formatted outputs have been exported and stored under the `pub-export` folder (namely, `Endnote`, `BibTeXML`, `RIS`, `MySQL` and `csv`). See also the mock-up page below.
 
-Further, the `pub-CROS` page (`.htm` file and `_files` folder) was created so as to integrate the reference table into the CROS framework and to look like that the original [page](https://ec.europa.eu/eurostat/cros/content/publications-received_en). You can visualise on your local, or load the page [`pub-html/pub-CROS.htm`](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-html/pub-CROS.htm). Note that there is currently an incompatibility of the javascript script in the layout file with some CSS of the CROS page, namely:
+Further, the `pub-CROS` page (`.htm` file and `_files` folder) was created so as to integrate the reference table into the CROS framework and to look like that the original [page](https://ec.europa.eu/eurostat/cros/content/publications-basis-eurostat-microdata_en). You can visualise on your local, or load the page [`pub-html/pub-CROS.htm`](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-html/pub-CROS.htm). Note that there is currently an incompatibility of the javascript script in the layout file with some CSS of the CROS page, namely:
 
    ```
    <link type="text/css" rel="stylesheet" href="CROS-publication-2016_files/css_P0C19k7C3TsKm7hg3wFHvSzcEa7tBnpz4vdfXBuz5_A.css" media="all">
