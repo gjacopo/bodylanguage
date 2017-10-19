@@ -13,7 +13,7 @@ This page provides relevant tools used to prepare selected social indicator data
 The webpage [_peps01_slice.html_](https://github.com/gjacopo/bodylanguage/blob/master/d3force/peps01_slice.html) illustrates some important figures related to ESTAT indicator _ilc_peps01_ on *people at risk of poverty or social exclusion* by age and sex (see also the  news release [below](#References)). The front page (first tab selected) looks like this:
 <table>
 <tr>
-<td><kbd><img src="peps01-d3force.png" alt="PEPS01 display"></kbd></td>
+<td><kbd><img src="docs/peps01-d3force.png" alt="PEPS01 display"></kbd></td>
 </tr>
 </table>
 
