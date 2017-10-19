@@ -21,7 +21,7 @@ To do so, we suggest to adopt a common way for describing and documenting source
 * **an "inline" documentation is systematically inserted in the header** (_e.g._, top of the program file storing a macro, a function, _etc_...),
 * **the documentation appears as comments** inside the programs (_e.g._, in between `/*` and `*/` marks for many languages),
 * **human-readable language [_markdown_](https://daringfireball.net/projects/markdown/) is adopted** for writing the source code documentation,
-* **documentation generator [_doxygen_](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
+* **documentation generator [_Doxygen_](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
 
 We hereby provide with the common guidelines and templates to inline document:
 * [SAS programs](SASdoc) (_e.g._ macros),  
@@ -50,32 +50,32 @@ _Why adopting markdown for the documentation?_
 
 <table align="center">
 <tr> 
-    <td align="left" rowspan="2"><b>Language</b></td> 
-    <td align="left" rowspan="2"><b>Supported implementations</b></td> 
-    <td align="left" colspan="5"><b>Output formats</b></td> 
+    <td align="left" rowspan="2" bgcolor="#e6e6e6"><b>Language</b></td> 
+    <td align="left" rowspan="2" bgcolor="#e6e6e6"><b>Supported implementations</b></td> 
+    <td align="left" colspan="5" bgcolor="#e6e6e6"><b>Output formats</b></td> 
 </tr> 
 <tr> 
     <td align="center">XHTML</td> <td align="center">PDF</td> <td align="center">DocBook</td> <td align="center">ODF</td><td align="center">Doc</td> 
 </tr> 
 <tr> 
     <td align="left"><i><a href="http://asciidoc.org">AsciiDoc</a></i></td> 
-    <td align="left">Python, JavaScript, Ruby</td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td><td align="center"><i>Yes</i></td> 
+    <td align="left"><code>Python</code>, <code>JavaScript</code>, <code>Ruby</code></td> 
+    <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td><td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> 
 </tr> 
 <tr> 
     <td align="left"><i><a href="https://daringfireball.net/projects/markdown/">markdown (and variants)</a></i></td> 
-    <td align="left">C, C#, Java, R, Python, JavaScript, Ruby, PHP, Perl, Haskell</td> 
-    <td align="center"><i>Yes</i> (HTML)</td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td><td align="center"><i>Yes</i></td> 
+    <td align="left"><code>C</code>, <code>C#</code>, <code>Java</code>, <code>R</code>, <code>Python</code>, <code>JavaScript</code>, <code>Ruby</code>, <code>PHP</code>, <code>Perl</code>, <code>Haskell</code></td> 
+    <td align="center" bgcolor="#ffe6e6"><i>Yes</i> (HTML)</td> <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td><td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> 
 </tr> 
 <tr> 
     <td align="left"><i><a href="https://www.mediawiki.org/wiki/MediaWiki">MediaWiki</a></i></td> 
-    <td align="left">PHP, Perl, Haskell</td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>No</i></td> <td align="center"><i>No</i></td> <td align="center"><i>No</i></td><td align="center"><i>No</i></td> 
+    <td align="left"><code>PHP</code>, <code>Perl</code>, <code>Haskell</code></td> 
+    <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> <td align="center"><i>No</i></td> <td align="center"><i>No</i></td> <td align="center"><i>No</i></td><td align="center"><i>No</i></td> 
 </tr> 
 <tr> 
     <td align="left"><i><a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html">reStructuredText</a></i></td> 
-    <td align="left">Java, Python, Haskell</td> 
-    <td align="center"><i>Yes</i> (HTML,XML)</td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td><td align="center"><i>No</i></td> 
+    <td align="left"><code>Java</code>, <code>Python</code>, <code>Haskell</code></td> 
+    <td align="center" bgcolor="#ffe6e6"><i>Yes</i> (HTML,XML)</td> <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td><td align="center"><i>No</i></td> 
 </tr> 
 </table>
 
@@ -96,31 +96,30 @@ In order to create portable documentation, documentation generators can be used,
 
 <table align="center">
 <tr> 
-    <td align="left"><b>Generator</b></td> 
-    <td align="center" colspan="12"><b>Programming languages</b></td> 
-    <td align="center" colspan="7"><b>Output types</b></td> 
+    <td align="left" rowspan="2" bgcolor="#e6e6e6"><b>Generator</b></td> 
+    <td align="center" colspan="12" bgcolor="#e6e6e6"><b>Programming languages</b></td> 
+    <td align="center" colspan="7" bgcolor="#e6e6e6"><b>Output types</b></td> 
 </tr> 
 <tr> 
-    <td align="left"></td> 
-    <td align="center">C/C++</td> 
-    <td align="center">C#</td> 
-    <td align="center">Java</td> 
-    <td align="center">Python</td> 
-    <td align="center">JavaScript</td> 
-    <td align="center">IDL</td> 
-    <td align="center">PHP</td> 
-    <td align="center">Perl</td> 
-    <td align="center">Ruby</td> 
-    <td align="center">SQL</td> 
-    <td align="center">Visual Basic</td> 
-    <td align="center">R</td> 
-    <td align="center">HTML</td> 
-    <td align="center">XML</td> 
-    <td align="center">DocBook</td> 
-    <td align="center">man</td> 
-    <td align="center">RTF</td> 
-    <td align="center">PDF/PS</td> 
-    <td align="center">LaTex</td> 
+    <td align="center" bgcolor="#e6e6e6"><code>C/C++</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>C#</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>Java</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>Python</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>JavaScript</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>IDL</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>PHP</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>Perl</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>Ruby</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>SQL</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>Visual Basic</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>R</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>HTML</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>XML</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>DocBook</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>man</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>RTF</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>PDF/PS</code></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>LaTex</code></td> 
 </tr> 
 <tr> 
     <td align="left"><i><a href="http://docpp.sourceforge.net">Doc++</a></i></td> 
@@ -192,8 +191,8 @@ In order to create portable documentation, documentation generators can be used,
 </tr> 
 </table>
 
-Based on the results reported in the previously mentioned wiki, we preselected 6 documentation generators that are: _(i)_ open source, _(ii)_ multi-platform, _i.e._ running on Windows, Linux, Unix, Mac OS X and BSD operating systems (note though that HeaderDoc is not directly running on Windows), and _(iii)_ support more than one language only.
-Our final choice is Doxygen also because it provides [support to markdown](http://www.stack.nl/%7Edimitri/doxygen/manual/markdown.html). 
+Based on the results reported in the previously mentioned wiki, we preselected 6 documentation generators that are: _(i)_ open source, _(ii)_ multi-platform, _i.e._ running on Windows, Linux, Unix, Mac OS X and BSD operating systems (note though that _HeaderDoc_ is not directly running on Windows), and _(iii)_ support more than one language only.
+Our final choice is _Doxygen_ also because it provides [support to markdown](http://www.stack.nl/%7Edimitri/doxygen/manual/markdown.html). 
 
 **<a name="References"></a>References**
 
