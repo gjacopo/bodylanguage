@@ -37,11 +37,11 @@ as well as the tools and commands to automatically [extract the inline documenta
 _Why documenting your code  (if this is not obvious already)?_
  
 Beyond enabling the sharing and reuse of your code, the practical benefits of documenting it are in enabling reproducibility and verification, as well as possible extension and potential migration:
-* _”A critical barrier to reproducibility in many cases is that the computer code is [not] available."_ ([Peng, 2011](#References)): computational resources should facilitate the participation of all and the integration of any additional  contribution, 
-* _”Publish your code (even the small bits)”_ ([Goodman _et al._, 2014](#References)): even if there is no guarantee of quality, it can still potentially contribute to new experiments and help develop/deploy more advanced in-house analysis products,
-* _”Freely provided working code – whatever its quality – improves programming and enables others to engage [with your research]”_ ([Barnes, 2010](#References)): thanks to a good documentation, any skilled person can modify the code to suit his/her needs, learn from its use and further contribute to its improvement. 
+* _"A critical barrier to reproducibility in many cases is that the computer code is [not] available."_ ([Peng, 2011](#References)): computational resources should facilitate the participation of all and the integration of any additional  contribution, 
+* _"Publish your code (even the small bits)"_ ([Goodman _et al._, 2014](#References)): even if there is no guarantee of quality, it can still potentially contribute to new experiments and help develop/deploy more advanced in-house analysis products,
+* _"Freely provided working code – whatever its quality – improves programming and enables others to engage [with your research]"_ ([Barnes, 2010](#References)): thanks to a good documentation, any skilled person can modify the code to suit his/her needs, learn from its use and further contribute to its improvement. 
 
-Ultimately, we believe that one should _”provide public access to scripts, runs, and results”_ ([Sandve _et al._, 2013](#References)), hence not only the outcomes of a given analysis, but the whole processes, data and tools necessary to produce it should be open and shared. Source code documentation overall supports these objectives. 
+Ultimately, we believe that one should _"provide public access to scripts, runs, and results"_ ([Sandve _et al._, 2013](#References)), hence not only the outcomes of a given analysis, but the whole processes, data and tools necessary to produce it should be open and shared. Source code documentation overall supports these objectives. 
 
 _Why adopting markdown for the documentation?_
 
@@ -53,32 +53,30 @@ For instance, there is, to our knowledge, no documentation framework or built-in
 Based on the results reported in the wiki mentioned above, we preselected 4 markup languages that are: _(i)_ widely adopted opens-source, _(ii)_ enable HTML import/export (note though that Textile does not enable HTML import), and _(iii)_ are supported (possibly through different documentation generators) by more than one language.
 <table align="center">
 <tr> 
-    <td align="left"></td> 
-    <td align="left"></td> 
-    <td align="left">Output formats</td> 
+    <td align="left" rowspan="2">Language</td> 
+    <td align="left" rowspan="2"><b>Implementations</b></td> 
+    <td align="left" colspan="5">Output formats</td> 
 </tr> 
 <tr> 
-    <td align="left"></td> 
-    <td align="left"><b>Implementations</b></td> 
     <td align="center">XHTML</td> <td align="center">PDF</td> <td align="center">DocBook</td> <td align="center">ODF</td><td align="center">Doc</td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="http://asciidoc.org">AsciiDoc</a></i></td> 
+    <td align="left"><i><a href="http://asciidoc.org">AsciiDoc</a></i></td> 
     <td align="left">Python, JavaScript, Ruby</td> 
     <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td><td align="center"><i>Yes</i></td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="https://daringfireball.net/projects/markdown/">markdown (and variants)</a></i></td> 
+    <td align="left"><i><a href="https://daringfireball.net/projects/markdown/">markdown (and variants)</a></i></td> 
     <td align="left">C, C#, Java, R, Python, JavaScript, Ruby, PHP, Perl, Haskell</td> 
     <td align="center"><i>Yes</i> (HTML)</td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td><td align="center"><i>Yes</i></td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="https://www.mediawiki.org/wiki/MediaWiki">MediaWiki</a></i></td> 
+    <td align="left"><i><a href="https://www.mediawiki.org/wiki/MediaWiki">MediaWiki</a></i></td> 
     <td align="left">PHP, Perl, Haskell</td> 
     <td align="center"><i>Yes</i></td> <td align="center"><i>No</i></td> <td align="center"><i>No</i></td> <td align="center"><i>No</i></td><td align="center"><i>No</i></td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html">reStructuredText</a></i></td> 
+    <td align="left"><i><a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html">reStructuredText</a></i></td> 
     <td align="left">Java, Python, Haskell</td> 
     <td align="center"><i>Yes</i> (HTML,XML)</td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td><td align="center"><i>No</i></td> 
 </tr> 
@@ -100,8 +98,8 @@ on Windows), and _(iii)_ support more than one language only.
 <table align="center">
 <tr> 
     <td align="left"></td> 
-    <td align="center"></td> 
-    <td align="center">Output types</td> 
+    <td align="center" colspan="12">Programming languages</td> 
+    <td align="center" colspan="7">Output types</td> 
 </tr> 
 <tr> 
     <td align="left"></td> 
@@ -126,7 +124,7 @@ on Windows), and _(iii)_ support more than one language only.
     <td align="center">LaTex</td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="http://docpp.sourceforge.net">Doc++</a></i></td> 
+    <td align="left"><i><a href="http://docpp.sourceforge.net">Doc++</a></i></td> 
     <td align="center"><i>Yes</i></td> 
     <td align="center"></td> 
     <td align="center"><i>Yes</i></td> 
@@ -138,7 +136,7 @@ on Windows), and _(iii)_ support more than one language only.
     <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="http://www.stack.nl/%7Edimitri/doxygen/">Doxygen</a></i></td> 
+    <td align="left"><i><a href="http://www.stack.nl/%7Edimitri/doxygen/">Doxygen</a></i></td> 
     <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
     <td align="center"></td> 
     <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
@@ -148,7 +146,7 @@ on Windows), and _(iii)_ support more than one language only.
     <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/intro/intro.html">HeaderDoc</a></i></td> 
+    <td align="left"><i><a href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/intro/intro.html">HeaderDoc</a></i></td> 
     <td align="center"><i>Yes</i></td> 
     <td align="center"></td> 
     <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
@@ -159,7 +157,7 @@ on Windows), and _(iii)_ support more than one language only.
     <td align="center"></td> <td align="center"></td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="http://www.naturaldocs.org">Natural Docs</a></i></td> 
+    <td align="left"><i><a href="http://www.naturaldocs.org">Natural Docs</a></i></td> 
     <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i></td> 
     <td align="center"></td> 
     <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i> (partial)</td> 
@@ -168,7 +166,7 @@ on Windows), and _(iii)_ support more than one language only.
     <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="https://rfsber.home.xs4all.nl/Robo/">RoBODoc</a></i></td> 
+    <td align="left"><i><a href="https://rfsber.home.xs4all.nl/Robo/">RoBODoc</a></i></td> 
     <td align="center"><i>Yes</i></td> 
     <td align="center"></td> 
     <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i> (plugin)</td> 
@@ -178,7 +176,7 @@ on Windows), and _(iii)_ support more than one language only.
     <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a html="http://www.sphinx-doc.org/en/stable/">Sphinx</a></i></td> 
+    <td align="left"><i><a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a></i></td> 
     <td align="center"><i>Yes</i></td> 
     <td align="center"></td> <td align="center"></td> 
     <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
@@ -202,12 +200,10 @@ Our final choice is Doxygen also because it provides [support to markdown](http:
 
 * Grazzini J. and Lamarche P. (2017): [**Production of social statistics... goes social!**](https://www.conference-service.com/NTTS2017/documents/agenda/data/abstracts/abstract_124.html), in _Proc.  New Techniques and Technologies for Statistics_.
 * Grazzini J. and Pantisano F. (2015): [**Collaborative research-grade software for crowd-sourced data exploration: from context to practice - Part I: Guidelines for scientific evidence provision for policy support based on Big Data and open technologies**](http://publications.jrc.ec.europa.eu/repository/bitstream/JRC94504/lb-na-27094-en-n.pdf), _Publications Office of the European Union_, doi:[10.2788/329540](http://dx.doi.org/10.2788/329540).
-* A beginner’s guide to writing documentation: http://www.writethedocs.org/guide/writing/beginners-guide-to-docs/.
-Guidelines for coding of SAS programs: http://www2.sas.com/proceedings/sugi29/258-29.pdf.
-Mastering cheatsheet: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet and markdown quick reference:https://
-en.support.wordpress.com/markdown-quick-reference/.
-* Goodman A. _et al._ (2014): [**Ten simple rules for the care and feeding of scientific data**](http://www.ploscollections.org/article/fetchObject.action?uri=info% 3Adoi%2F10.1371%2Fjournal.pcbi.1003542&representation=PDF). _PLoS Computational Biology_, 10(4):e1003542, . doi:[10.1371/journal.pcbi.1003542](https://dx.doi.org/10.1371/journal.pcbi.1003542).
-* Sandve G.K. _et al._ (2013): [**Ten simple rules for reproducible computational research**](http://www.ploscompbiol. org/article/fetchObject.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi. 1003285&representation=PDF), _PLoS Computational Biology_, 9(10):e1003285, doi:[10.1371/journal.pcbi.1003285](https://dx.doi.org/10.1371/journal.pcbi.1003285) .
-* Peng R.D. (2011): [**Reproducible research in computational science**](http://www.sciencemag.org/ content/334/6060/1226.full.pdf), _Science_, 6060(334):1226–1227, doi:[10.1126/science.1213847](https://dx.doi.org/10.1126/science.1213847).
-* Ince D.C., Hatton L., and Graham-Cumming J. (2011): [**The case for open computer programs**](http://www.nature. com/nature/journal/v482/n7386/pdf/nature10836.pdf), _Nature_, 482:485–488, doi:[10.1038/nature10836](https://dx.doi.org/10.1038/nature10836).
-* Barnes N. (2010): [**Publish your computer code: it is good enough**](http://www.nature.com/news/2010/101013/pdf/ 467753a.pdf), _Nature_, 467:753, 2010. doi:[10.1038/467753a](https://dx.doi.org/10.1038/467753a). 
+* A beginner's guide to writing documentation: http://www.writethedocs.org/guide/writing/beginners-guide-to-docs/.
+* Mastering cheatsheet: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet and _markdown_ quick reference:https://en.support.wordpress.com/markdown-quick-reference/.
+* Goodman A. _et al._ (2014): [**Ten simple rules for the care and feeding of scientific data**](http://www.ploscollections.org/article/fetchObject.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.1003542&representation=PDF). _PLoS Computational Biology_, 10(4):e1003542, . doi:[10.1371/journal.pcbi.1003542](https://dx.doi.org/10.1371/journal.pcbi.1003542).
+* Sandve G.K. _et al._ (2013): [**Ten simple rules for reproducible computational research**](http://www.ploscompbiol.org/article/fetchObject.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi. 1003285&representation=PDF), _PLoS Computational Biology_, 9(10):e1003285, doi:[10.1371/journal.pcbi.1003285](https://dx.doi.org/10.1371/journal.pcbi.1003285) .
+* Peng R.D. (2011): [**Reproducible research in computational science**](http://www.sciencemag.org/content/334/6060/1226.full.pdf), _Science_, 6060(334):1226–1227, doi:[10.1126/science.1213847](https://dx.doi.org/10.1126/science.1213847).
+* Ince D.C., Hatton L., and Graham-Cumming J. (2011): [**The case for open computer programs**](http://www.nature.com/nature/journal/v482/n7386/pdf/nature10836.pdf), _Nature_, 482:485–488, doi:[10.1038/nature10836](https://dx.doi.org/10.1038/nature10836).
+* Barnes N. (2010): [**Publish your computer code: it is good enough**](http://www.nature.com/news/2010/101013/pdf/467753a.pdf), _Nature_, 467:753, 2010. doi:[10.1038/467753a](https://dx.doi.org/10.1038/467753a). 
