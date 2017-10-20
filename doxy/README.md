@@ -14,9 +14,8 @@ We provide hereby a set of guidelines and templates for a generic inline source 
 An appropriate documentation will enable:
 * **users** to efficiently run and (re)use a program/code,
 * **developers** to maintain, share, extend, and migrate a program.
-Say it otherwise, it should address the needs of all different _produsers'_ profiles. Moreover, rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**.
-Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
 
+Say it otherwise, it should address the needs of all different _produsers'_ profiles. 
 For that reason, it should be made available not only as an **inline documentation** (visible by those who actually implement the code, _e.g._ through comments in the code), but as a **portable document** (visible by those who run the code, _e.g._ through a browsable interface like html) as well.
 To do so, we suggest to adopt a common way for describing and documenting source code/programs regardless of the platform (language, software) used for the implementation. The solution we propose in practice is the following:
 * **an "inline" documentation is systematically inserted in the header** (_e.g._, top of the program file storing a macro, a function, _etc_...),
@@ -24,7 +23,8 @@ To do so, we suggest to adopt a common way for describing and documenting source
 * **human-readable language [_markdown_](https://daringfireball.net/projects/markdown/) is adopted** for writing the source code documentation,
 * **documentation generator [_Doxygen_](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
 
-We hereby provide with the common guidelines and templates to inline document:
+Moreover, rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**. Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
+In this aspect, we hereby provide with the common guidelines and templates to inline document:
 * [SAS programs](SASdoc) (_e.g._ macros),  
 * [R programs](Rdoc) (_e.g._ functions), and
 * [Stata programs](Statadoc) (_e.g._ functions),
