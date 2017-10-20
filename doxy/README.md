@@ -1,20 +1,21 @@
 doxy@ESTAT
 =============
 
-Generic guidelines for software-agnostic (_R/SAS/Stata_) code documentation and automatic generation of browsable documentation.
+Common guidelines for a generic code documentation (`R`/`SAS`/`Stata`) and automatic tools for the generation of a browsable documentation.
 
 ---
 
 **About**
 
-We provide hereby a set of guidelines and templates for a generic inline source code documentation (using _markdown_ language) as well as some scripts for the automatic generation of derived online documentation (using _Doxygen_ generator). This material aims at **supporting the development, sharing and reuse of open IT components** (_e.g._, used in production environment) and **ensuring complete transparency of computational resources** that need to be deployed in-house ([Grazzini and Pantisano, 2015; Grazzini and Lamarche, 2017](#References)). 
+We provide hereby a set of guidelines and templates for a generic inline source code documentation (using _markdown_ language) as well as some scripts for the automatic generation of a derived online documentation (using _Doxygen_ generator). This material aims at **supporting the development, sharing and reuse of open IT components**, _e.g._, deployed in production environment, and **ensuring complete transparency of in-house computational resources**, _e.g._ regardless of the platform used for the implementation ([Grazzini and Pantisano, 2015; Grazzini and Lamarche, 2017](#References)). 
 
 **<a name="Description"></a>Description**
 
-The purpose of an appropriate documentation is to enable:
+An appropriate documentation will enable:
 * **users** to efficiently run and (re)use a program/code,
 * **developers** to maintain, share, extend, and migrate a program.
-Say it otherwise, it should address the needs of all different _produsers'_ profiles
+Say it otherwise, it should address the needs of all different _produsers'_ profiles. Moreover, rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**.
+Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
 
 For that reason, it should be made available not only as an **inline documentation** (visible by those who actually implement the code, _e.g._ through comments in the code), but as a **portable document** (visible by those who run the code, _e.g._ through a browsable interface like html) as well.
 To do so, we suggest to adopt a common way for describing and documenting source code/programs regardless of the platform (language, software) used for the implementation. The solution we propose in practice is the following:
