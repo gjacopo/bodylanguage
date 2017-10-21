@@ -33,10 +33,10 @@ as well as the tools and commands to automatically [extract the inline documenta
 
 <table>
 <header>
-<td align="centre">Statistical operations are documented regardless of the programming languages: in this example, simple quantile estimation implemented in both <code>SAS</code> and <code>R</code>.</td>
+<td align="centre">Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</td>
 </header>
 <tr>
-<td><kbd><img src="docs/examples.png" alt="examples quantile" width="600"> </kbd></td>
+<td align="centre><kbd><img src="docs/examples.png" alt="examples quantile" width="700"> </kbd></td>
 </tr>
 </table>
 
