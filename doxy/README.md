@@ -36,7 +36,7 @@ as well as the tools and commands to automatically [extract the inline documenta
 <td align="centre">Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</td>
 </header>
 <tr>
-<td align="centre"><kbd><img src="docs/examples.png" alt="examples quantile" width="700"> </kbd></td>
+<td align="centre"><kbd><img src="docs/examples.png" alt="examples quantile" width="700"  align="centre"> </kbd></td>
 </tr>
 </table>
 
