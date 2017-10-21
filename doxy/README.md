@@ -32,12 +32,12 @@ In this aspect, we hereby provide with the common guidelines and templates to in
 as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/progamming languages. 
 
 <table>
-<header>
-<td align="centre">Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</td>
-</header>
 <tr>
 <td align="centre"><kbd><img src="docs/examples.png" alt="examples quantile" width="700"  align="centre"> </kbd></td>
 </tr>
+<footer>
+<td align="centre">Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</td>
+</footer>
 </table>
 
 **<a name="Usage"></a>Usage**
@@ -59,7 +59,7 @@ You will also need to adopt a common template for documentation:
 * example(s) shall appear after the header `### Example` (`### Examples`); 
 * indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax 
   established in markdown, using 3 hyphens or tilde concatenated with `sas` shortname, hence `---sas` or
-  `~~~sas` (both, in principle, supported for (pygmentation](http://pygments.org/docs/lexers/#lexer-for-sas),
+  `~~~sas` (both, in principle, supported for [pygmentation](http://pygments.org/docs/lexers/#lexer-for-sas),
 * note(s) shall appear after the header `### Note` (`### Notes`),
 * reference(s) related to the programs/macros shall be listed under `### Reference` (`### References`), 
 * all other related programs/macros shall appear after the header `### See also`.
@@ -78,14 +78,14 @@ is added (instead of `sas_` above),
 * all examples and **code excerpts shall be preceded with the `>` symbol** (like in R console),
 * indented code blocks can be inserted but fenced code blocks are also preferred; they are defined 3 hyphens 
   or tilde concatenated with `r` shortname, hence `---r` or `~~~r` (for 
-  (pygmentation](http://pygments.org/docs/lexers/#pygments.lexers.r.SLexer),
+  [pygmentation](http://pygments.org/docs/lexers/#pygments.lexers.r.SLexer),
 
 <a name="htmldoc"></a>_Generate the documentation_
 
 So as to automatically generate the documentation (like this one), you will need:
-* a script of extraction of the `markdown` formatted documentation from program files into pure `markdown` 
+* a script of extraction of the `markdown` formatted documentation from program files into pure _markdown_ 
 files,
-* a documentation generator that creates the user-friendly browsable documentation from the `markdown` files.
+* a documentation generator that creates the user-friendly browsable documentation from the _markdown_ files.
 
 As for the documentation extractor, you can use a bash script (hereby named `rsas2mddoc.sh`) specifically developed 
 for this purpose. This ad-hoc program enables you to retrieve automatically the markdown formatted documentation 
@@ -97,7 +97,7 @@ that can be launched from any terminal so as to generate a bulk of `markdown` fi
 the `documentation\md\library` folder. The associated help looks like the following:
 
 The resuiting `markdown` files will look exactly like the headers in your programs with the exception of the `/*` (or `/**`)
-and `*/` anchors. Then, [doxygen](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full 
+and `*/` anchors. Then, [_doxygen_](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full 
 set of guidelines/best practices for running this software is available in the 
 [dedicated section](http://www.stack.nl/~dimitri/doxygen/manual/starting.html) of the doxygen website.
 
