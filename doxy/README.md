@@ -31,17 +31,26 @@ In this aspect, we hereby provide with the common guidelines and templates to in
 
 as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/progamming languages. 
 
+<table>
+<header>
+<td align="centre">Statistical operations are documented regardless of the programming languages: in this example, simple quantile estimation implemented in both <code>SAS</code> and <code>R</code>.</td>
+</header>
+<tr>
+<td><kbd><img src="docs/examples.png" alt="examples quantile" width="600"> </kbd></td>
+</tr>
+</table>
+
 **<a name="Usage"></a>Usage**
 
-<a name="SASdoc"></a>_Document `SAS` programs_
+<a name="SASdoc"></a>_Document your `SAS` programs_
 
 As mentioned above, the documentation of SAS programs is inserted in the header of the program as a comment. 
 More precisely, we impose that:
 * **the documentation (markdown language) shall be inserted in between the symbols: `/**` and `*/`**.
 
 Further, we also require that:
-* **the core program (SAS code) shall be inserted in between the following anchor marks: `/**` \\cond `*/`
-and `/**` \\endcond `*/`**.
+* **the core program (SAS code) shall be inserted in between the following anchor marks: `/** \cond */`
+and `/** \endcond */`**.
 
 You will also need to adopt a common template for documentation:
 * the reference used for a program/macro is defined as the **name of the program to which the prefix string `sas_`**
@@ -55,7 +64,7 @@ You will also need to adopt a common template for documentation:
 * reference(s) related to the programs/macros shall be listed under `### Reference` (`### References`), 
 * all other related programs/macros shall appear after the header `### See also`.
 
-<a name="Rdoc"></a>_Document `R` programs_
+<a name="Rdoc"></a>_Document your `R` programs_
 
 Similarly, the documentation shall be inserted in the header of the program as a comment, hence
 after the `#` symbol. In practice, **you will further need to insert the desired documentation in-between 
@@ -83,7 +92,7 @@ for this purpose. This ad-hoc program enables you to retrieve automatically the 
 inserted in R/SAS files (as described above), and store the resulting excerpts into separated files.
  
 This script is located under the documentation folder `documentation\bin`. It works as an inline command:
-<img src="img/rsas2mddoc.png" border="1" alt="use rsas2mddoc">
+
 that can be launched from any terminal so as to generate a bulk of `markdown` files (with `.md` extension) into
 the `documentation\md\library` folder. The associated help looks like the following:
 
@@ -91,6 +100,9 @@ The resuiting `markdown` files will look exactly like the headers in your progra
 and `*/` anchors. Then, [doxygen](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full 
 set of guidelines/best practices for running this software is available in the 
 [dedicated section](http://www.stack.nl/~dimitri/doxygen/manual/starting.html) of the doxygen website.
+
+**<a name="Example"></a>Example**
+
 
 
 **<a name="Objectives"></a>Rationale**
