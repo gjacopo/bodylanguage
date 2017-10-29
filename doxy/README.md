@@ -36,7 +36,7 @@ as well as the tools and commands to automatically [extract the inline documenta
 <td align="centre"><kbd><img src="docs/examples.png" alt="examples quantile" width="700"  align="centre"> </kbd></td>
 </tr>
 <footer>
-<td align="centre">Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</td>
+<td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
 </footer>
 </table>
 
@@ -87,18 +87,14 @@ So as to automatically generate the documentation (like this one), you will need
 files,
 * a documentation generator that creates the user-friendly browsable documentation from the _markdown_ files.
 
-As for the documentation extractor, you can use a bash script (hereby named `rsas2mddoc.sh`) specifically developed 
-for this purpose. This ad-hoc program enables you to retrieve automatically the markdown formatted documentation 
+As for the documentation extractor, you can use a bash script (hereby named `rsas2mddoc.sh`) specifically developed for this purpose. This ad-hoc program enables you to retrieve automatically the markdown formatted documentation 
 inserted in R/SAS files (as described above), and store the resulting excerpts into separated files.
  
 This script is located under the documentation folder `documentation\bin`. It works as an inline command:
 
-that can be launched from any terminal so as to generate a bulk of `markdown` files (with `.md` extension) into
-the `documentation\md\library` folder. The associated help looks like the following:
+that can be launched from any terminal so as to generate a bulk of `markdown` files (with `.md` extension) into the `documentation\md\library` folder. The associated help looks like the following:
 
-The resuiting `markdown` files will look exactly like the headers in your programs with the exception of the `/*` (or `/**`)
-and `*/` anchors. Then, [_doxygen_](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full 
-set of guidelines/best practices for running this software is available in the 
+The resuiting `markdown` files will look exactly like the headers in your programs with the exception of the `/*` (or `/**`) and `*/` anchors. Then, [_doxygen_](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full set of guidelines/best practices for running this software is available in the 
 [dedicated section](http://www.stack.nl/~dimitri/doxygen/manual/starting.html) of the doxygen website.
 
 **<a name="Example"></a>Example**
@@ -267,14 +263,17 @@ In order to create portable documentation, documentation generators can be used,
 Based on the results reported in the previously mentioned wiki, we preselected 6 documentation generators that are: _(i)_ open source, _(ii)_ multi-platform, _i.e._ running on Windows, Linux, Unix, Mac OS X and BSD operating systems (note though that _HeaderDoc_ is not directly running on Windows), and _(iii)_ support more than one language only.
 Our final choice is _Doxygen_ also because it provides [support to markdown](http://www.stack.nl/%7Edimitri/doxygen/manual/markdown.html). 
 
+**<a name="Notes"></a>Notes**
+The approach proposed herein is adapted to the documenting of stand-alone programs and processes.
+
 **<a name="References"></a>References**
 
 * Grazzini J. and Lamarche P. (2017): [**Production of social statistics... goes social!**](https://www.conference-service.com/NTTS2017/documents/agenda/data/abstracts/abstract_124.html), in _Proc.  New Techniques and Technologies for Statistics_.
 * Grazzini J. and Pantisano F. (2015): [**Collaborative research-grade software for crowd-sourced data exploration: from context to practice - Part I: Guidelines for scientific evidence provision for policy support based on Big Data and open technologies**](http://publications.jrc.ec.europa.eu/repository/bitstream/JRC94504/lb-na-27094-en-n.pdf), _Publications Office of the European Union_, doi:[10.2788/329540](http://dx.doi.org/10.2788/329540).
 * A beginner's guide to writing documentation: http://www.writethedocs.org/guide/writing/beginners-guide-to-docs/.
 * Mastering cheatsheet: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet and _markdown_ quick reference: https://en.support.wordpress.com/markdown-quick-reference/.
-* Goodman A. _et al._ (2014): [**Ten simple rules for the care and feeding of scientific data**](http://www.ploscollections.org/article/fetchObject.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.1003542&representation=PDF). _PLoS Computational Biology_, 10(4):e1003542, doi:[10.1371/journal.pcbi.1003542](https://dx.doi.org/10.1371/journal.pcbi.1003542).
+* Goodman A. _et al._ (2014): [**Ten simple rules for the care and feeding of scientific data**](http://www.ploscollections.org/article/fetchObject.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.1003542&representation=PDF), _PLoS Computational Biology_, 10(4):e1003542, doi:[10.1371/journal.pcbi.1003542](https://dx.doi.org/10.1371/journal.pcbi.1003542).
 * Sandve G.K. _et al._ (2013): [**Ten simple rules for reproducible computational research**](http://www.ploscompbiol.org/article/fetchObject.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.1003285&representation=PDF), _PLoS Computational Biology_, 9(10):e1003285, doi:[10.1371/journal.pcbi.1003285](https://dx.doi.org/10.1371/journal.pcbi.1003285).
 * Peng R.D. (2011): [**Reproducible research in computational science**](http://www.sciencemag.org/content/334/6060/1226.full.pdf), _Science_, 6060(334):1226-1227, doi:[10.1126/science.1213847](https://dx.doi.org/10.1126/science.1213847).
 * Ince D.C., Hatton L., and Graham-Cumming J. (2011): [**The case for open computer programs**](http://www.nature.com/nature/journal/v482/n7386/pdf/nature10836.pdf), _Nature_, 482:485-488, doi:[10.1038/nature10836](https://dx.doi.org/10.1038/nature10836).
-* Barnes N. (2010): [**Publish your computer code: it is good enough**](http://www.nature.com/news/2010/101013/pdf/467753a.pdf), _Nature_, 467:753, 2010. doi:[10.1038/467753a](https://dx.doi.org/10.1038/467753a). 
+* Barnes N. (2010): [**Publish your computer code: it is good enough**](http://www.nature.com/news/2010/101013/pdf/467753a.pdf), _Nature_, 467:753, doi:[10.1038/467753a](https://dx.doi.org/10.1038/467753a). 
