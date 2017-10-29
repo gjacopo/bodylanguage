@@ -3,7 +3,7 @@
 # @brief:    Automatic generation of markdown files from self-documented R/SAS/Stata
 #            programs
 #
-#    src2mddoc.sh [-h] [-v] [-t] [-f <fname>] [-d <dir>] <filename>
+#    src2mddoc.sh [-h] [-v] [-t] [-p] [-f <fname>] [-d <dir>] <filename>
 #
 # @notes:
 # 1. The command shall be launched inline from a shell terminal running bash 
@@ -84,7 +84,7 @@ function help() {
     echo "";
     echo "Syntax";
     echo "------";
-    echo "    ${PROGRAM} [-h] [-v] [-t] [-f <fname>] [-d <dir>] <input>";
+    echo "    ${PROGRAM} [-h] [-v] [-t] [-p] [-f <fname>] [-d <dir>] <input>";
     echo "";
     echo "Parameters";
     echo "----------";
@@ -209,7 +209,7 @@ test=0
 # [ $# -eq 1 ] && [ $1 = "--help" ] && help
 
 # we use getopts to pass the arguments
-# options are: [-h] [-v] [-t] [-f <fname>] [-d <dir>]
+# options are: [-d <dir>] [-f <fname>] [-p] [-h] [-v] [-t]
 while getopts :d:f:phtv OPTION; do
     # extract options and their arguments into variables.
     case ${OPTION} in
@@ -327,7 +327,6 @@ for (( i=0; i<${nprogs}; i++ )); do
     #  - ${progname[$i]} itself when it is a file,
     #  - all the files in ${progname[$i]} when it is a directory.
     for file in `find ${progname[$i]} -type f`; do
-	echo test file $file
 	# get the file basename 
 	f=`basename "$f"`
 	# get the extension
@@ -340,7 +339,8 @@ for (( i=0; i<${nprogs}; i++ )); do
 	([ ${nprogs} -eq 1 ] && ! [ -d ${progname[$0]} ])                               \
 	    && filename=${f%.*}${fname}.${MDEXT}                                        \
 	    || filename=${fname}.${MDEXT} 
-	# by convention, avoid occurrences of "__" in the output filename
+	# by convention, avoid occurrences of "__" in the output filename (note the presence
+	# of the parentheses)
 	[ ${pref} -eq 1 ]                                                               \
 	    && (regexMatch "${filename}" "^_.*"                                         \
 	    && filename=${ext}${filename}                                               \
@@ -356,18 +356,23 @@ for (( i=0; i<${nprogs}; i++ )); do
 	# which uses mostly the awk command like in the example below:
         #     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=2}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
         #     awk -F"\/\*\*" '{print $2}' $1  | awk -F"\*\/" '{print $1}' - > test2.txt
-	([ "${ext}" =  "${SASEXT}" ] || [ "${ext}" =  "${STATAEXT}" ])                   \
-	    && ${TESTECHO} awk                                                           \
-	    'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=2}' ${file} \
-	    | awk '!/^ *\/\*\*/ { print; }' - | awk '!/^ *\*\// { print; }' - > $filename
+	([ "${ext}" =  "${SASEXT}" ] || [ "${ext}" =  "${STATAEXT}" ])                       \
+	    && ${TESTECHO}                                                                   \
+	    awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=2}' ${file} \
+	    | awk '!/^ *\/\*\*/ { print; }' -                                                \
+	    | awk '!/^ *\*\// { print; }' - > $filename
 	# ibid for R files
-	[ "${ext}" = "${REXT}" ]                                                         \
-	    && ${TESTECHO} awk 'NF==0&&s==0{NR=0}NR==1&&$1=="#STARTDOC"{s=1}s==1{print $0}$NF=="#ENDDOC"{s=2}' ${file} | awk '!/^ *\#STARTDOC/ { print; }' - | awk '!/^ *\#ENDDOC/ { print substr($0,2); }' - > $filename
-	if [ ! -s ${filename} ]; then # file is empty: 0 byte...
-	    rm -f  ${filename}
-        elif [ ${test} -eq 1 ];    then
+	[ "${ext}" = "${REXT}" ]                                                             \
+	    && ${TESTECHO}                                                                   \
+	    awk 'NF==0&&s==0{NR=0}NR==1&&$1=="##"{s=1}s==1{print $0}$NF=="##"{s=2}' ${file}  \
+	    | awk '!/^ *\#\#/ { print; }' -                                                  \
+	    | awk '!/^ *\#\#/ { print substr($0,2); }' - > $filename
+	# check that the file is not empty
+	! [ -s ${filename} ] && rm -f  ${filename}
+	# display in case of test
+        if [ ${test} -eq 1 ];    then
 	    echo ""
-	    echo "Result of automatic Markdown extraction from  test input file $f"
+	    echo "Result of automatic Markdown extraction from test input file $f"
 	    echo "(first found in $progname directory)"
 	    echo "##########################################"
 	    cat ${filename}
