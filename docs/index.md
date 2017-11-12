@@ -1,4 +1,3 @@
-
 **About**
 
 Various (useless) supporting material and/or prototypes

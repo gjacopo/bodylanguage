@@ -1,12 +1,12 @@
 doxy@ESTAT
 =============
 
-Common guidelines for a generic code documentation (`R`/`SAS`/`Stata`) and automatic tools for the generation of a browsable documentation.
+Guidelines and tools for generic code documentation (`R`/`SAS`/`Stata`).
 ---
 
 **About**
 
-We provide hereby a set of guidelines and templates for a generic inline source code documentation (using _markdown_ language) as well as a `bash` script for the automatic generation of a derived online documentation (using _Doxygen_ generator). 
+We provide hereby a set of common guidelines and templates for a generic inline source code documentation (using `markdown` language) as well as a `bash` script for the automatic generation of a derived online documentation (using `Doxygen` generator). 
 
 This material aims at **supporting the development, sharing and reuse of open IT components**, _e.g._, deployed in production environment, and **ensuring complete transparency of in-house computational resources**, _e.g._ regardless of the platform used for the implementation ([Grazzini and Pantisano, 2015; Grazzini and Lamarche, 2017](#References)). 
 
@@ -21,8 +21,8 @@ For that reason, it should be made available not only as an **inline documentati
 To do so, we suggest to adopt a common way for describing and documenting source code/programs regardless of the platform (language, software) used for the implementation. The solution we propose in practice is the following:
 * **an "inline" documentation is systematically inserted in the header** (_e.g._, top of the program file storing a macro, a function, _etc_...),
 * **the documentation appears as comments** inside the programs (_e.g._, in between `/*` and `*/` marks for many languages),
-* **human-readable language [_markdown_](https://daringfireball.net/projects/markdown/) is adopted** for writing the source code documentation,
-* **documentation generator [_Doxygen_](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
+* **human-readable language [`markdown`](https://daringfireball.net/projects/markdown/) is adopted** for writing the source code documentation,
+* **documentation generator [`Doxygen`](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
 
 Moreover, rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**. Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
 In this aspect, we hereby provide with the common guidelines and templates to inline document:
@@ -79,7 +79,7 @@ is added (instead of `sas_` above),
 * all examples and **code excerpts shall be preceded with the `>` symbol** (like in R console),
 * indented code blocks can be inserted but fenced code blocks are also preferred; they are defined 3 hyphens 
   or tilde concatenated with `r` shortname, hence `---r` or `~~~r` (for 
-  [pygmentation](http://pygments.org/docs/lexers/#pygments.lexers.r.SLexer),
+  [pygmentation](http://pygments.org/docs/lexers/#pygments.lexers.r.SLexer)),
 
 <a name="htmldoc"></a>_Generate the documentation_
 
