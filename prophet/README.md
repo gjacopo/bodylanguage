@@ -26,11 +26,11 @@ Facebook has open sourced  [`Prophet software`](https://github.com/facebookincub
 
 Run the [`tour_forecast.py`](tour_forecast.py) source code or explore the [`run_forecast.ipynb`](run_forecast.ipynb) notebook to produce the following 5-years forecast estimates of ESTAT [*tour_occ_nim*](http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=tour_occ_nim&lang=en) monthly indicator:
 
-<img src="docs/tour_occ_nim_predict.png" alt="tour_occ_nim prediction" width="800">
+<img src="https://github.com/gjacopo/bodylanguage/blob/master/docs/prophet/tour_occ_nim_predict.png" alt="tour_occ_nim prediction" width="800">
 
 Another example is provided by the 1-year prediction of unemployment [*une_rt_m*](http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=une_rt_m&lang=en) monthly indicator:
 
-<img src="docs/une_rt_m_predict.png" alt="une_rt_m prediction" width="800">
+<img src="https://github.com/gjacopo/bodylanguage/blob/master/docs/prophet/une_rt_m_predict.png" alt="une_rt_m prediction" width="800">
 
 **<a name="Reference"></a>Reference**
 

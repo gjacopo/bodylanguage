@@ -2,7 +2,6 @@ doxy@ESTAT
 =============
 
 Common guidelines for a generic code documentation (`R`/`SAS`/`Stata`) and automatic tools for the generation of a browsable documentation.
-
 ---
 
 **About**
@@ -33,7 +32,7 @@ as well as the tools and commands to automatically [extract the inline documenta
 
 <table>
 <tr>
-<td align="centre"><kbd><img src="docs/examples.png" alt="examples quantile" width="700"  align="centre"> </kbd></td>
+<td align="centre"><kbd><img src="https://github.com/gjacopo/bodylanguage/blob/master/docs/doxy/examples.png" alt="examples quantile" width="700"  align="centre"> </kbd></td>
 </tr>
 <footer>
 <td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
