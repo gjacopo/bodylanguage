@@ -115,11 +115,10 @@ In order to create portable documentation, documentation generators can be used,
 
 <table align="center">
 <tr> 
-    <td align="center" colspan="2" ></td> 
-    <td align="left" colspan="6" bgcolor="#e6e6e6"><b>Generator</b></td> 
+    <td colspan="2" rowspan="2"></td> 
+    <td align="center" colspan="6" bgcolor="#e6e6e6"><b>Generator</b></td> 
 </tr> 
-<tr> 
-    <td align="center" colspan="2"></td> 
+<tr valign="middle"> 
     <td align="left"><i><a href="http://docpp.sourceforge.net">Doc++</a></i></td> 
     <td align="left"><i><a href="http://www.stack.nl/%7Edimitri/doxygen/">Doxygen</a></i></td> 
     <td align="left"><i><a href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/intro/intro.html">HeaderDoc</a></i></td> 
@@ -127,7 +126,7 @@ In order to create portable documentation, documentation generators can be used,
     <td align="left"><i><a href="https://rfsber.home.xs4all.nl/Robo/">RoBODoc</a></i></td> 
     <td align="left"><i><a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a></i></td> 
 </tr> 
-<tr> 
+<tr valign="middle"> 
     <td align="center" rowspan="12" bgcolor="#e6e6e6"><b>Programming languages</b></td> 
     <td align="center" bgcolor="#e6e6e6"><code>C/C++</code></td> 
     <td align="center" bgcolor="#ffe6e6"><i>Yes</i></td> 
