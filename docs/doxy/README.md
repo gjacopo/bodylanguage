@@ -40,12 +40,23 @@ We adopt a common template for documentation, with the following rules:
 	~~~
 	## <program_name> {#<language>_<program_name>}
 	~~~
-	
 _e.g._,  the first line of the documentation the `SAS` macro  `quantile.sas` will look like this: `## quantile {#sas_quantile}`.
 * A short description of the program is inserted below the header.
 * The syntax of the program is also added to the documentation.
-* The arguments of the program are listed under the level-3 header `### Arguments`.
-* The outputs of the program are listed under the header `### Returns`.
+* The argument(s) of the program is (are) listed under the level-3 header `### Arguments`, _i.e._:
+
+	~~~
+	### Arguments
+	* `input1` : main input argument;
+	* `input2` : (_option_) second optional argument, with default value;
+	~~~
+* The output(s) of the program is (are) listed under the header `### Returns`, _i.e._:
+
+	~~~
+	### Returns
+	* `output1` : first output argument;
+	* `output2` : second output argument;
+	~~~
 * All example(s) appear after the header `### Example` (or `### Examples`).
 * Indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax established in markdown, using 3 hyphens or tilde concatenated with the language shortname, _i.e._:
 
@@ -54,11 +65,15 @@ _e.g._,  the first line of the documentation the `SAS` macro  `quantile.sas` wil
 	  <code_block>
 	  ~~~
 	~~~
-
 _e.g._,  for `SAS` macros, `---sas` or  `~~~sas` is used; the actual list of lexers that can be used is available under the [`Pygments` page](http://pygments.org/docs/lexers/#lexer-for-sas).
 * Note(s)/remark(s) appear(s) after the header `### Note` (`### Notes`).
 * Reference(s) related to the programs/macros is (are) listed under `### Reference` (`### References`).
-* All other related programs/macros shall appear after the header `### See also`.
+* All programs that are related to the one currently documented can be referred to after the header `### See also` using the reference defined earlier, _i.e._:
+
+	~~~
+	### See also
+	[<program_name>](@ref <language>_<program_name>).
+	~~~
 
 _`SAS` programs_
 
