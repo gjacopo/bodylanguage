@@ -6,7 +6,7 @@ We provide hereby a set of common guidelines and templates for a generic inline 
 
 This material aims at **supporting the development, sharing and reuse of open IT components**, _e.g._, deployed in production environment, and **ensuring complete transparency of in-house computational resources**, _e.g._ regardless of the platform used for the implementation ([Grazzini and Pantisano, 2015; Grazzini and Lamarche, 2017](#References)). 
 
-**<a name="Description"></a>Description**
+##### Description
 
 An appropriate documentation will enable:
 * **users** to efficiently run and (re)use a program/code,
@@ -29,9 +29,9 @@ In this aspect, we hereby provide with the common guidelines and templates to in
 
 as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/programing languages. 
 
-**<a name="Guidelines"></a>Guidelines**
+##### Guidelines
 
-_Generic rules_
+###### Generic rules
 
 We adopt a common template for documentation, with the following rules:
 * A level-2 header (with the `##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
@@ -75,14 +75,14 @@ _e.g._,  for `SAS` macros, `---sas` or  `~~~sas` is used; the actual list of lex
 	[<program_name>](@ref <language>_<program_name>).
 	~~~
 
-_`SAS` programs_
+###### `SAS` programs
 
 The documentation of `SAS` programs is inserted as described above, in the header of the program as a comment. Further, we also require that:
 * the documentation (markdown language) is inserted in between the symbols: `/**` and `*/`,
 * the core program (code) is inserted in between the following anchor marks: `/** \cond */`
 and `/** \endcond */`.
 
-_`Stata` programs_
+###### `Stata` programs
 
 _Ibid_, the documentations of `SAS` and `Stata` programs look alike (including the use of `/**` and `*/` anchors).
 
@@ -91,7 +91,7 @@ _`R` programs_
 Similarly, the documentation of `R` program follows the generic template, with the following specificities:
 * the documentation is inserted in the header of the program as a comment, hence after the `#` symbol,
 * two additional anchors: `#cond` and `#endcond`** need to be inserted around the documentation so as to distinguish it from other comments, 
-* all examples and **code excerpts shall be preceded with the `>` symbol** (like in `R` console).
+* all examples and code excerpts shall be preceded with the `>` symbol (like in `R` console).
 
 _`Python` programs_
 
