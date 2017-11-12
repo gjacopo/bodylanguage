@@ -30,7 +30,7 @@ as well as the tools and commands to automatically [extract the inline documenta
 
 <table>
 <tr>
-<td align="centre"><kbd><img src="examples.png" alt="example PING quantile" width="700"  align="centre"> </kbd></td>
+<td align="centre"><kbd><img src="example_ping.png" alt="example PING quantile" width="700"  align="centre"> </kbd></td>
 </tr>
 <footer>
 <td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
@@ -41,8 +41,8 @@ as well as the tools and commands to automatically [extract the inline documenta
 
 First, document your :
 * <a name="SASdoc"></a>[`SAS` programs/macros](document_sas),
-* <a name="Rdoc"></a>[ `R` programss/fucntions](document_r), and
-* <a name="Statadoc"></a>[`Stata` programs/fucntions](document_stata), 
+* <a name="Rdoc"></a>[ `R` programss/functions](document_r), and
+* <a name="Statadoc"></a>[`Stata` programs/functions](document_stata), 
 
 then you can easily <a name="htmldoc"></a>[generate the documentation](generate_documentation).
 
@@ -115,98 +115,190 @@ In order to create portable documentation, documentation generators can be used,
 
 <table align="center">
 <tr> 
-    <td align="left" rowspan="2" bgcolor="#e6e6e6"><b>Generator</b></td> 
-    <td align="center" colspan="12" bgcolor="#e6e6e6"><b>Programming languages</b></td> 
-    <td align="center" colspan="7" bgcolor="#e6e6e6"><b>Output types</b></td> 
+    <td align="center"></td> 
+    <td align="left" colspan="6" bgcolor="#e6e6e6"><b>Generator</b></td> 
 </tr> 
 <tr> 
-    <td align="center" bgcolor="#e6e6e6"><code>C/C++</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>C#</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>Java</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>Python</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>JavaScript</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>IDL</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>PHP</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>Perl</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>Ruby</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>SQL</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>Visual Basic</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>R</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>HTML</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>XML</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>DocBook</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>man</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>RTF</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>PDF/PS</code></td> 
-    <td align="center" bgcolor="#e6e6e6"><code>LaTex</code></td> 
-</tr> 
-<tr> 
+    <td align="center"></td> 
     <td align="left"><i><a href="http://docpp.sourceforge.net">Doc++</a></i></td> 
-    <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
-</tr> 
-<tr> 
     <td align="left"><i><a href="http://www.stack.nl/%7Edimitri/doxygen/">Doxygen</a></i></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> <td align="center"></td> <td align="center"></td> 
-    <td align="center"><i>Yes</i> (plugin)</td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
-</tr> 
-<tr> 
     <td align="left"><i><a href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/HeaderDoc/intro/intro.html">HeaderDoc</a></i></td> 
-    <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> <td align="center"></td> 
-</tr> 
-<tr> 
-    <td align="left"><i><a href="http://www.naturaldocs.org">Natural Docs</a></i></td> 
-    <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i> (partial)</td> <td align="center"><i>Yes</i> (partial)</td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> <td align="center"></td> 
-</tr> 
-<tr> 
+  <td align="left"><i><a href="http://www.naturaldocs.org">Natural Docs</a></i></td> 
     <td align="left"><i><a href="https://rfsber.home.xs4all.nl/Robo/">RoBODoc</a></i></td> 
-    <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i> (plugin)</td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
+    <td align="left"><i><a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a></i></td> 
 </tr> 
 <tr> 
-    <td align="left"><i><a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a></i></td> 
+    <td align="center" rowspan="12" bgcolor="#e6e6e6"><b>Programming languages</b></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>C/C++</code></td> 
     <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i>(partial)</td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>C#</code></td> 
+    <td align="center"></td> 
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td> 
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td> 
+    <td align="center"></td> 
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>Java</code></td> 
+    <td align="center"><i>Yes</i></td> 
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td> 
+    <td align="center"><i>Yes</i> (partial)</td> 
+    <td align="center"><i>Yes</i></td> 
+    <td align="center"></td> 
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>Python</code></td> 
+    <td align="center"></td>  
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td> 
+    <td align="center"><i>Yes</i> (partial)</td> 
+    <td align="center"><i>Yes</i></td> 
+    <td align="center"><i>Yes</i></td> 
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>JavaScript</code></td> 
+    <td align="center"></td> 
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td> 
+    <td align="center"><i>Yes</i></td> 
+    <td align="center"><i>Yes</i></td> 
+    <td align="center"><i>Yes</i></td> 
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>IDL</code></td> 
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td> 
     <td align="center"></td> 
     <td align="center"><i>Yes</i></td> 
     <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> 
-    <td align="center"></td> <td align="center"></td> <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>PHP</code></td> 
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i> (partial)</td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+ </tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>Perl</code></td> 
+    <td align="center"></td>
+    <td align="center"></td>
+     <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>Ruby</code></td> 
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i> (partial)</td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>SQL</code></td> 
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i> (partial)</td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>Visual Basic</code></td> 
+    <td align="center"></td>
+    <td align="center"><i>Yes</i> (plugin)</td>
+    <td align="center"></td>
+    <td align="center"><i>Yes</i> (partial)</td>
+    <td align="center"><i>Yes</i> (plugin)</td>
+    <td align="center"></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>R</code></td> 
     <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> 
     <td align="center"></td> 
-    <td align="center"><i>Yes</i></td> <td align="center"><i>Yes</i></td> 
+    <td align="center"></td> 
+    <td align="center"></td> 
+    <td align="center"></td> 
+    <td align="center"></td> 
+</tr> 
+<tr> 
+    <td align="center" rowspan="7" bgcolor="#e6e6e6"><b>Output types</b></td> 
+    <td align="center" bgcolor="#e6e6e6"><code>HTML</code></td> 
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>XML</code></td> 
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>DocBook</code></td> 
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>man</code></td> 
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>RTF</code></td> 
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>PDF/PS</code></td> 
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+</tr> 
+<tr> 
+    <td align="center" bgcolor="#e6e6e6"><code>LaTex</code></td> 
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"><i>Yes</i></td>
+    <td align="center"><i>Yes</i></td>
 </tr> 
 </table>
 
