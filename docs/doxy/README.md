@@ -40,7 +40,7 @@ as well as the tools and commands to automatically [extract the inline documenta
   + [`bash` rules](guidelines.md#bash_rules).
   + [`DOS` rules](guidelines.md#DOS_rules).
 * [usage](usage.md): Usage of the script for the extraction of the documentation.
-* [examples](examples.md): Example of generation of an online browsable documentation(s)
+* [examples](examples.md): Examples of generation of online browsable documentation.
 
 ##### Note
 

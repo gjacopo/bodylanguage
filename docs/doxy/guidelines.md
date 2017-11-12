@@ -1,5 +1,7 @@
 ##### `doxy@ESTAT` guidelines
 
+<hr size="5" style="color:black;background-color:black;" />
+
 ###### <a name="Generic_rules"></a>Generic rules
 
 We adopt a common template for documentation, with the following rules:
@@ -44,6 +46,8 @@ _e.g._,  for `SAS` macros, `---sas` or  `~~~sas` is used; the actual list of lex
 	[<program_name>](@ref <language>_<program_name>).
 	~~~
 
+<hr size="5" style="color:black;background-color:black;" />
+
 ###### <a name="SAS_rules"></a>`SAS` programs
 
 The documentation of `SAS` programs is inserted as described above, in the header of the program as a comment. Further, we also require that:
@@ -51,9 +55,13 @@ The documentation of `SAS` programs is inserted as described above, in the heade
 * the core program (code) is inserted in between the following anchor marks: `/** \cond */`
 and `/** \endcond */`.
 
+<hr size="5" style="color:black;background-color:black;" />
+
 ###### <a name="Stata_rules"></a>`Stata` programs
 
 _Ibid_, the documentations of `SAS` and `Stata` programs look alike (including the use of `/**` and `*/` anchors).
+
+<hr size="5" style="color:black;background-color:black;" />
 
 ###### <a name="R_rules"></a>`R` programs
 
@@ -62,8 +70,16 @@ Similarly, the documentation of `R` program follows the generic template, with t
 * two additional anchors: `#cond` and `#endcond`** need to be inserted around the documentation so as to distinguish it from other comments, 
 * all examples and code excerpts shall be preceded with the `>` symbol (like in `R` console).
 
+<hr size="5" style="color:black;background-color:black;" />
+
 ###### <a name="Python_rules"></a>`Python` programs
+
+<hr size="5" style="color:black;background-color:black;" />
 
 ###### <a name="bash_rules"></a>`bash` scripts
 
+<hr size="5" style="color:black;background-color:black;" />
+
 ###### <a name="DOS_rules"></a>`DOS` scripts
+
+<hr size="5" style="color:black;background-color:black;" />
