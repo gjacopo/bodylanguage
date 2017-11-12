@@ -34,7 +34,7 @@ as well as the tools and commands to automatically [extract the inline documenta
 _Generic rules_
 
 We adopt a common template for documentation, with the following rules:
-* A level-2 header (with the `'##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
+* A level-2 header (with the `##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
 * A reference built as the string concatenating a prefix (usually defined as the name of the programing language) with the program name itself, is added to the program name in the header, _i.e._:
 
 	~~~
@@ -48,14 +48,14 @@ _e.g._,  the first line of the documentation the `SAS` macro  `quantile.sas` wil
 	~~~
 	### Arguments
 	* `input1` : main input argument;
-	* `input2` : (_option_) second optional argument, with default value;
+	* `input2` : (_option_) second optional argument, with default value.
 	~~~
 * The output(s) of the program is (are) listed under the header `### Returns`, _i.e._:
 
 	~~~
 	### Returns
 	* `output1` : first output argument;
-	* `output2` : second output argument;
+	* `output2` : second output argument.
 	~~~
 * All example(s) appear after the header `### Example` (or `### Examples`).
 * Indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax established in markdown, using 3 hyphens or tilde concatenated with the language shortname, _i.e._:
@@ -77,28 +77,28 @@ _e.g._,  for `SAS` macros, `---sas` or  `~~~sas` is used; the actual list of lex
 
 _`SAS` programs_
 
-As mentioned above, the documentation of SAS programs is inserted in the header of the program as a comment. More precisely, we impose that:
-*. **the documentation (markdown language) shall be inserted in between the symbols: `/**` and `*/`**.
+The documentation of `SAS` programs is inserted as described above, in the header of the program as a comment. Further, we also require that:
+* the documentation (markdown language) is inserted in between the symbols: `/**` and `*/`,
+* the core program (code) is inserted in between the following anchor marks: `/** \cond */`
+and `/** \endcond */`.
 
-Further, we also require that:
-*. **the core program (SAS code) shall be inserted in between the following anchor marks: `/** \cond */`
-and `/** \endcond */`**.
+_`Stata` programs_
+
+_Ibid_, the documentations of `SAS` and `Stata` programs look alike (including the use of `/**` and `*/` anchors).
 
 _`R` programs_
 
-Similarly, the documentation shall be inserted in the header of the program as a comment, hence
-after the `#` symbol. In practice, **you will further need to insert the desired documentation in-between 
-two anchors: `#cond` and `#endcond`** so as to recognise the text as specific to the documentation (and
-differentiate from other comments). 
+Similarly, the documentation of `R` program follows the generic template, with the following specificities:
+* the documentation is inserted in the header of the program as a comment, hence after the `#` symbol,
+* two additional anchors: `#cond` and `#endcond`** need to be inserted around the documentation so as to distinguish it from other comments, 
+* all examples and **code excerpts shall be preceded with the `>` symbol** (like in `R` console).
 
-The common template for code documentation is exactly the same as the one used for SAS, with the 
-following exceptions: 
-* the reference used for a program is defined as the **name of the program to which the prefix string `r_`**
-is added (instead of `sas_` above),
-* all examples and **code excerpts shall be preceded with the `>` symbol** (like in R console),
-* indented code blocks can be inserted but fenced code blocks are also preferred; they are defined 3 hyphens 
-  or tilde concatenated with `r` shortname, hence `---r` or `~~~r` (for 
-  [pygmentation](http://pygments.org/docs/lexers/#pygments.lexers.r.SLexer)),
+_`Python` programs_
+
+_`bash` scripts_
+
+_`DOS` scripts_
+
 
 **<a name="Usage"></a>Usage**
 
