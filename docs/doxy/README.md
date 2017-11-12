@@ -50,9 +50,9 @@ _e.g._,  the first line of the documentation the `SAS` macro  `quantile.sas` wil
 * Indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax established in markdown, using 3 hyphens or tilde concatenated with the language shortname, _i.e._:
 
 	~~~
-	 ~~~<language>
-	 <code_block>
-	 ~~~
+	  ~~~<language>
+	  <code_block>
+	  ~~~
 	~~~
 
 _e.g._,  for `SAS` macros, `---sas` or  `~~~sas` is used; the actual list of lexers that can be used is available under the [`Pygments` page](http://pygments.org/docs/lexers/#lexer-for-sas).
