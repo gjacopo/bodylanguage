@@ -26,11 +26,11 @@ In this aspect, we hereby provide with the common guidelines and templates to in
 * [R programs](Rdoc) (_e.g._ functions), and
 * [Stata programs](Statadoc) (_e.g._ functions),
 
-as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/progamming languages. 
+as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/programing languages. 
 
 <table>
 <tr>
-<td align="centre"><kbd><img src="examples.png" alt="examples quantile" width="700"  align="centre"> </kbd></td>
+<td align="centre"><kbd><img src="examples.png" alt="example PING quantile" width="700"  align="centre"> </kbd></td>
 </tr>
 <footer>
 <td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
@@ -39,64 +39,17 @@ as well as the tools and commands to automatically [extract the inline documenta
 
 **<a name="Usage"></a>Usage**
 
-<a name="SASdoc"></a>_Document your `SAS` programs_
+First, document your :
+* <a name="SASdoc"></a>[`SAS` programs/macros](document_sas),
+* <a name="Rdoc"></a>[ `R` programss/fucntions](document_r), and
+* <a name="Statadoc"></a>[`Stata` programs/fucntions](document_stata), 
 
-As mentioned above, the documentation of SAS programs is inserted in the header of the program as a comment. 
-More precisely, we impose that:
-* **the documentation (markdown language) shall be inserted in between the symbols: `/**` and `*/`**.
-
-Further, we also require that:
-* **the core program (SAS code) shall be inserted in between the following anchor marks: `/** \cond */`
-and `/** \endcond */`**.
-
-You will also need to adopt a common template for documentation:
-* the reference used for a program/macro is defined as the **name of the program to which the prefix string `sas_`**
-* arguments of a macro shall be listed under the header `### Arguments`,
-* outputs shall shall be listed under the header `### Returns`,
-* example(s) shall appear after the header `### Example` (`### Examples`); 
-* indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax 
-  established in markdown, using 3 hyphens or tilde concatenated with `sas` shortname, hence `---sas` or
-  `~~~sas` (both, in principle, supported for [pygmentation](http://pygments.org/docs/lexers/#lexer-for-sas),
-* note(s) shall appear after the header `### Note` (`### Notes`),
-* reference(s) related to the programs/macros shall be listed under `### Reference` (`### References`), 
-* all other related programs/macros shall appear after the header `### See also`.
-
-<a name="Rdoc"></a>_Document your `R` programs_
-
-Similarly, the documentation shall be inserted in the header of the program as a comment, hence
-after the `#` symbol. In practice, **you will further need to insert the desired documentation in-between 
-two anchors: `#cond` and `#endcond`** so as to recognise the text as specific to the documentation (and
-differentiate from other comments). 
-
-The common template for code documentation is exactly the same as the one used for SAS, with the 
-following exceptions: 
-* the reference used for a program is defined as the **name of the program to which the prefix string `r_`**
-is added (instead of `sas_` above),
-* all examples and **code excerpts shall be preceded with the `>` symbol** (like in R console),
-* indented code blocks can be inserted but fenced code blocks are also preferred; they are defined 3 hyphens 
-  or tilde concatenated with `r` shortname, hence `---r` or `~~~r` (for 
-  [pygmentation](http://pygments.org/docs/lexers/#pygments.lexers.r.SLexer),
-
-<a name="htmldoc"></a>_Generate the documentation_
-
-So as to automatically generate the documentation (like this one), you will need:
-* a script of extraction of the `markdown` formatted documentation from program files into pure _markdown_ 
-files,
-* a documentation generator that creates the user-friendly browsable documentation from the _markdown_ files.
-
-As for the documentation extractor, you can use a bash script (hereby named `rsas2mddoc.sh`) specifically developed for this purpose. This ad-hoc program enables you to retrieve automatically the markdown formatted documentation 
-inserted in R/SAS files (as described above), and store the resulting excerpts into separated files.
- 
-This script is located under the documentation folder `documentation\bin`. It works as an inline command:
-
-that can be launched from any terminal so as to generate a bulk of `markdown` files (with `.md` extension) into the `documentation\md\library` folder. The associated help looks like the following:
-
-The resuiting `markdown` files will look exactly like the headers in your programs with the exception of the `/*` (or `/**`) and `*/` anchors. Then, [_doxygen_](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full set of guidelines/best practices for running this software is available in the 
-[dedicated section](http://www.stack.nl/~dimitri/doxygen/manual/starting.html) of the doxygen website.
+then you can easily <a name="htmldoc"></a>[generate the documentation](generate_documentation).
 
 **<a name="Example"></a>Example**
 
-
+Some actual use of the script and implementation how-to's:
+* <a name="SASdoc"></a>[`PING` documentation](example_ping).
 
 **<a name="Objectives"></a>Rationale**
  

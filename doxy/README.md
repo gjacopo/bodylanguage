@@ -28,11 +28,11 @@ In this aspect, we hereby provide with the common guidelines and templates to in
 * [R programs](Rdoc) (_e.g._ functions), and
 * [Stata programs](Statadoc) (_e.g._ functions),
 
-as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/progamming languages. 
+as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/programing languages. 
 
 <table>
 <tr>
-<td align="centre"><kbd><img src="https://github.com/gjacopo/bodylanguage/blob/master/docs/doxy/examples.png" alt="examples quantile" width="700"  align="centre"> </kbd></td>
+<td align="centre"><kbd><img src="https://github.com/gjacopo/bodylanguage/blob/master/docs/doxy/example_ping.png" alt="example PING quantile" width="700"  align="centre"> </kbd></td>
 </tr>
 <footer>
 <td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
