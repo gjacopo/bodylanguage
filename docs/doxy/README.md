@@ -24,37 +24,46 @@ The rationale behind these choices are explained [**here**](rationale.md).
 
 Moreover, rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**. Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
 In this aspect, we hereby provide with the common guidelines and templates to inline document:
-* [`SAS`, `R`, `Stata` and `Python` programs/functions,
+* `SAS`, `R`, `Stata` and `Python` programs/functions,
 * `bash` and `DOS` scripts.
 
 as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/programing languages. 
 
 **<a name="Guidelines"></a>Guidelines**
 
-###### _Gerneric guidelines_
+_Generic rules_
 
-We adopt a common template for documentation:
-* the reference used for a program/macro is defined as the **name of the program to which the prefix string `sas_`**
-* arguments of a macro shall be listed under the header `### Arguments`,
-* outputs shall shall be listed under the header `### Returns`,
-* example(s) shall appear after the header `### Example` (`### Examples`); 
-* indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax 
-  established in markdown, using 3 hyphens or tilde concatenated with `sas` shortname, hence `---sas` or
-  `~~~sas` (both, in principle, supported for [pygmentation](http://pygments.org/docs/lexers/#lexer-for-sas),
-* note(s) shall appear after the header `### Note` (`### Notes`),
-* reference(s) related to the programs/macros shall be listed under `### Reference` (`### References`), 
-* all other related programs/macros shall appear after the header `### See also`.
+We adopt a common template for documentation, with the following rules:
+* A `markdown` level-2 header (with the `'##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
+* A `markdown` reference built as the string concatenating a prefix (usually defined as the name of the programing language) with the program name itself, is added to the program name in the header, _i.e._:
 
-###### _`SAS` programs_
+	## <program_name> {#<language>_<program_name>}
+
+_e.g._,  the first line of the documentation the `SAS` macro  `quantile.sas` will look like this: `## quantile {#sas_quantile}`.
+* The arguments of the program are listed under the level-3 header `### Arguments`.
+* Its outputs are listed under the header `### Returns`.
+* All example(s) appear after the header `### Example` (or `### Examples`).
+* Indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax established in markdown, using 3 hyphens or tilde concatenated with the language shortname, _i.e._:
+
+	~~~<language>
+	<code_block>
+	~~~
+
+_e.g._,  for `SAS` macros, ---sas` or  `~~~sas` is used; the actual list of lexers that can be used is available under the [`Pygments` page](http://pygments.org/docs/lexers/#lexer-for-sas).
+* Note(s)/remark(s) appear(s) after the header `### Note` (`### Notes`).
+* Reference(s) related to the programs/macros is (are) listed under `### Reference` (`### References`).
+* All other related programs/macros shall appear after the header `### See also`.
+
+_`SAS` programs_
 
 As mentioned above, the documentation of SAS programs is inserted in the header of the program as a comment. More precisely, we impose that:
-1. **the documentation (markdown language) shall be inserted in between the symbols: `/**` and `*/`**.
+*. **the documentation (markdown language) shall be inserted in between the symbols: `/**` and `*/`**.
 
 Further, we also require that:
-2. **the core program (SAS code) shall be inserted in between the following anchor marks: `/** \cond */`
+*. **the core program (SAS code) shall be inserted in between the following anchor marks: `/** \cond */`
 and `/** \endcond */`**.
 
-###### `R` programs_
+_`R` programs_
 
 Similarly, the documentation shall be inserted in the header of the program as a comment, hence
 after the `#` symbol. In practice, **you will further need to insert the desired documentation in-between 
