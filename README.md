@@ -6,7 +6,7 @@ Various (useless) supporting material and/or prototypes
 
 **About**
 
-This material is meant as working solution or proof of concept in (less-)use at ESTAT.
+These materials are meant as working solutions, prototypes or proofs of concept in (no-)use at ESTAT.
 
 <table align="center">
     <tr> <td align="left"><i>documentation</i></td> <td align="left">available at: https://gjacopo.github.io/bodylanguage/</td> </tr> 
