@@ -22,15 +22,14 @@ To do so, we suggest to adopt a common way for describing and documenting source
 
 The rationale behind these choices are explained [**here**](rationale.md).
 
-Moreover, rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**. Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
+##### Table of Contents
+
+Rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**. Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
 In this aspect, we hereby provide with the common guidelines and templates to inline document:
 * `SAS`, `R`, `Stata` and `Python` programs/functions,
 * `bash` and `DOS` scripts.
 
 as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/programing languages. 
-
-
-##### Table of Contents
 
 * [guidelines](guidelines.md): Set of guidelines used for the documentation of various programs (function/macro/script/...) in different languages.
   + [generic rules](guidelines.md#Generic_rules).
