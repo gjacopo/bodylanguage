@@ -1,6 +1,6 @@
 #### `doxy@ESTAT` -- Guidelines and tools for generic code documentation (`R`/`SAS`/`Stata`).
 
-**About**
+##### About
 
 We provide hereby a set of common guidelines and templates for a generic inline source code documentation (using `markdown` language) as well a  `bash` script for the automatic generation of a derived online documentation (using `Doxygen` generator). 
 
@@ -86,21 +86,21 @@ and `/** \endcond */`.
 
 _Ibid_, the documentations of `SAS` and `Stata` programs look alike (including the use of `/**` and `*/` anchors).
 
-_`R` programs_
+###### `R` programs
 
 Similarly, the documentation of `R` program follows the generic template, with the following specificities:
 * the documentation is inserted in the header of the program as a comment, hence after the `#` symbol,
 * two additional anchors: `#cond` and `#endcond`** need to be inserted around the documentation so as to distinguish it from other comments, 
 * all examples and code excerpts shall be preceded with the `>` symbol (like in `R` console).
 
-_`Python` programs_
+###### `Python` programs
 
-_`bash` scripts_
+###### `bash` scripts
 
-_`DOS` scripts_
+###### `DOS` scripts
 
 
-**<a name="Usage"></a>Usage**
+##### Usage
 
 First, document your source code file(s) according to the guidelines above. Given such source file(s), you can then run the script [`src2mddoc.sh`](https://github.com/gjacopo/bodylanguage/blob/master/doxy/src2mddoc.sh) with the following syntax:
 
@@ -118,7 +118,7 @@ where the parameters are:
 so as to extract the documentation header(s) from the source file(s) and create one or several `markdown` formatted files containing the documentation alone. This(ese) file(s) can then be used to generate the online/browsable documentation. 
 In a last stage, you can easily <a name="htmldoc"></a>[generate the documentation](generate_documentation).
 
-**<a name="Example"></a>Example**
+##### Example
 
 Some actual use of the script and implementation how-to's:
 * <a name="SASdoc"></a>[`PING` documentation](example_ping) whose generated documentation can be found [here](https://gjacopo.github.io/PING/).
@@ -132,11 +132,11 @@ Some actual use of the script and implementation how-to's:
 </footer>
 </table>
 
-**<a name="Notes"></a>Notes**
+##### Remark
 
 The approach proposed herein is adapted to the documenting of stand-alone programs and processes.
 
-**<a name="References"></a>References**
+##### References
 
 * Grazzini J. and Lamarche P. (2017): [**Production of social statistics... goes social!**](https://www.conference-service.com/NTTS2017/documents/agenda/data/abstracts/abstract_124.html), in _Proc.  New Techniques and Technologies for Statistics_.
 * Grazzini J. and Pantisano F. (2015): [**Collaborative research-grade software for crowd-sourced data exploration: from context to practice - Part I: Guidelines for scientific evidence provision for policy support based on Big Data and open technologies**](http://publications.jrc.ec.europa.eu/repository/bitstream/JRC94504/lb-na-27094-en-n.pdf), _Publications Office of the European Union_, doi:[10.2788/329540](http://dx.doi.org/10.2788/329540).
