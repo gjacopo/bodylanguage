@@ -37,19 +37,23 @@ We adopt a common template for documentation, with the following rules:
 * A `markdown` level-2 header (with the `'##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
 * A `markdown` reference built as the string concatenating a prefix (usually defined as the name of the programing language) with the program name itself, is added to the program name in the header, _i.e._:
 
+	~~~
 	## <program_name> {#<language>_<program_name>}
-
+	~~~
+	
 _e.g._,  the first line of the documentation the `SAS` macro  `quantile.sas` will look like this: `## quantile {#sas_quantile}`.
+* A short description of the program is inserted below the header.
+* The syntax of the program is also added to the documentation.
 * The arguments of the program are listed under the level-3 header `### Arguments`.
-* Its outputs are listed under the header `### Returns`.
+* The outputs of the program are listed under the header `### Returns`.
 * All example(s) appear after the header `### Example` (or `### Examples`).
 * Indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax established in markdown, using 3 hyphens or tilde concatenated with the language shortname, _i.e._:
 
-	~~~<language>
+	 ~~~<language>
 	<code_block>
-	~~~
+	 ~~~
 
-_e.g._,  for `SAS` macros, ---sas` or  `~~~sas` is used; the actual list of lexers that can be used is available under the [`Pygments` page](http://pygments.org/docs/lexers/#lexer-for-sas).
+_e.g._,  for `SAS` macros, `---sas` or  `~~~sas` is used; the actual list of lexers that can be used is available under the [`Pygments` page](http://pygments.org/docs/lexers/#lexer-for-sas).
 * Note(s)/remark(s) appear(s) after the header `### Note` (`### Notes`).
 * Reference(s) related to the programs/macros is (are) listed under `### Reference` (`### References`).
 * All other related programs/macros shall appear after the header `### See also`.
