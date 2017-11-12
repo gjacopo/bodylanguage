@@ -9,11 +9,23 @@ enable to export bibliographical references into a searchable table using [`JabR
 
 Currently, the output `html` table contains the following fields (headers):
 
-| Link | Dataset | Project | Title | Keywords |	Source | Year | Lang. |
-|------|---------|---------|-------|----------|--------|------|-------|
+<table>
+<tr>
+<td align="centre"><b>Link</b></td>
+ <td align="centre"><b>Dataset</b></td> 
+ <td align="centre"><b>Project</b></td>
+ <td align="centre"><b>Title</b></td> 
+ <td align="centre"><b>Keywords</b></td>
+ <td align="centre"><b>Source</b></td> 
+ <td align="centre"><b>Year</b></td> 
+ <td align="centre"><b>Lang</b></td>
+</tr>
+</table>
 
 but this can be easily modified following again the instructions of the site above. 
-When the `BibTeX` bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-basis-eurostat-microdata_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created. You can visualise the output at the page [`pub-html/pub-standalone.html`](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-html/pub-standalone.html) and renders like the following: ![pub-image](pub-standalone.png) 
+When the `BibTeX` bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-basis-eurostat-microdata_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created. You can visualise the output at the page [`pub-html/pub-standalone.html`](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-html/pub-standalone.html) and renders like the following:
+
+![pub-image](pub-standalone.png) 
 
 As stated above, using that same `pub.bib` file, different arrangements of columns can be set by changing the layout file `pub.bib`. Other possible formatted outputs have been exported and stored under the `pub-export` folder (namely, `Endnote`, `BibTeXML`, `RIS`, `MySQL` and `csv`). See also the mock-up page below.
 

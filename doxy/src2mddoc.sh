@@ -80,8 +80,8 @@ function help() {
     echo "";
     echo "Parameters";
     echo "----------";
-    echo " <input>    :   input defined as either a filename storing some (R/SAS/Stata/…)”;
-    echo “                source code, or a directory containing such files;";
+    echo " <input>    :   input defined as either a filename storing some (R/SAS/Stata/…)g";
+    echo "                source code, or a directory containing such files;";
     echo " -f <name>  :   output name; it is either the name of the output file (with or";
     echo "                without ‘.md’ extension) when the parameter <input> (see above)";
     echo "                is passed as a file, or a generic suffix to be added to the";
@@ -102,7 +102,7 @@ function help() {
     echo "The documentation is read directly from the headers of the source code files and";
     echo "follows a common framework (template):";
     echo "  * for R files, it shall be inserted like comments (i.e. preceded by #) and in";
-    echo "  between two anchors: #STARTDOC and #ENDDOC,";
+    echo "  between two anchors: ## and ##,";
     echo "  * for SAS files, it shall be inserted like comments in /** and */ signs.";
     echo "";
     echo "Examples";

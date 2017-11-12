@@ -1,5 +1,5 @@
 doxy@ESTAT
-=============
+===========
 
 Guidelines and tools for generic code documentation (`R`/`SAS`/`Stata`).
 ---
@@ -20,7 +20,7 @@ Say it otherwise, it should address the needs of all different _produsers'_ prof
 For that reason, it should be made available not only as an **inline documentation** (visible by those who actually implement the code, _e.g._ through comments in the code), but as a **portable document** (visible by those who run the code, _e.g._ through a browsable interface like html) as well.
 To do so, we suggest to adopt a common way for describing and documenting source code/programs regardless of the platform (language, software) used for the implementation. The solution we propose in practice is the following:
 * **an "inline" documentation is systematically inserted in the header** (_e.g._, top of the program file storing a macro, a function, _etc_...),
-* **the documentation appears as comments** inside the programs (_e.g._, in between `/*` and `*/` marks for many languages),
+* **this documentation appears as comments** inside the programs (_e.g._, in between `/*` and `*/` marks for many languages),
 * **human-readable language [`markdown`](https://daringfireball.net/projects/markdown/) is adopted** for writing the source code documentation,
 * **documentation generator [`Doxygen`](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
 
@@ -43,7 +43,7 @@ as well as the tools and commands to automatically [extract the inline documenta
 
 **<a name="Usage"></a>Usage**
 
-<a name="SASdoc"></a>_Document your `SAS` programs_
+###### _Document your `SAS` programs_
 
 As mentioned above, the documentation of SAS programs is inserted in the header of the program as a comment. 
 More precisely, we impose that:
@@ -65,7 +65,7 @@ You will also need to adopt a common template for documentation:
 * reference(s) related to the programs/macros shall be listed under `### Reference` (`### References`), 
 * all other related programs/macros shall appear after the header `### See also`.
 
-<a name="Rdoc"></a>_Document your `R` programs_
+###### <a name="Rdoc"></a>_Document your `R` programs_
 
 Similarly, the documentation shall be inserted in the header of the program as a comment, hence
 after the `#` symbol. In practice, **you will further need to insert the desired documentation in-between 
@@ -81,7 +81,7 @@ is added (instead of `sas_` above),
   or tilde concatenated with `r` shortname, hence `---r` or `~~~r` (for 
   [pygmentation](http://pygments.org/docs/lexers/#pygments.lexers.r.SLexer)),
 
-<a name="htmldoc"></a>_Generate the documentation_
+###### <a name="htmldoc"></a>_Generate the documentation_
 
 So as to automatically generate the documentation (like this one), you will need:
 * a script of extraction of the `markdown` formatted documentation from program files into pure _markdown_ 
@@ -95,7 +95,7 @@ This script is located under the documentation folder `documentation\bin`. It wo
 
 that can be launched from any terminal so as to generate a bulk of `markdown` files (with `.md` extension) into the `documentation\md\library` folder. The associated help looks like the following:
 
-The resuiting `markdown` files will look exactly like the headers in your programs with the exception of the `/*` (or `/**`) and `*/` anchors. Then, [`Doxygen`](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full set of guidelines/best practices for running this software is available in the 
+The resulting `markdown` files will look exactly like the headers in your programs with the exception of the `/*` (or `/**`) and `*/` anchors. Then, [`Doxygen`](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full set of guidelines/best practices for running this software is available in the 
 [dedicated section](http://www.stack.nl/~dimitri/doxygen/manual/starting.html) of the doxygen website.
 
 **<a name="Example"></a>Example**
