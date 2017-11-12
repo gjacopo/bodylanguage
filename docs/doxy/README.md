@@ -4,7 +4,9 @@
 
 **About**
 
-We provide hereby a set of guidelines and templates for a generic inline source code documentation (using _markdown_ language) as well as some scripts for the automatic generation of a derived online documentation (using _Doxygen_ generator). This material aims at **supporting the development, sharing and reuse of open IT components**, _e.g._, deployed in production environment, and **ensuring complete transparency of in-house computational resources**, _e.g._ regardless of the platform used for the implementation ([Grazzini and Pantisano, 2015; Grazzini and Lamarche, 2017](#References)). 
+We provide hereby a set of guidelines and templates for a generic inline source code documentation (using _markdown_ language) as well a  `bash` script for the automatic generation of a derived online documentation (using _Doxygen_ generator). 
+
+This material aims at **supporting the development, sharing and reuse of open IT components**, _e.g._, deployed in production environment, and **ensuring complete transparency of in-house computational resources**, _e.g._ regardless of the platform used for the implementation ([Grazzini and Pantisano, 2015; Grazzini and Lamarche, 2017](#References)). 
 
 **<a name="Description"></a>Description**
 
@@ -21,15 +23,6 @@ To do so, we suggest to adopt a common way for describing and documenting source
 * **documentation generator [_Doxygen_](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
 
 The rationale behind these choices are explained [**here**](rationale.md).
-
-<table>
-<tr>
-<td align="centre"><kbd><img src="example_ping.png" alt="example PING quantile" width="700"  align="centre"> </kbd></td>
-</tr>
-<footer>
-<td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
-</footer>
-</table>
 
 Moreover, rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**. Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
 In this aspect, we hereby provide with the common guidelines and templates to inline document:
@@ -51,7 +44,16 @@ then you can easily <a name="htmldoc"></a>[generate the documentation](generate_
 **<a name="Example"></a>Example**
 
 Some actual use of the script and implementation how-to's:
-* <a name="SASdoc"></a>[`PING` documentation](example_ping).
+* <a name="SASdoc"></a>[`PING` documentation](example_ping) whose generated documentation can be found [here](https://gjacopo.github.io/PING/).
+
+<table>
+<tr>
+<td align="centre"><kbd><img src="example_ping.png" alt="example PING quantile" width="700"  align="centre"> </kbd></td>
+</tr>
+<footer>
+<td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
+</footer>
+</table>
 
 **<a name="Notes"></a>Notes**
 The approach proposed herein is adapted to the documenting of stand-alone programs and processes.

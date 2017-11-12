@@ -24,11 +24,12 @@ esac
 
 ROOTDIR=${DRIVE}/z
 # \\s-isis.eurostat.cec\0eusilc
+ROOTDIR=z:
 
 DOCGEN=${DRIVE}/c/PGM/doxygen/bin/doxygen.exe
 
-PINGDIR=${ROOTDIR}/development/PING
-DIRDOC=${PINGDIR}/documentation
+PINGDIR=${ROOTDIR}/PING
+DIRDOC=${PINGDIR}/docs
 
 CFG_DIR=${DIRDOC}/dox
 CFG_RELDIR=../dox
@@ -104,7 +105,9 @@ fi
  
  
 ## set output parameters
-input_directory=${DIRDOC}/md
+input_directory=${DIRDOC}/md/
+static_directory=${input_directory}/__static
+module_directory=${input_directory}/__static/modules
 output_directory=${DIRDOC}/
 
 doxygen_directory=${DIRDOC}/dox
@@ -240,6 +243,8 @@ fi
 
 export PINGDIR=${PINGDIR}
 export INPUT_DIRECTORY=${input_directory}
+export STATIC_DIRECTORY=${static_directory}
+export MODULE_DIRECTORY=${module_directory}
 export OUTPUT_DIRECTORY=${output_directory}
 export DOXYGEN_DIRECTORY=${doxygen_directory}
 export IMAGE_DIRECTORY=${image_directory}

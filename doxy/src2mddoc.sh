@@ -34,7 +34,13 @@ EXTS=("${SASEXT}" "${REXT}" "${STATAEXT}")
 PROGRAM=`basename $0`
 TODAY=`date +'%y%m%d'` # `date +%Y-%m-%d`
 
-BASH_VERS=${BASH_VERSION%%[^0-9.]*}
+BASHVERS=${BASH_VERSION%.*}
+
+# requirements
+
+hash find 2>/dev/null || { echo >&2 " !!! Command FIND required but not installed - Aborting !!! "; exit 1; }
+hash awk 2>/dev/null || { echo >&2 " !!! Command AWK required but not installed - Aborting !!! "; exit 1; }
+hash cat 2>/dev/null ||  { echo >&2 " !!! Command CAT required but not installed - Aborting !!! "; exit 1; }
 
 case "$(uname -s)" in
     Linux*)     MACHINE=Linux;;
@@ -46,20 +52,6 @@ case "$(uname -s)" in
     SunOS*)     MACHINE=SunOS;;
     *)          MACHINE="UNKNOWN:${OSTYPE}"
 esac
-
-#function trim() {
-#    local var="$*"
-#    var="${var#"${var%%[![:space:]]*}"}" # remove leading whitespace characters
-#    var="${var%"${var##*[![:space:]]}"}"  # remove trailing whitespace characters
-#    echo -n "$var"
-#}
-#if [ "${MACHINE}" == "Cygwin" ]; then
-#    DRIVE=$(echo `mount --show-cygdrive-prefix` | sed -e 's/Prefix//;s/Type//;s/Flags//;s/user//;s/binmode//')
-#else
-#    DRIVE=/
-#fi 
-#DRIVE=`trim $DRIVE`
-# ""
 
 ## usage and help
 
@@ -142,49 +134,70 @@ function help() {
 
 ## useful function declarations
 
-function contains () {
-    for e in "${@:2}"; do [[ "$e" = "$1" ]] && return 0; done; 
-    #local e match="$1"
-    #shift
-    #for e; do [[ "$e" == "$match" ]] && return 0; done
-    return 1
+function  greaterorequal (){
+	# arguments: 	1:numeric 2:numeric
+	# returns:	 	0 when argument $1 >= $2
+	#				1 otherwise
+	# note: 0 is the normal bash "success" return value (to be used in a "if...then" test)
+	return `awk -vv1="$1" -vv2="$2" 'BEGIN { print (v1 >= v2) ? 0 : 1 }'`
+	# hash bc 2>/dev/null && 	return $(bc <<< "$1 < $2") # we test the opposite, see the note above
+	# if [ ${1%.*} -eq ${2%.*} ] && [ ${1#*.} \> ${2#*.} ] || [ ${1%.*} -gt ${2%.*} ]; then
+	#	return 0
+	#else
+	#	return 1
+	#fi
 }
 
 function uppercase () {
-    if (( $(bc <<< "${BASH_VERS:0:3} < 3.3") )); then
-	echo  $( tr '[:lower:]' '[:upper:]' <<< $1)
-    else
-	echo ${1^^} # does not work on bash version < 3.3
-    fi
+	# argument: 	1:string
+	# returns: 		a uppercase version of $1
+	if `greaterorequal ${BASHVERS} 4`; then
+		echo ${1^^} # does not work on bash version < 4
+	else
+		echo  $( tr '[:lower:]' '[:upper:]' <<< $1)
+	fi
 }
 
 function lowercase () {
-    if (( $(bc <<< "${BASH_VERS:0:3} < 3.3") )); then
-       	echo  $( tr '[:upper:]' '[:lower:]' <<< $1)
-    else       
-	echo ${1,,} # does not work on bash version < 3.3
-    fi
+	# argument: 	1:string
+	# returns: 		a lowercase version of $1
+	if `greaterorequal ${BASHVERS} 4`; then
+		echo ${1,,} # does not work on bash version < 4
+	else
+		echo  $( tr '[:upper:]' '[:lower:]' <<< $1)
+	fi
+}
+
+function contains () {
+	# argument: 	1:value 2:list
+	# returns: 		0 when the value $1 appears (i.e., is contained) in the list $2
+	#				1 otherwise
+	# note: 0 is the normal bash "success" return value
+	local e match="$1"
+	shift
+	for e; do [[ "$e" == "$match" ]] && return 0; done
+	return 1
 }
 
 function regexMatch() { # (string, regex)
-    if (( $(bc <<< "${BASH_VERS:0:3} < 3.3") )); then
-       local string=$1	
-       if [[ ${2: -1} = $ ]]; then
-	   local regex="(${2%$})()()()()()()()()$"
-       else
-	   local regex="($2)()()()()()()()().*"
-       fi
-       regex=${regex//\//\\/}
-       local replacement="\1\n\2\n\3\n\4\n\5\n\6\n\7\n\8\n\9\n"
-       local oIFS=${IFS}
-       IFS=$'\n'
-       REMATCH=($(echo "$string" | /bin/sed -rn "s/$regex/$replacement/p" | while read -r; do echo "${REPLY}"; done))
-       IFS=${oIFS}
-       [[ $REMATCH ]] && return 0 || return 1
-   else
-       eval "[[ \$1 =~ \$2 ]]"
-       return $?
-   fi
+	if `greaterorequal ${BASHVERS} 3.3`; then
+		eval "[[ \$1 =~ \$2 ]]"
+		return $?
+    else
+		local string=$1	
+		if [[ ${2: -1} = $ ]]; then
+		local regex="(${2%$})()()()()()()()()$"
+		else
+		local regex="($2)()()()()()()()().*"
+		fi
+		regex=${regex//\//\\/}
+		local replacement="\1\n\2\n\3\n\4\n\5\n\6\n\7\n\8\n\9\n"
+		local oIFS=${IFS}
+		IFS=$'\n'
+		REMATCH=($(echo "$string" | /bin/sed -rn "s/$regex/$replacement/p" | while read -r; do echo "${REPLY}"; done))
+		IFS=${oIFS}
+		[[ $REMATCH ]] && return 0 || return 1
+	fi
 }
 
 ## set global parameters
@@ -327,58 +340,58 @@ for (( i=0; i<${nprogs}; i++ )); do
     #  - ${progname[$i]} itself when it is a file,
     #  - all the files in ${progname[$i]} when it is a directory.
     for file in `find ${progname[$i]} -type f`; do
-	# get the file basename 
-	f=`basename "$f"`
-	# get the extension
+		# get the file basename 
+		f=`basename "$f"`
+		# get the extension
         ext=`lowercase ${f##*.}`
-	# check that it is one of the types (i.e. programming languages) whose
-	# documentation is actually supported
-	! `contains ${ext} ${EXTS[@]}` && continue
-	# retrieve the desired output name based on generic FNAME and the MDEXT extension: 
-	# this will actually depend only on whether one single file was passed or not
-	([ ${nprogs} -eq 1 ] && ! [ -d ${progname[$0]} ])                               \
-	    && filename=${f%.*}${fname}.${MDEXT}                                        \
-	    || filename=${fname}.${MDEXT} 
-	# by convention, avoid occurrences of "__" in the output filename (note the presence
-	# of the parentheses)
-	[ ${pref} -eq 1 ]                                                               \
-	    && (regexMatch "${filename}" "^_.*"                                         \
-	    && filename=${ext}${filename}                                               \
-	    || filename=${ext}_${filename})
-	# finally add the output DIRNAME to the FILENAME
-	filename=${dirname}/${filename}
-        ([ ${verb} -eq 1 ] && ! [ ${test} -eq 1 ])                                      \
-	    && echo "    + processing $ext file $f => MD file $filename ..."
-	# run the extraction, e.g. for SAS and Stata files we do the following:
+		# check that it is one of the types (i.e. programming languages) whose
+		# documentation is actually supported
+		! `contains ${ext} ${EXTS[@]}` && continue
+		# retrieve the desired output name based on generic FNAME and the MDEXT extension: 
+		# this will actually depend only on whether one single file was passed or not
+		([ ${nprogs} -eq 1 ] && ! [ -d ${progname[$0]} ])                               \
+			&& filename=${f%.*}${fname}.${MDEXT}                                        \
+			|| filename=${fname}.${MDEXT} 
+		# by convention, avoid occurrences of "__" in the output filename (note the presence
+		# of the parentheses)
+		[ ${pref} -eq 1 ]                                                               \
+			&& (regexMatch "${filename}" "^_.*"                                         \
+			&& filename=${ext}${filename}                                               \
+			|| filename=${ext}_${filename})
+		# finally add the output DIRNAME to the FILENAME
+		filename=${dirname}/${filename}
+			([ ${verb} -eq 1 ] && ! [ ${test} -eq 1 ])                                      \
+			&& echo "    + processing $ext file $f => MD file $filename ..."
+		# run the extraction, e.g. for SAS and Stata files we do the following:
         #   (i) keep only the first lines between /** and */
         #   (ii) get rid of lines starting with /**
         #   (iii) get rid of lines starting with */
-	# which uses mostly the awk command like in the example below:
+		# which uses mostly the awk command like in the example below:
         #     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=2}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
         #     awk -F"\/\*\*" '{print $2}' $1  | awk -F"\*\/" '{print $1}' - > test2.txt
-	([ "${ext}" =  "${SASEXT}" ] || [ "${ext}" =  "${STATAEXT}" ])                       \
-	    && ${TESTECHO}                                                                   \
-	    awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=2}' ${file} \
-	    | awk '!/^ *\/\*\*/ { print; }' -                                                \
-	    | awk '!/^ *\*\// { print; }' - > $filename
-	# ibid for R files
-	[ "${ext}" = "${REXT}" ]                                                             \
-	    && ${TESTECHO}                                                                   \
-	    awk 'NF==0&&s==0{NR=0}NR==1&&$1=="##"{s=1}s==1{print $0}$NF=="##"{s=2}' ${file}  \
-	    | awk '!/^ *\#\#/ { print; }' -                                                  \
-	    | awk '!/^ *\#\#/ { print substr($0,2); }' - > $filename
-	# check that the file is not empty
-	! [ -s ${filename} ] && rm -f  ${filename}
-	# display in case of test
+		([ "${ext}" =  "${SASEXT}" ] || [ "${ext}" =  "${STATAEXT}" ])                       \
+			&& ${TESTECHO}                                                                   \
+			awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=2}' ${file} \
+			| awk '!/^ *\/\*\*/ { print; }' -                                                \
+			| awk '!/^ *\*\// { print; }' - > $filename
+		# ibid for R files
+		[ "${ext}" = "${REXT}" ]                                                             \
+			&& ${TESTECHO}                                                                   \
+			awk 'NF==0&&s==0{NR=0}NR==1&&$1=="##"{s=1}s==1{print $0}$NF=="##"{s=2}' ${file}  \
+			| awk '!/^ *\#\#/ { print; }' -                                                  \
+			| awk '!/^ *\#\#/ { print substr($0,2); }' - > $filename
+		# check that the file is not empty
+		! [ -s ${filename} ] && rm -f  ${filename}
+		# display in case of test
         if [ ${test} -eq 1 ];    then
-	    echo ""
-	    echo "Result of automatic Markdown extraction from test input file $f"
-	    echo "(first found in $progname directory)"
+			echo ""
+			echo "Result of automatic Markdown extraction from test input file $f"
+			echo "(first found in $progname directory)"
+			echo "##########################################"
+			cat ${filename}
 	    echo "##########################################"
-	    cat ${filename}
-	    echo "##########################################"
-	    rm -f ${filename}
-	    break
+			rm -f ${filename}
+			break
         fi
     done
 done

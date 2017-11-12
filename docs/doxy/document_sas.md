@@ -1,4 +1,4 @@
-#### Document your `SAS` programs
+#### doxy@ESTAT` -- Document your `SAS` programs
 
 As mentioned above, the documentation of SAS programs is inserted in the header of the program as a comment. 
 More precisely, we impose that:

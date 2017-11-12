@@ -1,4 +1,4 @@
-#### <a name="Rdoc"></a>Document your `R` programs
+#### `doxy@ESTAT` -- Document your `R` programs
 
 Similarly, the documentation shall be inserted in the header of the program as a comment, hence
 after the `#` symbol. In practice, **you will further need to insert the desired documentation in-between 
