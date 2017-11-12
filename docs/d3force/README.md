@@ -1,5 +1,4 @@
-`d3force@ESTAT`: Applying `d3-force` layout for slicing and exploring EU-SILC data
----
+### `d3force@ESTAT`: Applying `d3-force` layout for slicing and exploring EU-SILC data
 
 **About**
 
@@ -21,12 +20,12 @@ The webpage [_peps01_slice.html_](https://github.com/gjacopo/bodylanguage/blob/m
 All _html/javascript/css_ resources used by the original _"Four ways to slice..."_ publication have been embedded in the webpage _peps01_slice.html_. The code has been modified accordingly so as to visualise  specifically the selected data  (see `javascript` variables `estat.rate_data_total`, `estat.category_list` and `estat.category_data`).
 
 We provide hereby two `Python` modules that will enable you to prepare the selected social indicators data for the visualisation:
-* [`data.py`](data.py) contains the classes/methods that will help you download the data from ESTAT website;
-* [`display.py`](display.py) contains the classes/methods that will enable you to format the data to be inserted in the webpage.
+* [`data.py`](https://github.com/gjacopo/bodylanguage/blob/master/d3force/data.py) contains the classes/methods that will help you download the data from ESTAT website;
+* [`display.py`](https://github.com/gjacopo/bodylanguage/blob/master/d3force/display.py) contains the classes/methods that will enable you to format the data to be inserted in the webpage.
 
 Note in particular that `display.py` implements some circle packing algorithms for optimally filling a circle with other circles: this is used to position the circle centers in the initial overall display. 
 
-Data requested for the visualisation proposed in _peps01_slice.html_ webpage are formatted in the [`peps01_slice.py`](../d3force/peps01_slice.py) script. They are output as `json` but can be copied 'as is' in the webpage source code.
+Data requested for the visualisation proposed in _peps01_slice.html_ webpage are formatted in the [`peps01_slice.py`](https://github.com/gjacopo/bodylanguage/blob/master/d3force/peps01_slice.py) script. They are output as `json` but can be copied 'as is' in the webpage source code.
 
 **<a name="References"></a>References**
 
