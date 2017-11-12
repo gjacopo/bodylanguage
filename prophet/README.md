@@ -1,4 +1,4 @@
-Prophet@ESTAT
+prophet@ESTAT
 =============
 
 Applying Facebook `Prophet` model for forecasting ESTAT monthly indicators
