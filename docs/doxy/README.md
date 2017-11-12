@@ -34,8 +34,8 @@ as well as the tools and commands to automatically [extract the inline documenta
 _Generic rules_
 
 We adopt a common template for documentation, with the following rules:
-* A `markdown` level-2 header (with the `'##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
-* A `markdown` reference built as the string concatenating a prefix (usually defined as the name of the programing language) with the program name itself, is added to the program name in the header, _i.e._:
+* A level-2 header (with the `'##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
+* A reference built as the string concatenating a prefix (usually defined as the name of the programing language) with the program name itself, is added to the program name in the header, _i.e._:
 
 	~~~
 	## <program_name> {#<language>_<program_name>}
@@ -49,9 +49,11 @@ _e.g._,  the first line of the documentation the `SAS` macro  `quantile.sas` wil
 * All example(s) appear after the header `### Example` (or `### Examples`).
 * Indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax established in markdown, using 3 hyphens or tilde concatenated with the language shortname, _i.e._:
 
+	~~~
 	 ~~~<language>
-	<code_block>
+	 <code_block>
 	 ~~~
+	~~~
 
 _e.g._,  for `SAS` macros, `---sas` or  `~~~sas` is used; the actual list of lexers that can be used is available under the [`Pygments` page](http://pygments.org/docs/lexers/#lexer-for-sas).
 * Note(s)/remark(s) appear(s) after the header `### Note` (`### Notes`).
