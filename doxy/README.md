@@ -94,7 +94,7 @@ This script is located under the documentation folder `documentation\bin`. It wo
 
 that can be launched from any terminal so as to generate a bulk of `markdown` files (with `.md` extension) into the `documentation\md\library` folder. The associated help looks like the following:
 
-The resuiting `markdown` files will look exactly like the headers in your programs with the exception of the `/*` (or `/**`) and `*/` anchors. Then, [_doxygen_](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full set of guidelines/best practices for running this software is available in the 
+The resuiting `markdown` files will look exactly like the headers in your programs with the exception of the `/*` (or `/**`) and `*/` anchors. Then, [`Doxygen`](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full set of guidelines/best practices for running this software is available in the 
 [dedicated section](http://www.stack.nl/~dimitri/doxygen/manual/starting.html) of the doxygen website.
 
 **<a name="Example"></a>Example**

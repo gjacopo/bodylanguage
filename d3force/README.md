@@ -1,7 +1,7 @@
 d3force@ESTAT
 =============
 
-Applying `d3-force` layout for slicing and exploring EU-SILC data
+Applying `d3-force` layout for slicing and exploring EU-SILC data.
 ---
 
 **About**
