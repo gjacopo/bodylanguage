@@ -1,4 +1,4 @@
-## estatref
+#### `estatref`
 
 The layout files stored herein, namely: 
 * `tablerefs-estat.layout`, 
@@ -13,7 +13,7 @@ Currently, the output `html` table contains the following fields (headers):
 |------|---------|---------|-------|----------|--------|------|-------|
 
 but this can be easily modified following again the instructions of the site above. 
-When the `BibTeX` bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-basis-eurostat-microdata_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created. You can visualise the output at the page [`pub-html/pub-standalone.html`](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-html/pub-standalone.html) and renders like the following: ![pub-image](https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-html/pub-standalone.png) 
+When the `BibTeX` bibliography `pub.bib` (storing publications provided on the CROS online [page of microdata references](https://ec.europa.eu/eurostat/cros/content/publications-basis-eurostat-microdata_en)) is exported to HTML using this layout, the HTML table `pub-standalone` can be created. You can visualise the output at the page [`pub-html/pub-standalone.html`](http://htmlpreview.github.io/?https://github.com/gjacopo/bodylanguage/blob/master/estatref/pub-html/pub-standalone.html) and renders like the following: ![pub-image](pub-standalone.png) 
 
 As stated above, using that same `pub.bib` file, different arrangements of columns can be set by changing the layout file `pub.bib`. Other possible formatted outputs have been exported and stored under the `pub-export` folder (namely, `Endnote`, `BibTeXML`, `RIS`, `MySQL` and `csv`). See also the mock-up page below.
 
