@@ -24,26 +24,59 @@ The rationale behind these choices are explained [**here**](rationale.md).
 
 Moreover, rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**. Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
 In this aspect, we hereby provide with the common guidelines and templates to inline document:
-* [`SAS` programs](SASdoc) (_e.g._ macros),  
-* [`R` programs](Rdoc) (_e.g._ functions), and
-* [`Stata` programs](Statadoc) (_e.g._ functions),
+* [`SAS`, `R`, `Stata` and `Python` programs/functions,
+* `bash` and `DOS` scripts.
 
 as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations. The approach (_i.e._, guidelines and tools) can easily be extended to support other software/programing languages. 
 
+**<a name="Guidelines"></a>Guidelines**
+
+###### _Gerneric guidelines_
+
+We adopt a common template for documentation:
+* the reference used for a program/macro is defined as the **name of the program to which the prefix string `sas_`**
+* arguments of a macro shall be listed under the header `### Arguments`,
+* outputs shall shall be listed under the header `### Returns`,
+* example(s) shall appear after the header `### Example` (`### Examples`); 
+* indented code blocks can be inserted but fenced code blocks are preferred; they are defined using the syntax 
+  established in markdown, using 3 hyphens or tilde concatenated with `sas` shortname, hence `---sas` or
+  `~~~sas` (both, in principle, supported for [pygmentation](http://pygments.org/docs/lexers/#lexer-for-sas),
+* note(s) shall appear after the header `### Note` (`### Notes`),
+* reference(s) related to the programs/macros shall be listed under `### Reference` (`### References`), 
+* all other related programs/macros shall appear after the header `### See also`.
+
+###### _`SAS` programs_
+
+As mentioned above, the documentation of SAS programs is inserted in the header of the program as a comment. More precisely, we impose that:
+1. **the documentation (markdown language) shall be inserted in between the symbols: `/**` and `*/`**.
+
+Further, we also require that:
+2. **the core program (SAS code) shall be inserted in between the following anchor marks: `/** \cond */`
+and `/** \endcond */`**.
+
+###### `R` programs_
+
+Similarly, the documentation shall be inserted in the header of the program as a comment, hence
+after the `#` symbol. In practice, **you will further need to insert the desired documentation in-between 
+two anchors: `#cond` and `#endcond`** so as to recognise the text as specific to the documentation (and
+differentiate from other comments). 
+
+The common template for code documentation is exactly the same as the one used for SAS, with the 
+following exceptions: 
+* the reference used for a program is defined as the **name of the program to which the prefix string `r_`**
+is added (instead of `sas_` above),
+* all examples and **code excerpts shall be preceded with the `>` symbol** (like in R console),
+* indented code blocks can be inserted but fenced code blocks are also preferred; they are defined 3 hyphens 
+  or tilde concatenated with `r` shortname, hence `---r` or `~~~r` (for 
+  [pygmentation](http://pygments.org/docs/lexers/#pygments.lexers.r.SLexer)),
+
 **<a name="Usage"></a>Usage**
 
-First, document your source code file(s), _e.g._:
-* <a name="SASdoc"></a>[`SAS` programs/macros](document_sas),
-* <a name="Rdoc"></a>[ `R` programs/functions](document_r), and
-* <a name="Statadoc"></a>[`Stata` programs/functions](document_stata),
+First, document your source code file(s) according to the guidelines above. Given such source file(s), you can then run the script [`src2mddoc.sh`](https://github.com/gjacopo/bodylanguage/blob/master/doxy/src2mddoc.sh) with the following syntax:
 
-according to the guidelines. Given such source file(s), you can then run the script [`src2mddoc.sh`](https://github.com/gjacopo/bodylanguage/blob/master/doxy/src2mddoc.sh) with the following syntax:
-
-	```
 	src2mddoc.sh [-h] [-v] [-t] [-p] [-f <fname>] [-d <dir>] <filename>
-	```
 	
-with:
+where the parameters are:
 * `<input>`    :   input defined as either the filename storing the source code, or the directory containing this(ese) file(s);
 * `-f <name>`  :   (_option_) output name; it is either the name of the output file (with or without extension) when the parameter `<input>` (see above) is passed as a file, or a generic suffix to be added to the  output filenames otherwise; when a suffix is passed, the `_` symbol is added prior to the suffix; by default, an empty suffix (_i.e._ no suffix) is used;
 * `-d <dir>`  :   (_option_) output directory for storing the output formatted files; in the case of test mode (see option `-t` below), this is overwritten by the temporary directory `/tmp/`; default: when not passed, `<dir>` is set to the same location as the input(s);
@@ -52,6 +85,7 @@ with:
 * ` -t`         :   (_option_) test mode; a temporary output will be generated and displayed;
                  use it for checking purpose prior to the automatic generation.
 
+so as to extract the documentation header(s) from the source file(s) and create one or several `markdown` formatted files containing the documentation alone. This(ese) file(s) can then be used to generate the online/browsable documentation. 
 In a last stage, you can easily <a name="htmldoc"></a>[generate the documentation](generate_documentation).
 
 **<a name="Example"></a>Example**
@@ -69,6 +103,7 @@ Some actual use of the script and implementation how-to's:
 </table>
 
 **<a name="Notes"></a>Notes**
+
 The approach proposed herein is adapted to the documenting of stand-alone programs and processes.
 
 **<a name="References"></a>References**

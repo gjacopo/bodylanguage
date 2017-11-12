@@ -1,7 +1,7 @@
 doxy@ESTAT
 ===========
 
-Guidelines and tools for generic code documentation (`R`/`SAS`/`Stata`).
+Guidelines and script for generic code documentation of various languages (`R`/`SAS`/`Stata`/`Python`/`bash`/`DOS`/...).
 ---
 
 **About**
