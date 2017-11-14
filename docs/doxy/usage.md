@@ -3,7 +3,7 @@
 First, document your source code file(s) according to the [guidelines](guidelines.md). Given such source file(s), you can then run the script [`src2mddoc.sh`](https://github.com/gjacopo/bodylanguage/blob/master/doxy/src2mddoc.sh) with the following syntax:
 
 	~~~
-	src2mddoc.sh [-h] [-v] [-t] [-p] [-f <fname>] [-d <dir>] <filename>
+	bash src2mddoc.sh [-h] [-v] [-t] [-p] [-f <fname>] [-d <dir>] <filename>
 	~~~
 	
 where the parameters are:
@@ -15,5 +15,9 @@ where the parameters are:
 * ` -t`         :   (_option_) test mode; a temporary output will be generated and displayed;
                  use it for checking purpose prior to the automatic generation.
 
-so as to extract the documentation header(s) from the source file(s) and create one or several `markdown` formatted files containing the documentation alone. This(ese) file(s) can then be used to generate the online/browsable documentation. 
-In a last stage, you can easily <a name="htmldoc"></a>[generate the documentation](generate_documentation).
+so as to extract the documentation header(s) from the source file(s) and create one (or several) `markdown` formatted file(s) containing the documentation alone. 
+
+
+This(ese) file(s) will look exactly like the header(s) in the program(s) if you except the markers of the specific language comment and can then be used to generate the online/browsable documentation. [`Doxygen`](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full set of guidelines/best practices for running this software is available in the 
+[dedicated section](http://www.stack.nl/~dimitri/doxygen/manual/starting.html) of the `Doxygen` website.
+

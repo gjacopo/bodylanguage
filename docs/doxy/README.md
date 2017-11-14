@@ -18,6 +18,7 @@ To do so, we suggest to adopt a common way for describing and documenting source
 * **an "inline" documentation is systematically inserted in the header** (_e.g._, top of the program file storing a macro, a function, _etc_...),
 * **this documentation appears as comments** inside the programs (_e.g._, in between `/*` and `*/` marks for many languages),
 * **human-readable language [_markdown_](https://daringfireball.net/projects/markdown/) is adopted** for writing the source code documentation,
+* **a (`bash`) script, namely [`src2mddoc.sh`](src2mddoc.sh),** for the automatic extraction of the formatted documentation header from the source files,
 * **documentation generator [_Doxygen_](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
 
 The rationale behind these choices are explained [**here**](rationale.md).

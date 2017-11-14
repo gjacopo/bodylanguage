@@ -1,0 +1,37 @@
+is.empty(d)
+d<-
+1
+is.na(d)
+a<-2
+d=a
+d
+a
+d=3
+a
+d<-a
+d
+d=str(1)a
+str(1)
+d=str(1)
+d
+d <- str(1)
+d
+"1"
+"1"+"d"
+"1""d"
+d <- paste("a", "1")
+d
+d <- paste("a", "1",sep="")
+d
+_example_function
+_example_function(x,1,2,3,4)
+load(_example_function)
+source("_example_function.R")
+data <- c(1,2)
+_example_function(data,1,2,d="aaa")
+``_example_function`(data,1,2,d="aaa")
+`_example_function`(data,1,2,d="aaa")
+source("_example_function.R")
+`_example_function`(data,1,2,d="aaa")
+`_example_function`(data,3,2,d="aaa")
+`_example_function`(data,3,2,d="aaa",f=TRUE)
