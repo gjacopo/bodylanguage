@@ -4,7 +4,7 @@
 
 ###### <a name="Generic_rules"></a>Generic rules
 
-In order to automatically generate the documentation (see usage [page](usage.md)), we adopt a common template for documentation, with the following rules:
+In order to automatically generate the documentation (see  [usage](usage.md)), we adopt a common template for documentation, with the following rules:
 * A level-2 header (with the `##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
 * A reference built as the string concatenating a prefix (usually defined as the name of the programing language) with the program name itself, is added to the program name in the header, _i.e._:
 
