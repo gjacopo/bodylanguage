@@ -341,7 +341,7 @@ for (( i=0; i<${nprogs}; i++ )); do
     #  - all the files in ${progname[$i]} when it is a directory.
     for file in `find ${progname[$i]} -type f`; do
 		# get the file basename 
-		f=`basename "$f"`
+		f=`basename "$file"`
 		# get the extension
         ext=`lowercase ${f##*.}`
 		# check that it is one of the types (i.e. programming languages) whose
