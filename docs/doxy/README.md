@@ -1,10 +1,6 @@
 #### `doxy@ESTAT` -- Guidelines and tools for generic code documentation (`R`/`SAS`/`Stata`).
 
-##### About
-
-We provide hereby a set of common guidelines and templates for a generic inline source code documentation (using `markdown` language) as well a  `bash` script for the automatic generation of a derived online documentation (using `Doxygen` generator). 
-
-This material aims at **supporting the development, sharing and reuse of open IT components**, _e.g._, deployed in production environment, and **ensuring complete transparency of in-house computational resources**, _e.g._ regardless of the platform used for the implementation ([Grazzini and Pantisano, 2015; Grazzini and Lamarche, 2017](#References)). 
+#### _Let's document this code!_
 
 ##### Description
 
@@ -17,9 +13,9 @@ For that reason, it should be made available not only as an **inline documentati
 To do so, we suggest to adopt a common way for describing and documenting source code/programs regardless of the platform (language, software) used for the implementation. The solution we propose in practice is the following:
 * **an "inline" documentation is systematically inserted in the header** (_e.g._, top of the program file storing a macro, a function, _etc_...),
 * **this documentation appears as comments** inside the programs (_e.g._, in between `/*` and `*/` marks for many languages),
-* **human-readable language [_markdown_](https://daringfireball.net/projects/markdown/) is adopted** for writing the source code documentation,
+* **the human-readable [`markdown`](https://daringfireball.net/projects/markdown/) language is adopted** for writing the source code documentation,
 * **a (`bash`) script, namely [`src2mddoc.sh`](src2mddoc.sh),** for the automatic extraction of the formatted documentation header from the source files,
-* **documentation generator [_Doxygen_](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
+* **the documentation generator [`Doxygen`](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
 
 The rationale behind these choices are explained [**here**](rationale.md).
 
@@ -43,11 +39,22 @@ as well as the tools and commands to automatically [extract the inline documenta
 * [usage](usage.md): Usage of the script for the extraction of the documentation.
 * [examples](examples.md): Examples of generation of online browsable documentation.
 
-##### Note
+##### Notes
 
-The approach proposed herein is adapted to the documenting of stand-alone programs and processes.
+1. The approach proposed herein is adapted to the documenting of stand-alone programs and processes.
+It can be can easily be extended (_e.g._, slightly adapting the guidelines and tools) to support other software/programing languages. 
+2. The solution proposed addresses the needs of all _produsers'_ profiles (_i.e._, both users who aim at running and (re)using a program/code, and developers who want  to maintain, share, extend, and migrate a program).
 
-##### <a name="References"></a>References
+
+##### <a name="About"></a>About
+
+This material aims at **supporting the development, sharing and reuse of open IT components**, _e.g._, deployed in production environment, and **ensuring complete transparency of in-house computational resources**, _e.g._ regardless of the platform used for the implementation as presented in:
 
 * Grazzini J. and Lamarche P. (2017): [**Production of social statistics... goes social!**](https://www.conference-service.com/NTTS2017/documents/agenda/data/abstracts/abstract_124.html), in _Proc.  New Techniques and Technologies for Statistics_.
 * Grazzini J. and Pantisano F. (2015): [**Collaborative research-grade software for crowd-sourced data exploration: from context to practice - Part I: Guidelines for scientific evidence provision for policy support based on Big Data and open technologies**](http://publications.jrc.ec.europa.eu/repository/bitstream/JRC94504/lb-na-27094-en-n.pdf), _Publications Office of the European Union_, doi:[10.2788/329540](http://dx.doi.org/10.2788/329540).
+
+##### <a name="Notice"></a>Notice
+
+Copyright (c) 2017, J.Grazzini, European Commission.
+
+Licensed under [European Union Public License](https://joinup.ec.europa.eu/community/eupl/og_page/european-union-public-licence-eupl-v11).
