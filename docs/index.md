@@ -7,7 +7,6 @@ Various (useless) supporting material and/or prototypes
 * [**_d3force_**](d3force/README.md): example of interactive visualisation using [`d3-force` layout](https://github.com/d3/d3/wiki/Gallery) for slicing and exploring [ESTAT EU-SILC indicators](http://ec.europa.eu/eurostat/web/income-and-living-conditions/data/database) (_e.g._, _peps01_, _peps02_).
 * [**_doxy_**](doxy/README.md): some generic guidelines for software-agnostic code documentation and automatic generation of browsable documentation based on [`markdown` language](https://en.support.wordpress.com/markdown-quick-reference/) and [`Doxygen` generator](http://www.doxygen.org).
 
-    
 ##### <a name="Notice"></a>Notice
 
 Copyright (c) 2017, J.Grazzini, European Commission.

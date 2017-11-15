@@ -8,12 +8,12 @@ Guidelines and script for generic code documentation of various languages (`R`/`
 
 This material aims at **supporting the development, sharing and reuse of open IT components**, _e.g._, deployed in production environment, and **ensuring complete transparency of in-house computational resources**, _e.g._ regardless of the platform used for the implementation ([Grazzini and Pantisano, 2015; Grazzini and Lamarche, 2017](#References)). 
 
+We provide hereby a set of common guidelines and templates for a generic inline source code documentation (using `markdown` language) as well as a `bash` script for the automatic generation of a derived online documentation (using `Doxygen` generator). 
+
 <table align="center">
     <tr> <td align="left"><i>documentation</i></td> <td align="left">available at: https://gjacopo.github.io/bodylanguage/doxy/</td> </tr> 
     <tr> <td align="left"><i>since</i></td> <td align="left">2016</td> </tr> 
 </table>
-
-We provide hereby a set of common guidelines and templates for a generic inline source code documentation (using `markdown` language) as well as a `bash` script for the automatic generation of a derived online documentation (using `Doxygen` generator). 
 
 **<a name="Description"></a>Description**
 
@@ -24,6 +24,15 @@ In practice, the source code documentation will be made available not only as an
 * **human-readable language [_markdown_](https://daringfireball.net/projects/markdown/) is adopted** for writing the source code documentation,
 * **a (`bash`) script, namely [`src2mddoc.sh`](src2mddoc.sh),** for the automatic extraction of the formatted documentation header from the source files,
 * **documentation generator [_Doxygen_](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
+
+<table>
+<tr>
+<td align="centre"><kbd><img src="https://github.com/gjacopo/bodylanguage/blob/master/docs/doxy/example_ping.png" alt="example PING quantile" width="700"  align="centre"> </kbd></td>
+</tr>
+<footer>
+<td align="centre"><i>Example of "agnostic" documentation using the same generic templates.</i></td>
+</footer>
+</table>
 
 **<a name="TableofContents"></a>Table of Contents**
 
@@ -38,15 +47,6 @@ In practice, the source code documentation will be made available not only as an
   + [`DOS` rules](guidelines.md#DOS_rules).
 * [usage](usage.md): Usage of the script for the extraction of the documentation.
 * [examples](examples.md): Examples of generation of online browsable documentation.
-
-<table>
-<tr>
-<td align="centre"><kbd><img src="https://github.com/gjacopo/bodylanguage/blob/master/docs/doxy/example_ping.png" alt="example PING quantile" width="700"  align="centre"> </kbd></td>
-</tr>
-<footer>
-<td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
-</footer>
-</table>
 
 **<a name="Notes"></a>Notes**
 
