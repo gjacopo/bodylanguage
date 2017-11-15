@@ -4,7 +4,7 @@
 
 ###### <a name="Generic_rules"></a>Generic rules
 
-We adopt a common template for documentation, with the following rules:
+In order to automatically generate the documentation (see usage [page](usage.md)), we adopt a common template for documentation, with the following rules:
 * A level-2 header (with the `##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
 * A reference built as the string concatenating a prefix (usually defined as the name of the programing language) with the program name itself, is added to the program name in the header, _i.e._:
 
@@ -86,10 +86,13 @@ Does a great job.
 Run macro `%%_example_your_macro` (if it ever exists).
 
 ### Note
-Visit the [address](http://www.some_macro.html) that certainly does not exist.
+Visit the [address](http://www.some_macro.html) that certainly does not
+exist.
 
 ### See also
-[_example_method](@ref py_example_method), [_example_script](@ref sh_example_script), [_example_function](@ref R_example_function).
+[_example_method](@ref py_example_method), 
+[_example_script](@ref sh_example_script), 
+[_example_function](@ref R_example_function).
 */ 
 ~~~
 
@@ -144,11 +147,9 @@ Here is a similar example of inline documentation in a `R` function (see for ins
 # > `_example_function`(data,3,2,d="aaa",f=TRUE)
 # ~~~
 #
-# ### Note
-# Visit the [address](http://www.some_macro.html) that certainly does not exist.
-#
 # ### See also
-# [_example_method](@ref py_example_method), [_example_script](@ref sh_example_script), 
+# [_example_method](@ref py_example_method), 
+# [_example_script](@ref sh_example_script), 
 # [_example_macro](@ref sas_example_macro).
 ##
 ~~~
@@ -164,6 +165,7 @@ Here is a similar example of inline documentation in a `R` function (see for ins
 A similar example of inline documentation in a `bash` script (see for instance [`_example_script.sh`](https://github.com/gjacopo/bodylanguage/blob/master/doxy/tests/idir1/_example_script.sh)) is given below:
 
 ~~~
+## 
 # _example_script {#sh_example_script}
 # Does a great job (in `bash`).
 # 
@@ -196,11 +198,9 @@ A similar example of inline documentation in a `bash` script (see for instance [
 # > `_example_function`(data,3,2,d="aaa",f=TRUE)
 # ~~~
 #
-# ### Note
-# Visit the [address](http://www.some_macro.html) that certainly does not exist.
-#
 # ### See also
-# [_example_method](@ref py_example_method), [_example_function](@ref r_example_function), 
+# [_example_method](@ref py_example_method), 
+# [_example_function](@ref r_example_function), 
 # [_example_macro](@ref sas_example_macro).
 ##
 ~~~
@@ -209,4 +209,4 @@ A similar example of inline documentation in a `bash` script (see for instance [
 
 ###### <a name="DOS_rules"></a>`DOS` scripts
 
-<hr size="5" style="color:black;background-color:black;" />## 
+<hr size="5" style="color:black;background-color:black;" />
