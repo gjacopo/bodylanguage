@@ -13,14 +13,14 @@ Generation of a "store-able" version of a `SAS` source file.
  	nested) macros in this(ese) file(s) will be transformed into store-able macros 
  	thanks to the adding of the `'\store'` keword;
 * `-f <name>` : output name; it is either the name of the output file (with or without
-	`.sas` extension) when the parameter <input> (see above) is passed as a single file,
+	`.sas` extension) when the parameter `<input>` (see above) is passed as a single file,
  	or a generic suffix to be added to the output filenames otherwise; when a suffix 
- 	is passed, the '_'" symbol is added prior to the suffix; when considered as a suffix,
- 	the special flag _NONE_ can be used to force <name> to blank (i.e. no suffix will 
+ 	is passed, the `_` symbol is added prior to the suffix; when considered as a suffix,
+ 	the special flag `_NONE_` can be used to force `<name>` to blank (_i.e._ no suffix will 
  	be used); default: the suffix 'store' is used;
 * `-d <dir>` : output directory for storing the output formatted files; in the case of 
  	test mode (see option -t` below), this is overwritten by the temporary directory 
- 	/tmp/; default: when not passed, <dir> is set to the same location as the input(s);
+ 	`/tmp/`; default: when not passed, `<dir>` is set to the same location as the input(s);
 * `-c` : flag used to add a comment (description) to the store macro;
 * `-h` : display this help;
 * `-v` : verbose mode (all kind of useless comments…);
