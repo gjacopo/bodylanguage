@@ -1,9 +1,9 @@
 ## `replace.pl`
 Automatic string replacement.
 
-	~~~pl
-	replace.pl <filename> <key1> <key2>
-	~~~~
+~~~pl
+replace.pl <filename> <key1> <key2>
+~~~~
 
 ### Arguments
 * `<filename>` : input filename, with complete path;
