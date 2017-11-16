@@ -7,6 +7,7 @@ Generation of a "store-able" version of a `SAS` source file.
 ~~~
 
 ### Arguments
+
 * `<input>` : input defined as either a filename storing some (`R`/`SAS`/`Stata`/`Python`/…)
  	source code, or a directory containing such files; all first-level (_i.e._, non 
  	nested) macros in this(ese) file(s) will be transformed into store-able macros 
@@ -27,6 +28,7 @@ Generation of a "store-able" version of a `SAS` source file.
 	checking purpose prior to the automatic generation.
 
 ### Example
+
 # Run the script with the dedicated test file [
 # `sas2store_testfile.sas`](https://github.com/gjacopo/bodylanguage/blob/master/handle/tests/sas2store_testfile.sh), 
 # _e.g._ in test mode:
@@ -36,10 +38,12 @@ Generation of a "store-able" version of a `SAS` source file.
 ~~~
 
 ### Note
+
 The output store-able file(s) must be different from the input source files, _i.e._
 the input file(s) cannot be overwritten. Therefore, you need to ensure that `<dir>`
 and `<name>` are not left 'blank' (empty) simultaneously; the operation will otherwise
 be cancelled.
 
 ### Reference
+
 [Saving macros using the stored compiled macro facility](http://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.htm#a001328775.htm).
