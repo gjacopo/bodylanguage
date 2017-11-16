@@ -1,11 +1,64 @@
 #!/bin/bash
-# @name:     src2mddoc.sh
-# @brief:    Automatic generation of markdown files from self-documented R/SAS/Stata
-#            programs
+
+## src2mddoc.sh {#bash_src2mddoc.sh}
+# Automatic generation of markdown files from various self-documented programs
+# (R/SAS/Stata/Python/bash/DOS). 
 #
+# ~~~bash
 #    src2mddoc.sh [-h] [-v] [-t] [-p] [-f <fname>] [-d <dir>] <filename>
+# ~~~
+# 
+# ### Arguments 
+# * `<input>` : input defined as either the filename storing the source code, or the 
+#	directory containing this(ese) file(s);
+# * `-f <name>` : (option) output name; it is either the name of the output file (with 
+#	or without extension) when the parameter <input> (see above) is passed as a file, 
+#	or a generic suffix to be added to the output filenames otherwise; when a suffix 
+#	is passed, the _ symbol is added prior to the suffix; by default, an empty suffix 
+#	(i.e. no suffix) is used;
+# * `-d <dir>` : (option) output directory for storing the output formatted files; in 
+#	the case of test mode (see option -t below), this is overwritten by the temporary 
+#	directory /tmp/; default: when not passed, <dir> is set to the same location as the 
+#	input(s);
+# * `-h` : (option) setting this option will display the help;
+# * `-v` : (option) setting this option will set the verbose mode (all kind of useless 
+#	comments);
+# * `-t` : (option) test mode; a temporary output will be generated and displayed; use it 
+#	for checking purpose prior to the automatic generation.
+# 
+# ### Returns
+# 
+# ### Examples
+# Test the generation of a markdown file from the clist_unquote.sas program and
+# display the result:
 #
-# @notes:
+# ~~~sh
+#     src2mddoc.sh -t $rootdir/library/pgm/clist_unquote.sas
+# ~~~
+# 
+# Actually generate (after the test) that file and store it in a dedicated folder:
+#
+# ~~~sh
+#     src2mddoc.sh -v -d $rootdir/documentation/md/library
+#                      $rootdir/z/library/pgm/clist_unquote.sas
+# ~~~
+# Similarly with a R file:";
+#
+# ~~~sh
+#     src2mddoc.sh -v -d $rootdir/documentation/md/library/5.3_Validation
+#                      $rootdir/5.3_Validation/pgm/generate_docs.R
+# ~~~
+# Automatically generate markdown files with suffix \"doc\" (i.e., list_quote.sas
+# will be associated to the file list_quote_doc.md) from all existing SAS files
+# in a given directory:
+#
+# ~~~sh
+#     src2mddoc.sh -v -d $rootdir/documentation/md/library/
+#                     -f doc
+#                      $rootdir/library/pgm/
+# ~~~
+# 
+# ### Notes
 # 1. The command shall be launched inline from a shell terminal running bash 
 #    - commonly installed on all Unix/Linux servers/machines),
 #    - on Windows, consider using shells provided by Cygwin (https://www.cygwin.com/) 
@@ -18,18 +71,23 @@
 # in order to deal with embedded control-M's in the file (source of the issue), it may 
 # be necessary to run dos2unix, e.g. execute the following:
 #	    dos2unix src2mddoc.sh 
-#
+##
+
 # @date:     15/06/2016
 # @credit:   grazzja <mailto:jacopo.grazzini@ec.europa.eu>
 
 ## extension of files of interest: what we deal with...
+
 MDEXT=md
 SASEXT=sas
 STATAEXT=do
 REXT=r
-EXTS=("${SASEXT}" "${REXT}" "${STATAEXT}")
+PYEXT=py
+SHEXT=sh
+DOSEXT=bat
+EXTS=("${SASEXT}" "${STATAEXT}" "${REXT}" "${PYEXT}" "${SHEXT}" "${DOSEXT}")
 
-## some basic global settings
+## some basic global settings 
 
 PROGRAM=`basename $0`
 TODAY=`date +'%y%m%d'` # `date +%Y-%m-%d`
@@ -71,7 +129,8 @@ function help() {
     ! [ -z "$1" ] && echo "$1";
     echo "";
     echo "=================================================================================";
-    echo "${PROGRAM} : Generate markdown file(s) from a self-documented R/SAS program(s).";
+    echo "${PROGRAM} : Automatic generation of markdown files from various self-documented ";
+    echo "programs(R/SAS/Stata/Python/bash/DOS). ";
     echo "=================================================================================";
     echo "";
     echo "Syntax";
@@ -201,11 +260,13 @@ function regexMatch() { # (string, regex)
 }
 
 ## set global parameters
-TESTECHO=
 
 uREXT=`uppercase ${REXT}`
 uSASEXT=`uppercase ${SASEXT}`
 uSTATAEXT=`uppercase ${uSTATAEXT}`
+uPYEXT=`uppercase ${PYEXT}`
+uSHEXT=`uppercase ${SHEXT}`
+uDOSEXT=`uppercase ${DOSEXT}`
 uEXTS=$(for i in ${EXTS[@]}; do uppercase $i; done)
 
 dirname=
@@ -278,11 +339,15 @@ done
 
 if [ ${test} -eq 1 ]; then
     # some settings for testing
-    TESTECHO=("echo" "  ... run:") 
+    ECHOSTART=("echo" "  ... run: \"") 
+    ECHOEND=("\"") 
     [ -z "${dirname}" ] && dirname=/tmp   
     [ -z "${fname}" ] && fname=`date +%Y%m%d-%H%M%S`
 
 else
+    # similar settings for testing
+	ECHOSTART=
+	ECHOEND=
     # define the default output directory path DIRNAME (when not passed with the
     # '-d' option) as the name of the directory storing the first file PROGNAME[0],
     # or PROGNAME[0] itself if it is a directory
@@ -341,7 +406,7 @@ for (( i=0; i<${nprogs}; i++ )); do
     #  - all the files in ${progname[$i]} when it is a directory.
     for file in `find ${progname[$i]} -type f`; do
 		# get the file basename 
-		f=`basename "$file"`
+		f=`basename "$f"`
 		# get the extension
         ext=`lowercase ${f##*.}`
 		# check that it is one of the types (i.e. programming languages) whose
@@ -367,19 +432,22 @@ for (( i=0; i<${nprogs}; i++ )); do
         #   (ii) get rid of lines starting with /**
         #   (iii) get rid of lines starting with */
 		# which uses mostly the awk command like in the example below:
-        #     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=2}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
+        #     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
         #     awk -F"\/\*\*" '{print $2}' $1  | awk -F"\*\/" '{print $1}' - > test2.txt
 		([ "${ext}" =  "${SASEXT}" ] || [ "${ext}" =  "${STATAEXT}" ])                       \
-			&& ${TESTECHO}                                                                   \
-			awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=2}' ${file} \
+			&& awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' ${file} \
 			| awk '!/^ *\/\*\*/ { print; }' -                                                \
-			| awk '!/^ *\*\// { print; }' - > $filename
-		# ibid for R files
-		[ "${ext}" = "${REXT}" ]                                                             \
-			&& ${TESTECHO}                                                                   \
-			awk 'NF==0&&s==0{NR=0}NR==1&&$1=="##"{s=1}s==1{print $0}$NF=="##"{s=2}' ${file}  \
-			| awk '!/^ *\#\#/ { print; }' -                                                  \
-			| awk '!/^ *\#\#/ { print substr($0,2); }' - > $filename
+			| awk '!/^ *\*\// { print; }' - > $filename 
+		# for R (and bash) files, the extraction rule differs a bit since the patterns used as markers 
+		# of the beginning and the end of the documentation header are identical (##)
+		[ "${ext}" = "${REXT}" ] || [ "${ext}" =  "${SHEXT}" ])                                                              \
+			&& awk 'NF==0&&s==0{NR=0}NR==1&&$1=="##"{if (s==0) s=1; next} s==1 {print $0} $NF=="##"{if (s==1) s=-1}' ${file} \
+			| awk '!/^ *\#\#/ { print; }' -  - > $filename 
+			# | awk '!/^ *\#\#/ { print substr($0,2); }' - > $filename
+		# for Python files, ibid R approach
+		[ "${ext}" = "${PYEXT}" ]                                                             \
+			&& awk 'NF==0&&s==0{NR=0}NR==1&&$1=="\"\"\""{if (s==0) s=1; next} s==1 {print $0} $NF=="\"\"\""{if (s==1) s=-1}' ${file} \
+			| awk '!/^ *"""/ { print; }' - > $filename 
 		# check that the file is not empty
 		! [ -s ${filename} ] && rm -f  ${filename}
 		# display in case of test
@@ -387,9 +455,9 @@ for (( i=0; i<${nprogs}; i++ )); do
 			echo ""
 			echo "Result of automatic Markdown extraction from test input file $f"
 			echo "(first found in $progname directory)"
-			echo "##########################################"
+			echo "------------------------------------------"
 			cat ${filename}
-	    echo "##########################################"
+			echo "------------------------------------------"
 			rm -f ${filename}
 			break
         fi
