@@ -15,5 +15,5 @@ We provide hereby various dummy tools (_e.g._, in the form of `bash` scripts) to
 
 **<a name="Description"></a>Description**
 
-* *[sas2store.sas](sas2store.sas).
+* [sas2store.sh](sas2store.sh).
 
