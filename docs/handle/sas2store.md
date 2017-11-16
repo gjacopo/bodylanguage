@@ -17,9 +17,9 @@ Generation of a "store-able" version of a `SAS` source file.
  	or a generic suffix to be added to the output filenames otherwise; when a suffix 
  	is passed, the `_` symbol is added prior to the suffix; when considered as a suffix,
  	the special flag `_NONE_` can be used to force `<name>` to blank (_i.e._ no suffix will 
- 	be used); default: the suffix 'store' is used;
+ 	be used); default: the suffix `store` is used;
 * `-d <dir>` : output directory for storing the output formatted files; in the case of 
- 	test mode (see option -t` below), this is overwritten by the temporary directory 
+ 	test mode (see option `-t` below), this is overwritten by the temporary directory 
  	`/tmp/`; default: when not passed, `<dir>` is set to the same location as the input(s);
 * `-c` : flag used to add a comment (description) to the store macro;
 * `-h` : display this help;
