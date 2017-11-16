@@ -12,10 +12,10 @@
 # * `<input>` : input defined as either the filename storing the source code, or the 
 #	directory containing this(ese) file(s);
 # * `-f <name>` : (option) output name; it is either the name of the output file (with 
-#	or without extension) when the parameter <input> (see above) is passed as a file, 
-#	or a generic suffix to be added to the output filenames otherwise; when a suffix 
-#	is passed, the _ symbol is added prior to the suffix; by default, an empty suffix 
-#	(i.e. no suffix) is used;
+#	or without extension) when the parameter <input> (see above) is passed as a single
+#   file, or a generic suffix to be added to the output filenames otherwise; when a 
+#   suffix is passed, the _ symbol is added prior to the suffix; by default, an empty 
+#   suffix (i.e. no suffix) is used;
 # * `-d <dir>` : (option) output directory for storing the output formatted files; in 
 #	the case of test mode (see option -t below), this is overwritten by the temporary 
 #	directory /tmp/; default: when not passed, <dir> is set to the same location as the 
@@ -98,7 +98,7 @@ BASHVERS=${BASH_VERSION%.*}
 
 hash find 2>/dev/null || { echo >&2 " !!! Command FIND required but not installed - Aborting !!! "; exit 1; }
 hash awk 2>/dev/null || { echo >&2 " !!! Command AWK required but not installed - Aborting !!! "; exit 1; }
-hash cat 2>/dev/null ||  { echo >&2 " !!! Command CAT required but not installed - Aborting !!! "; exit 1; }
+hash cat 2>/dev/null || { echo >&2 " !!! Command CAT required but not installed - Aborting !!! "; exit 1; }
 
 case "$(uname -s)" in
     Linux*)     MACHINE=Linux;;
@@ -142,8 +142,8 @@ function help() {
     echo " <input>    :   input defined as either a filename storing some (R/SAS/Stata/…)g";
     echo "                source code, or a directory containing such files;";
     echo " -f <name>  :   output name; it is either the name of the output file (with or";
-    echo "                without ‘.md’ extension) when the parameter <input> (see above)";
-    echo "                is passed as a file, or a generic suffix to be added to the";
+    echo "                without '.md' extension) when the parameter <input> (see above)";
+    echo "                is passed as a single file, or a generic suffix to be added to the";
     echo "                output filenames otherwise; when a suffix is passed, the '_'";
     echo "                symbol is added prior to the suffix; default: an empty suffix,";
     echo "                i.e. no suffix, is used;";
@@ -277,7 +277,7 @@ pref=0
 verb=0
 test=0
  
-## basic checks: command error or help
+## basic checks: options, command error or help
 
 [ $# -eq 0 ] && usage
 # [ $# -eq 1 ] && [ $1 = "--help" ] && help
@@ -320,15 +320,15 @@ nprogs=${#progname[@]}
 # new=()
 
 for (( i=0; i<${nprogs}; i++ )); do
-    # [ -n "${progname[$i]}" ]                                                  \
+    # [ -n "${progname[$i]}" ]                                                  	\
     #     && usage "!!! Input not defined - Exiting !!!"
-    ! [ -e "${progname[$i]}" ]                                                  \
+    ! [ -e "${progname[$i]}" ]                                                  	\
 	&& usage "!!! Input file/directory ${progname[$i]} does not exist - Exiting !!!"
     # in case a program file was passed, check that its format (i.e. the programming language
     # used for its development) is actually supported for documentation
-#    ([ -f "${progname[$i]}" ]                                                    \
-#	&& ext=`uppercase  ${progname[$i]##*.}`                                 \
-#	&& ! `contains ${ext} ${uEXTS[@]}`)                                      \
+#    ([ -f "${progname[$i]}" ]                                                   	\
+#	&& ext=`uppercase  ${progname[$i]##*.}`                                 		\
+#	&& ! `contains ${ext} ${uEXTS[@]}`)                                      		\
 #	&& usage "!!! Format of input file ${progname[$i]} not supported - Exiting !!!"
 #        # || new+=progname[$i]
 done
@@ -362,15 +362,15 @@ fi
 
 # some practical issue here: ensure that we do not put any extension in the string
 # defined by FNAME (this is added later on)
-[ -n "${fname}" ] && [ ${nprogs} -eq 1 ]                    \
+[ -n "${fname}" ] && [ ${nprogs} -eq 1 ]                    							\
     && fname=${fname%.*} #`basename ${fname} .${MDEXT}`
 
 # if FNAME is not empty and does not start with a '_' character, then add it
-[ -n "${fname}" ] && [ ${fname} != _* ]                     \
-    && ([ ${nprogs} -gt 1 ] || [ -d "${progname[0]}" ])     \
+[ -n "${fname}" ] && [ ${fname} != _* ]                     							\
+    && ([ ${nprogs} -gt 1 ] || [ -d "${progname[0]}" ])     							\
     && fname=_${fname}
 
-([ ${test} -eq 1 ] || [ ${verb} -eq 1 ])                                        \
+([ ${test} -eq 1 ] || [ ${verb} -eq 1 ])                                        		\
     && echo "* Setting parameters: input/output filenames and directories..."   
 
 if [ ${test} -eq 1 ] || [ ${verb} -eq 1 ];    then
@@ -380,24 +380,24 @@ if [ ${test} -eq 1 ] || [ ${verb} -eq 1 ];    then
     echo "    - the output directory is: $dirname"
     for (( i=0; i<${nprogs}; i++ )); do
 	inp=${progname[$i]}
-	[ -d "$inp" ]                                                                          \
-	    && (echo "    - for any program f.ext of ${inp}/, a documentation";                \
-	       [ ${pref} -eq 1 ]                                                               \
-	       && echo "      will be stored in a file named \$ext_\$f${fname}.${MDEXT}"       \
-	       || echo "      will be stored in a file named \$f${fname}.${MDEXT}")            \
-	    || (echo "    - the documentation of ${inp} program will be stored";               \
-	       [ ${pref} -eq 1 ]                                                               \
-	       && ([ ${nprogs} -eq 1 ]                                                         \
-	          && echo "      in the file ${inp##*.}_${fname}.${MDEXT}"                     \
-	          || echo "      in the file ${inp##*.}_${inp%.*}${fname}.${MDEXT}")           \
-	       || ([ ${nprogs} -eq 1 ]                                                         \
-	          && echo "      in the file ${fname}.${MDEXT}"                                \
+	[ -d "$inp" ]                                                                   	\
+	    && (echo "    - for any program f.ext of ${inp}/, a documentation";             \
+	       [ ${pref} -eq 1 ]                                                          	\
+	       && echo "      will be stored in a file named \$ext_\$f${fname}.${MDEXT}"    \
+	       || echo "      will be stored in a file named \$f${fname}.${MDEXT}")         \
+	    || (echo "    - the documentation of ${inp} program will be stored";            \
+	       [ ${pref} -eq 1 ]                                                            \
+	       && ([ ${nprogs} -eq 1 ]                                                      \
+	          && echo "      in the file ${inp##*.}_${fname}.${MDEXT}"                  \
+	          || echo "      in the file ${inp##*.}_${inp%.*}${fname}.${MDEXT}")        \
+	       || ([ ${nprogs} -eq 1 ]                                                      \
+	          && echo "      in the file ${fname}.${MDEXT}"                             \
 	          || echo "      in the file ${inp%.*}${fname}.${MDEXT}") )
     done
 fi
 
 ## actual operation
-([ ${test} -eq 1 ] || [ ${verb} -eq 1 ])                                        \
+([ ${test} -eq 1 ] || [ ${verb} -eq 1 ])                                        		\
     && echo "* Actual operation: extraction of files headers..."
 
 for (( i=0; i<${nprogs}; i++ )); do
@@ -406,16 +406,16 @@ for (( i=0; i<${nprogs}; i++ )); do
     #  - all the files in ${progname[$i]} when it is a directory.
     for file in `find ${progname[$i]} -type f`; do
 		# get the file basename 
-		f=`basename "$f"`
+		base=`basename "$file"`
 		# get the extension
-        ext=`lowercase ${f##*.}`
+        ext=`lowercase ${base##*.}`
 		# check that it is one of the types (i.e. programming languages) whose
 		# documentation is actually supported
 		! `contains ${ext} ${EXTS[@]}` && continue
 		# retrieve the desired output name based on generic FNAME and the MDEXT extension: 
 		# this will actually depend only on whether one single file was passed or not
-		([ ${nprogs} -eq 1 ] && ! [ -d ${progname[$0]} ])                               \
-			&& filename=${f%.*}${fname}.${MDEXT}                                        \
+		[ ${nprogs} -eq 1 -a ! -d ${progname[0]} ]                               		\
+			&& filename=${base%.*}${fname}.${MDEXT}                                 	\
 			|| filename=${fname}.${MDEXT} 
 		# by convention, avoid occurrences of "__" in the output filename (note the presence
 		# of the parentheses)
@@ -425,27 +425,27 @@ for (( i=0; i<${nprogs}; i++ )); do
 			|| filename=${ext}_${filename})
 		# finally add the output DIRNAME to the FILENAME
 		filename=${dirname}/${filename}
-			([ ${verb} -eq 1 ] && ! [ ${test} -eq 1 ])                                      \
+		[ ${verb} -eq 1 -a ! ${test} -eq 1 ]                                     		\
 			&& echo "    + processing $ext file $f => MD file $filename ..."
 		# run the extraction, e.g. for SAS and Stata files we do the following:
-        #   (i) keep only the first lines between /** and */
-        #   (ii) get rid of lines starting with /**
-        #   (iii) get rid of lines starting with */
+		#   (i) keep only the first lines between /** and */
+		#   (ii) get rid of lines starting with /**
+		#   (iii) get rid of lines starting with */
 		# which uses mostly the awk command like in the example below:
-        #     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
-        #     awk -F"\/\*\*" '{print $2}' $1  | awk -F"\*\/" '{print $1}' - > test2.txt
-		([ "${ext}" =  "${SASEXT}" ] || [ "${ext}" =  "${STATAEXT}" ])                       \
+		#     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
+		#     awk -F"\/\*\*" '{print $2}' $1  | awk -F"\*\/" '{print $1}' - > test2.txt
+		[ "${ext}" = "${SASEXT}" -o "${ext}" = "${STATAEXT}" ]                       	\
 			&& awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' ${file} \
-			| awk '!/^ *\/\*\*/ { print; }' -                                                \
+			| awk '!/^ *\/\*\*/ { print; }' -                                           \
 			| awk '!/^ *\*\// { print; }' - > $filename 
 		# for R (and bash) files, the extraction rule differs a bit since the patterns used as markers 
 		# of the beginning and the end of the documentation header are identical (##)
-		[ "${ext}" = "${REXT}" ] || [ "${ext}" =  "${SHEXT}" ])                                                              \
+		[ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" ]                                                              \
 			&& awk 'NF==0&&s==0{NR=0}NR==1&&$1=="##"{if (s==0) s=1; next} s==1 {print $0} $NF=="##"{if (s==1) s=-1}' ${file} \
 			| awk '!/^ *\#\#/ { print; }' -  - > $filename 
 			# | awk '!/^ *\#\#/ { print substr($0,2); }' - > $filename
 		# for Python files, ibid R approach
-		[ "${ext}" = "${PYEXT}" ]                                                             \
+		[ "${ext}" = "${PYEXT}" ]                                                        \
 			&& awk 'NF==0&&s==0{NR=0}NR==1&&$1=="\"\"\""{if (s==0) s=1; next} s==1 {print $0} $NF=="\"\"\""{if (s==1) s=-1}' ${file} \
 			| awk '!/^ *"""/ { print; }' - > $filename 
 		# check that the file is not empty
