@@ -77,7 +77,7 @@ is transformed into:
         %nested_weird(&dumber);
 %mend;
 ~~~
-since nested macros are not "stored";
+since only "level-one" macros should be store-able while nested macros should not be modified;
 * the original macro:
 ~~~
 %macro _example_sas2store_testfile6a (dumb, dumber=) \store;
@@ -87,7 +87,7 @@ since nested macros are not "stored";
         %put &dumb &dumber;
 %mend _example_sas2store_testfile6a;
 ~~~
-is left unchanged since already stored macro should not be modified.
+is left unchanged since it is already stored.
 
 Furthermore, the script also deals with different "formats" of implementation.
 
