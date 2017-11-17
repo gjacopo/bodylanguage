@@ -1,6 +1,6 @@
 ## `sas2store.sh`
 
-Atuomatic generation of a "store-able" version of a `SAS` source file.
+Automatic generation of a "store-able" version of a `SAS` source file.
 
 ~~~bash
    sas2store.sh [-h] [-v] [-t] [-d] [-f <fname>] [-d <dir>] <filename>
