@@ -48,7 +48,7 @@ This is another dummy line for description.";
         %put &dumb &dumber;
 %mend sas2store_testfile;
 ~~~
-since it has the same name as the input file;
+since it has the same name as the input file; the name is taken from the documentation header;
 * the original macro:
 ~~~
 %macro sas2store_testfile3(dumb, dumber=);
