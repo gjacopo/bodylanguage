@@ -36,14 +36,12 @@ _e.g._ in test mode `-t`:
 ~~~
 so as to display the generated output file in the terminal. You will notice in particular the following cases:
 * the original macro:
-
 ~~~
 %macro sas2store_testfile(dumb, dumber);
         %put &dumb &dumber;
 %mend sas2store_testfile;
 ~~~
 is transformed into: 
-
 ~~~
 %macro sas2store_testfile(dumb, dumber) \store des="File to be used for testing of the script `sas2store.sh`.
 This is another dummy line for description.";
