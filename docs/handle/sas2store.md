@@ -50,7 +50,6 @@ This is another dummy line for description.";
 ~~~
 since it has the same name as the input file;
 * the original macro:
-
 ~~~
 %macro sas2store_testfile3(dumb, dumber=);
         %macro nested_weird(thedumb);
@@ -65,7 +64,6 @@ since it has the same name as the input file;
 %mend;
 ~~~
 is transformed into: 
-
 ~~~
 %macro sas2store_testfile3(dumb, dumber=) \store;
         %macro nested_weird(thedumb);
@@ -81,7 +79,6 @@ is transformed into:
 ~~~
 since nested macros are not "stored";
 * the original macro:
-
 ~~~
 %macro _example_sas2store_testfile6a (dumb, dumber=) \store;
         %macro_weird(&dumb, &dumber);
