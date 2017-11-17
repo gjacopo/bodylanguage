@@ -1,6 +1,6 @@
 ## `sas2store.sh`
 
-Generation of a "store-able" version of a `SAS` source file.
+Atuomatic generation of a "store-able" version of a `SAS` source file.
 
 ~~~bash
    sas2store.sh [-h] [-v] [-t] [-d] [-f <fname>] [-d <dir>] <filename>
@@ -26,14 +26,76 @@ Generation of a "store-able" version of a `SAS` source file.
 * `-t` : test mode; a temporary output will be generated and displayed; use it for 
 	checking purpose prior to the automatic generation.
 
-### Example
+### Examples
 Run the script with the dedicated test file [
 `sas2store_testfile.sas`](https://github.com/gjacopo/bodylanguage/blob/master/handle/tests/sas2store_testfile.sh), 
-_e.g._ in test mode:
+_e.g._ in test mode `-t`:
 
-~~~bash
+~~~
    sas2store.sh -t -c -f stored sas2store_testfile.sas
 ~~~
+so as to display the generated output file in the terminal. You will notice in particular the following cases:
+* the original macro:
+
+~~~
+%macro sas2store_testfile(dumb, dumber);
+        %put &dumb &dumber;
+%mend sas2store_testfile;
+~~~
+is transformed into: 
+
+~~~
+%macro sas2store_testfile(dumb, dumber) \store des="File to be used for testing of the script `sas2store.sh`.
+This is another dummy line for description.";
+        %put &dumb &dumber;
+%mend sas2store_testfile;
+~~~
+since it has the same name as the input file;
+* the original macro:
+
+~~~
+%macro sas2store_testfile3(dumb, dumber=);
+        %macro nested_weird(thedumb);
+                %macro super_nested_weird(thedumb);
+                        %put &thedumb;
+                %mend;
+                %super_nested_weird(&thedumb);
+        %mend;
+
+        %nested_weird(&dumb);
+        %nested_weird(&dumber);
+%mend;
+~~~
+is transformed into: 
+
+~~~
+%macro sas2store_testfile3(dumb, dumber=) \store;
+        %macro nested_weird(thedumb);
+                %macro super_nested_weird(thedumb);
+                        %put &thedumb;
+                %mend;
+                %super_nested_weird(&thedumb);
+        %mend;
+
+        %nested_weird(&dumb);
+        %nested_weird(&dumber);
+%mend;
+~~~
+since nested macros are not "stored";
+* the original macro:
+
+~~~
+%macro _example_sas2store_testfile6a (dumb, dumber=) \store;
+        %macro_weird(&dumb, &dumber);
+        %mend_weird(&dumb, &dumber)
+
+        %put &dumb &dumber;
+%mend _example_sas2store_testfile6a;
+~~~
+is left unchanged since already stored macro should not be modified.
+
+Furthermore, the script also deals with different "formats" of implementation.
+
 
 ### Note
 The output store-able file(s) must be different from the input source files, _i.e._
