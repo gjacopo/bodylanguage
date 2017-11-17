@@ -43,7 +43,8 @@ so as to display the generated output file in the terminal. You will notice in p
 ~~~
 is transformed into: 
 ~~~
-%macro sas2store_testfile(dumb, dumber) \store des="File to be used for testing of the script `sas2store.sh`.
+%macro sas2store_testfile(dumb, dumber) \store 
+des="File to be used for testing of the script `sas2store.sh`.
 This is another dummy line for description.";
         %put &dumb &dumber;
 %mend sas2store_testfile;
