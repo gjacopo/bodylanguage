@@ -22,13 +22,13 @@ None.
 */ /** \cond */
 	
 %put +++++++++++++++++++++++++++++++++++++;
-%put Basic macro a, named like the file: \store should be added, as well as desc in case the option is selected;
+%put Basic macro a, named like the file: / store should be added, as well as desc in case the option is selected;
 %macro sas2store_testfile(dumb, dumber);
 	%put &dumb &dumber;
 %mend sas2store_testfile;
 
 %put +++++++++++++++++++++++++++++++++++++;
-%put Ibid basic macro b, declaration on multiple lines: \store should be added, as well as desc in case the option is selected;
+%put Ibid basic macro b, declaration on multiple lines: / store should be added, as well as desc in case the option is selected;
 %macro sas2store_testfile(dumb
 						, dumber
 						)
@@ -38,14 +38,14 @@ None.
 
 
 %put +++++++++++++++++++++++++++++++++++++;
-%put Basic macro example:  \store should be added, as well as desc Example in case the option is selected;
+%put Basic macro example:  / store should be added, as well as desc Example in case the option is selected;
 %macro _example_sas2store_testfile; 
 	%sas2store_testfile(1, 2); 
 %mend _example_sas2store_testfile;
 
 	
 %put +++++++++++++++++++++++++++++++++++++;
-%put Basic macro #1, comments, commas and nesting: \store should be added;
+%put Basic macro #1, comments, commas and nesting: / store should be added;
 %macro sas2store_testfile1(dumb 	/* some comments	(REQ) */
 						, dumber=	/* More comments	(OPT) */
 				);
@@ -64,7 +64,7 @@ None.
 */
 
 %put +++++++++++++++++++++++++++++++++++++;
-%put Basic macro #2, keyword occurence: \store should be added;
+%put Basic macro #2, keyword occurence: / store should be added;
 %macro _example_sas2store_testfile2 (dumb, dumber=);
  	%macro_weird(&dumb, &dumber); /* some macro starting with macro keyword: anything going wrong? */
 	%mend_weird(&dumb, &dumber) /* some macro starting with mend keyword: anything going wrong? */
@@ -75,7 +75,7 @@ None.
 %put - Are we really dumb?;
 	
 %put +++++++++++++++++++++++++++++++++++++;
-%put Basic macro #3, nultiple nesting: \store should be added;
+%put Basic macro #3, nultiple nesting: / store should be added;
 %macro sas2store_testfile3(dumb, dumber=);
 	%macro nested_weird(thedumb); /* some nested macro: anything going wrong? */
 		%macro super_nested_weird(thedumb); /* multiple nested macros: anything going wrong? */
@@ -92,7 +92,7 @@ None.
 %put - Or maybe just dumber?;
 	
 %put +++++++++++++++++++++++++++++++++++++;
-%put Basic macro #4a, no arguments: \store should be added;
+%put Basic macro #4a, no arguments: / store should be added;
 %macro sas2store_testfile4a; 
 	%put &dumb &dumber; 
 %mend      ;
@@ -106,7 +106,7 @@ None.
 	
 	
 %put +++++++++++++++++++++++++++++++++++++;
-%put Basic macro #5, weird indentation: \store should be added;
+%put Basic macro #5, weird indentation: / store should be added;
 %macro 
 sas2store_testfile5
 	(
@@ -123,7 +123,7 @@ sas2store_testfile5;
 
 %put +++++++++++++++++++++++++++++++++++++;
 %put Basic #6a, already store-able: nothing should be added, it is already here;
-%macro _example_sas2store_testfile6a (dumb, dumber=) \store;
+%macro _example_sas2store_testfile6a (dumb, dumber=) / store;
  	%macro_weird(&dumb, &dumber); /* some macro starting with macro keyword: anything going wrong? */
 	%mend_weird(&dumb, &dumber) /* some macro starting with mend keyword: anything going wrong? */
 	
@@ -132,9 +132,17 @@ sas2store_testfile5;
 
 %put +++++++++++++++++++++++++++++++++++++;
 %put Ibid basic #6b, comma on different line: nothing should be added, it is already here;
-%macro _example_sas2store_testfile6b (dumb, dumber=) \store
+%macro _example_sas2store_testfile6b (dumb, dumber=) / store
 	;	
 	%put &dumb &dumber;
 %mend _example_sas2store_testfile6b;
+
+%put +++++++++++++++++++++++++++++++++++++;
+%put Ibid basic #6c, comma on different line: nothing should be added, it is already here;
+%put !!! This one will fail however !!!;
+%macro _example_sas2store_testfile6c (dumb, dumber=) / 
+	store;	
+	%put &dumb &dumber;
+%mend _example_sas2store_testfile6c;
 
 /** \endcond */

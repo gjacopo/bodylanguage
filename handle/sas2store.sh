@@ -2,17 +2,17 @@
 
 ##
 # sas2store.sh {#sh_sas2store}
-# Generation of a "store-able" version of a `SAS` source file.
+# Automatic generation of a "store- and compile-able" version of a `SAS` source file.
 #
 # ~~~bash
-#    sas2store.sh [-h] [-v] [-t] [-d] [-f <fname>] [-d <dir>] <filename>
+#    sas2store.sh [-h] [-v] [-t] [-s] [-d] [-f <fname>] [-d <dir>] <filename>
 # ~~~
 #
 # ### Arguments
-# * `<input>` : input defined as either a filename storing some (`R`/`SAS`/`Stata`/`Python`/…)
-# 	source code, or a directory containing such files; all first-level (_i.e._, non 
-# 	nested) macros in this(ese) file(s) will be transformed into store-able macros 
-# 	thanks to the adding of the `'\store'` keword;
+# * `<input>` : input defined as either a filename storing some `SAS` source code, or a
+#	directory containing such files; all first-level (_i.e._, non nested) macros present 
+# 	in the file(s) will be transformed into "store- and compile-able" macros thanks to 
+#	the adding of the `/ store` keyword option;
 # * `-f <name>` : output name; it is either the name of the output file (with or without
 #	`.sas` extension) when the parameter <input> (see above) is passed as a single file,
 # 	or a generic suffix to be added to the output filenames otherwise; when a suffix 
@@ -22,7 +22,10 @@
 # * `-d <dir>` : output directory for storing the output formatted files; in the case of 
 # 	test mode (see option -t` below), this is overwritten by the temporary directory 
 # 	/tmp/; default: when not passed, <dir> is set to the same location as the input(s);
-# * `-c` : flag used to add a comment (description) to the store macro;
+# * `-s` : flag used store the source code with the compiled code, _e.g._ adding the 
+#	`source` keyword option;
+# * `-c` : flag used to add a comment (description) to the store macro, _e.g._ adding the 
+#	`des` keyword option;
 # * `-h` : display this help;
 # * `-v` : verbose mode (all kind of useless comments…);
 # * `-t` : test mode; a temporary output will be generated and displayed; use it for 
@@ -43,8 +46,11 @@
 # and `<name>` are not left 'blank' (empty) simultaneously; the operation will otherwise
 # be cancelled.
 #
-# ### Reference
-# [Saving macros using the stored compiled macro facility](http://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.htm#a001328775.htm).
+# ### References
+# 1. [_"Saving macros using the stored compiled macro facility"_](http://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.htm#a001328775.htm).
+# 2. Myers, J.M. (2014): [_"Store and recall macros with SAS macro libraries"_](http://analytics.ncsu.edu/sesug/2014/IT-03.pdf).
+# 3. Larsen, E.S. (2008): [_"Creating a stored macro facility in ten minutes"_](http://www2.sas.com/proceedings/forum2008/101-2008.pdf).
+# 4. Stojanovic, M. (2005): [_"Ways to store macro source codes and how to retrieve them"_](http://analytics.ncsu.edu/sesug/2005/AD07_05.PDF).
 ##
 
 # @date:     15/11/2017
@@ -57,10 +63,6 @@ TODAY=`date +'%y%m%d'` # `date +%Y-%m-%d`
 
 BASHVERS=${BASH_VERSION%.*}
 
-hash find 2>/dev/null || { echo >&2 " !!! Command FIND required but not installed - Aborting !!! "; exit 1; }
-hash awk 2>/dev/null || { echo >&2 " !!! Command AWK required but not installed - Aborting !!! "; exit 1; }
-hash sed 2>/dev/null ||  { echo >&2 " !!! Command SED required but not installed - Aborting !!! "; exit 1; }
-
 case "$(uname -s)" in
     Linux*)     MACHINE=Linux;;
     Darwin*)    MACHINE=Mac;;
@@ -72,11 +74,18 @@ case "$(uname -s)" in
     *)          MACHINE="UNKNOWN:${OSTYPE}"
 esac
 
+[ "${MACHINE}" = "Mac" ] && AWK=gawk || AWK=awk
+
+hash find 2>/dev/null || { echo >&2 " !!! Command FIND required but not installed - Aborting !!! "; exit 1; }
+hash ${AWK} 2>/dev/null || { echo >&2 " !!! Command ${AWK} required but not installed - Aborting !!! "; exit 1; }
+hash sed 2>/dev/null ||  { echo >&2 " !!! Command SED required but not installed - Aborting !!! "; exit 1; }
+
 function usage() { 
     ! [ -z "$1" ] && echo "$1";
     echo "";
     echo "=================================================================================";
-    echo "${PROGRAM} : Generate a store-able version of a SAS source file.";
+    echo "${PROGRAM} : Automatic generation of a 'store- and compile-able' version of a SAS";
+	echo "source file.";
     echo "";
     echo "Run: ${PROGRAM} -h for further help. Exiting program...";
     echo "=================================================================================";
@@ -88,35 +97,40 @@ function help() {
     ! [ -z "$1" ] && echo "$1";
     echo "";
     echo "=================================================================================";
-    echo "${PROGRAM} : Generate a store-able version of a SAS source file.";
+    echo "${PROGRAM} : Automatic generation of a 'store- and compile-able' version of a SAS";
+	echo "source file.";
     echo "=================================================================================";
     echo "";
     echo "Syntax";
     echo "------";
-    echo "    ${PROGRAM} [-h] [-v] [-t] [-c] [-f <fname>] [-d <dir>] <input>";
+    echo "    ${PROGRAM} [-h] [-v] [-t] [-c] [-s] [-f <fname>] [-d <dir>] <input>";
     echo "";
     echo "Parameters";
     echo "----------";
-    echo " <input>    :   input defined as either a filename storing some (R/SAS/Stata/…)g";
-    echo "                source code, or a directory containing such files; all first-level";
-    echo "                (i.e., non nested) macros in this(ese) file(s) will be transformed";
-    echo "                into store-able macros thanks to the adding of the '\store' keword;";
-    echo " -f <name>  :   output name; it is either the name of the output file (with or";
-    echo "                without '.sas' extension) when the parameter <input> (see above)";
-    echo "                is passed as a single file, or a generic suffix to be added to the";
-    echo "                output filenames otherwise; when a suffix is passed, the '_'";
-    echo "                symbol is added prior to the suffix; when considered as a suffix,";
-    echo "                the special flag _NONE_ can be used to force <name> to blank (i.e.";
-    echo "	              no suffix will be used); default: the suffix 'store' is used;";
-    echo " -d <dir>   :   output directory for storing the output formatted files; in the";
-    echo "                case of test mode (see option -t below), this is overwritten by";
-    echo "                the temporary directory /tmp/; default: when not passed, <dir> is";
-    echo "                set to the same location as the input(s);";
-    echo " -c         :   flag used to add a comment (description) to the store macro;";
-    echo " -h         :   display this help;";
-    echo " -v         :   verbose mode (all kind of useless comments…);";
-    echo " -t         :   test mode; a temporary output will be generated and displayed;";
-    echo "                use it for checking purpose prior to the automatic generation.";
+    echo " <input>   : input defined as either a filename storing some SAS source code, or";
+    echo "             a directory containing such files; all first-level (i.e., non nested)";
+    echo "             macros present in the file(s) will be transformed into 'store- and";
+	echo "             compile-able' macros thanks to the adding of the '/ store' keyword";
+	echo "             option;";
+    echo " -f <name> : output name; it is either the name of the output file (with or without";
+    echo "             '.sas' extension) when the parameter <input> (see above) is passed as";
+    echo "             a single file, or a generic suffix to be added to the output filenames";
+    echo "             otherwise; when a suffix is passed, the '_' symbol is added prior to";
+    echo "             the suffix; when considered as a suffix, the special flag _NONE_ can";
+    echo "             be used to force <name> to blank (i.e. no suffix will be used); default:";
+    echo "	           the suffix 'store' is used;";
+    echo " -d <dir>  : output directory for storing the output formatted files; in the case of";
+    echo "             test mode (see option -t below), this is overwritten by the temporary";
+    echo "             directory /tmp/; default: when not passed, <dir> is set to the same";
+    echo "             location as the input(s);";
+	echo " -s 		 : flag used store the source code with the compiled code, e.g. adding the"  
+	echo "             'source' keyword option;";
+    echo " -c        : flag used to add a comment (description) to the store macro, e.g. adding;";
+	echo "             the 'des' keyword option;";
+	echo " -h        : display this help;";
+    echo " -v        : verbose mode (all kind of useless comments…);";
+    echo " -t        : test mode; a temporary output will be generated and displayed;";
+    echo "             use it for checking purpose prior to the automatic generation.";
     echo "";
     echo "Note";
     echo "----";
@@ -142,7 +156,7 @@ function  greaterorequal (){
 	# returns:	 	0 when argument $1 >= $2
 	#				1 otherwise
 	# note: 0 is the normal bash "success" return value (to be used in a "if...then" test)
-	return `awk -vv1="$1" -vv2="$2" 'BEGIN { print (v1 >= v2) ? 0 : 1 }'`
+	return `${AWK} -vv1="$1" -vv2="$2" 'BEGIN { print (v1 >= v2) ? 0 : 1 }'`
 }
 
 function uppercase () {
@@ -201,7 +215,7 @@ function remcomms () {
     else 
         # source: https://www.gnu.org/software/gawk/manual/html_node/Plain-Getline.html#Plain-Getline
 	# some issue found with this approach
-	awk 
+	${AWK} 
 	    '{if ((i = index($0, "/*")) != 0) {
 	        out = substr($0, 1, i - 1)  
 		# leading part of the string
@@ -251,43 +265,89 @@ function rememptylines () {
 function getdesc () {
 	# argument: 	1:file
 	# returns: 		first lines of documentation
-	awk '
-		/^\#/ && /\{\#/ {m=1; next} 
+	${AWK} '
+		/^\#\#/ && /\{\#/ {m=1; next} 
 			m==1 {if (!NF) {m=0; exit} else {print}
 				} 
 		' $1
 }
 
 function insstore () {
-	# argument: 	1:file 2:description 
+echo insstore: $@
+echo insstore 2: $2
+echo insstore 3: $3
+echo insstore 4: $4
+	# argument: 	1:file 2:description 3:source flag 
 	# returns: 		instore the "\store" keyword after main macro declarations
-	[ $# -lt 2 ] && base=_DUMMY_ || base=`basename "$2" .${SASEXT}`
-	[ $# -lt 3 ] && desc=_NONE_ || desc=$3
-	awk -vd="$desc" -vb="$base" '
-		BEGIN {m=0; f=0; count=0}
-		# note the presence of the blank after the keyword %macro
-		/%macro /{m+=1; p1=index($0, b "\("); p2=index($0, b " "); p=(p1 > p2 ? p1 : p2); s=index($0, "\\store"); count+=1} 
-			# m>0
+	[ $# -lt 2 ] && fname= || fname=`basename "$2" .${SASEXT}`
+	[ $# -lt 3 ] && desc=   || desc="des=\"${3}\""
+	[ $# -lt 3 ] && tdesc=  || tdesc="des=\"Test example for ${3}\""
+	[ $# -lt 4 -o $4 -eq 0 ] && source= || source="source"
+	echo source=$source
+	store="/ store"
+	desc="des=\"${3}\""
+	tname=_test_$fname
+	tdesc="des=\"Test for $fname\""
+	ename=_example_$fname
+	edesc="des=\"Example for $fname\""
+	# options=("/ store")
+	# ! [ -z $source ] && options+=(" source")
+	${AWK} -v fname="$fname" -v ename="$ename" -v tname="$tname" 		\
+			-v store="$store" -v source="$source" 					\
+			-v desc="$desc" -v edesc="$edesc" -v tdesc="$tdesc" 	\
+		' BEGIN {m=0; f=0; count=0}
+		# note the presence of the blank after the keyword "%macro"
+		/%macro /{
+			# check whether the existence of a macro whose name is exactly the name of the file, 
+			# i.e. <fname>, hence look for either:
+			# 	%macro <fname> ...
+			# or:
+			# 	%macro <fname>( ...
+			# or:
+			# 	%macro <fname>; ...
+			# hence we care about the presence of blanks " ", semi-period ";" or parenthesis ")"
+			p1=index($0, " " fname " "); p2=index($0, " " fname "("); p3=index($0, " " fname ";");
+			p=p1+p2+p3;	# p=(p1>p2)?p1:p2; 
+			# ibid with example macro:
+			e1=index($0, " " ename " "); e2=index($0, " " ename "("); e3=index($0, " " ename ";");
+			e=e1+e2+e3;	 
+			# check for the presence of the <store> string, e.g. "/ store" to find out whether the
+			# macro currently analysed is already stored or not
+			s=index($0, store);
+			# increment the flag variable m
+			m+=1; 
+			} # m>0
 			{if (f==0) {
-				# still look for the patterns  "b" and "\store"... they may be on any line between 
-				# %macro and the comma
-				if (p<=0 && f==0) {p1=index($0, b "\("); p2=index($0, b " "); p=(p1 > p2 ? p1 : p2) } 
-				if (s<=0 && f==0) {s=index($0, "\\store") } 
-				# look for the comma
-				if (/;/ && m==1 && f==0) { 
+				# still look for the <fname> and <store> strings... they may be on any line between 
+				# the keyword "%macro" and the semi-period
+				if (e<=0) {
+					e1=index($0, " " ename " "); e2=index($0, " " ename "("); e3=index($0, " " ename ";");
+					e=e1+e2+e3 }
+				if (p<=0) {
+					p1=index($0, " " fname " "); p2=index($0, " " fname "("); p3=index($0, " " fname ";");
+					p=p1+p2+p3 }
+				if (s<=0) {
+					s=index($0, store) } 
+				# look for the first occurrence of a semi-period right after the "%macro" keyword
+				if (/;/ && m==1) { 
 					i=index($0, ";");
 					if (s>0) {
 						print $0 
 					} else {
-						if (d!="_NONE_" && / _example_/ && p>0) {
-							print substr($0, 0, i-1) " \\store des=\"Test example for " b "\"" substr($0, i)
-						} else if (d!="_NONE_" && p>0) { 
-							print substr($0, 0, i-1) " \\store des=\"" d "\"" substr($0, i) 
+						# look for example_<fname>
+						if (/ _example_/ && length(edesc)==0 && e>0) {
+							print substr($0, 0, i-1) " " store " " source " p=" p " " length(edesc) " " edesc " " substr($0, i)
+						} else if (length(desc)==0 && p>0) { 
+							print substr($0, 0, i-1) " " store " " source " p=" p " " length(desc) " " desc " " substr($0, i) 
 						} else { 
-							print substr($0, 0, i-1) " \\store " substr($0, i)
+							print substr($0, 0, i-1) " " store " " source " p=" p " " substr($0, i)
 						}
 					}
-					f=1; p=0; s=0;
+					# reset the parameter f so that nothing occurs (except the printing) for all following 
+					# lines prior to the next occurence of the keyword "%macro"
+					f=1; 
+					# also reset the other parameters
+					p=0; s=0;
 				} else {
 					print $0
 				}
@@ -312,6 +372,7 @@ comm=0
 verb=0
 test=0
 remdoc=0
+source=0
  
 ## basic checks: options, command error or help
 
@@ -320,7 +381,7 @@ remdoc=0
 
 # we use getopts to pass the arguments
 # options are: [-d <dir>] [-f <fname>] [-d] [-h] [-v] [-t]
-while getopts :d:f:cdhtv OPTION; do
+while getopts :d:f:cdshtv OPTION; do
     # extract options and their arguments into variables.
     case ${OPTION} in
 	d)  dirname=${OPTARG}
@@ -330,6 +391,8 @@ while getopts :d:f:cdhtv OPTION; do
 	f)  fname=${OPTARG}
 	    ;;
 	c) comm=1
+		;;
+	s) source=1
 		;;
 	h)  help #show help
 	    ;;
@@ -362,7 +425,7 @@ for (( i=0; i<${nprogs}; i++ )); do
 done
 
 if [ ${test} -eq 1 ]; then
-    ECHOSTART=("echo" "  ... run: \"") 
+    ECHOSTART=("echo  ... run: \"") 
     ECHOEND=("\"") 
     [ -z "${dirname}" ] && dirname=/tmp   
     [ -z "${fname}" ] && fname=`date +%Y%m%d-%H%M%S`
@@ -405,13 +468,13 @@ for (( i=0; i<${nprogs}; i++ )); do
 			&& continue 
 		
 		# retrieve the description from the documentation header whenever desired
-		[ ${comm} -eq 1 ] && desc=`getdesc ${file}` || desc=
-			
+		[ ${comm} -eq 1 ] && desc=`getdesc ${file}` || desc= #_NONE_
+		
 		# run the operation of string conversion
 		if [ ${remdoc} -eq 1 ]; then
-			`remcomms ${file} | rememptylines - | insstore - ${base} "\${desc}" > ${filename}`	
+			`remcomms ${file} | rememptylines - | insstore - ${base} "\${desc}" ${source} > ${filename}`	
 		else	
-			`insstore ${file} ${description}> ${filename}`	
+			`insstore ${file} "\${desc}" ${source} > ${filename}`	
 		fi		
 		
 		# display in case of test
