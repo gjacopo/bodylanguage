@@ -26,9 +26,15 @@ None.
 %macro sas2store_testfile(dumb, dumber);
 	%put &dumb &dumber;
 %mend sas2store_testfile;
+	
+%put +++++++++++++++++++++++++++++++++++++;
+%put Ibid basic macro b, one space added;
+%macro sas2store_testfile (dumb, dumber);
+	%put &dumb &dumber;
+%mend sas2store_testfile;
 
 %put +++++++++++++++++++++++++++++++++++++;
-%put Ibid basic macro b, declaration on multiple lines: / store should be added, as well as desc in case the option is selected;
+%put Ibid basic macro c, declaration on multiple lines;
 %macro sas2store_testfile(dumb
 						, dumber
 						)
@@ -38,10 +44,22 @@ None.
 
 
 %put +++++++++++++++++++++++++++++++++++++;
+%put Ibid basic macro d, declaration on multiple lines;
+%macro sas2store_testfile
+
+(dumb, dumber);	%put &dumb &dumber; %mend sas2store_testfile;
+
+%put +++++++++++++++++++++++++++++++++++++;
 %put Basic macro example:  / store should be added, as well as desc Example in case the option is selected;
 %macro _example_sas2store_testfile; 
 	%sas2store_testfile(1, 2); 
 %mend _example_sas2store_testfile;
+
+%put +++++++++++++++++++++++++++++++++++++;
+%put Basic macro test:  / store should be added, as well as desc Test in case the option is selected;
+%macro _test_sas2store_testfile; 
+	%sas2store_testfile(1, 2); 
+%mend _test_sas2store_testfile;
 
 	
 %put +++++++++++++++++++++++++++++++++++++;
