@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## src2mddoc.sh {#bash_src2mddoc.sh}
-# Automatic generation of markdown files from various self-documented programs
+# Automatic generation of `markdown` files from various self-documented programs
 # (R/SAS/Stata/Python/bash/DOS). 
 #
 # ~~~bash
@@ -11,51 +11,55 @@
 # ### Arguments 
 # * `<input>` : input defined as either the filename storing the source code, or the 
 #	directory containing this(ese) file(s);
-# * `-f <name>` : (option) output name; it is either the name of the output file (with 
-#	or without extension) when the parameter <input> (see above) is passed as a single
-#   file, or a generic suffix to be added to the output filenames otherwise; when a 
-#   suffix is passed, the _ symbol is added prior to the suffix; by default, an empty 
-#   suffix (i.e. no suffix) is used;
-# * `-d <dir>` : (option) output directory for storing the output formatted files; in 
-#	the case of test mode (see option -t below), this is overwritten by the temporary 
-#	directory /tmp/; default: when not passed, <dir> is set to the same location as the 
-#	input(s);
-# * `-h` : (option) setting this option will display the help;
-# * `-v` : (option) setting this option will set the verbose mode (all kind of useless 
+# * `-f <name>` : (_option_) output name; it is either the name of the output file (with 
+#	or without extension) when the parameter `<input>` (see above) is passed as a single
+#	file, or a generic suffix to be added to the output filenames otherwise; when a 
+#	suffix is passed, the _ symbol is added prior to the suffix; by default, an empty 
+#	suffix (_i.e._ no suffix) is used;
+# * `-d <dir>` : (_option_) output directory for storing the output formatted files; in the
+#	case of test mode (see option `-t` below), this is overwritten by the temporary 
+#	directory `/tmp/`; default: when not passed, `<dir>` is set to the same location 
+#	as the input(s);
+# * `-p` : (_option_) the name of the programming language is also added as a prefix to the
+#	name of the output file(s), e.g. the prefixes `r_`, `sas_`, `py_`, etc... will be 
+#	added to the name of the `markdown` files;
+# * `-h` : (_option_) setting this option will display the help;
+# * `-v` : (_option_) setting this option will set the verbose mode (all kind of useless 
 #	comments);
-# * `-t` : (option) test mode; a temporary output will be generated and displayed; use it 
+# * `-t` : (_option_) test mode; a temporary output will be generated and displayed; use it 
 #	for checking purpose prior to the automatic generation.
 # 
 # ### Returns
-# 
+# Extract the documentation headers from the source files into self-generated `markdown` files.
+#
 # ### Examples
-# Test the generation of a markdown file from the clist_unquote.sas program and
-# display the result:
+# Test the generation of a `markdown` file from the `quantile.sas` program and display the 
+# result:
 #
 # ~~~sh
-#     src2mddoc.sh -t $rootdir/library/pgm/clist_unquote.sas
+#    src2mddoc.sh -t $rootdir/library/pgm/quantile.sas";
 # ~~~
-# 
-# Actually generate (after the test) that file and store it in a dedicated folder:
+# Actually generate (after the test) the file `quantile.md` and store it in a dedicated folder:
 #
 # ~~~sh
-#     src2mddoc.sh -v -d $rootdir/documentation/md/library
-#                      $rootdir/z/library/pgm/clist_unquote.sas
+#    src2mddoc.sh -v -d $rootdir/docs/md/library
+#          $rootdir/library/pgm/quantile.sas
 # ~~~
-# Similarly with a R file:";
+# Similarly with a R file, also adding the 'r_' to the name of the output file, _i.e._ generating 
+# the file `r_quantile.md`:
 #
 # ~~~sh
-#     src2mddoc.sh -v -d $rootdir/documentation/md/library/5.3_Validation
-#                      $rootdir/5.3_Validation/pgm/generate_docs.R
+#    src2mddoc.sh -v -d $rootdir/docs/md/library/pgm 
+#          $rootdir/library/pgm/quantile.R
 # ~~~
-# Automatically generate markdown files with suffix \"doc\" (i.e., list_quote.sas
-# will be associated to the file list_quote_doc.md) from all existing SAS files
-# in a given directory:
+# Automatically generate `markdown` files with suffix `"doc"` (_i.e._, `quantile.sas` will be 
+# associated to the file `sas_quantile_doc.md`) from all existing source files in a given 
+# directory:";
 #
 # ~~~sh
-#     src2mddoc.sh -v -d $rootdir/documentation/md/library/
-#                     -f doc
-#                      $rootdir/library/pgm/
+#    src2mddoc.sh -v -p -d $rootdir/documentation/md/library/
+#          -f doc
+#          $rootdir/library/pgm/
 # ~~~
 # 
 # ### Notes
@@ -151,6 +155,9 @@ function help() {
     echo "                case of test mode (see option -t below), this is overwritten by";
     echo "                the temporary directory /tmp/; default: when not passed, <dir> is";
     echo "                set to the same location as the input(s);";
+    echo " -p         :   the name of the programming language is also added as a prefix to;";
+    echo "                the name of the output file(s), e.g. the prefixes \"r_\", \"sas_\",";
+    echo "                \"py_\", etc... will be added to the name of the markdown files";
     echo " -h         :   display this help;";
     echo " -v         :   verbose mode (all kind of useless comments…);";
     echo " -t         :   test mode; a temporary output will be generated and displayed;";
@@ -166,22 +173,24 @@ function help() {
     echo "";
     echo "Examples";
     echo "--------";
-    echo "* Test the generation of a markdown file from the clist_unquote.sas program and";
+    echo "* Test the generation of a markdown file from the quantile.sas program and";
     echo "  display the result:";
-    echo "    ${PROGRAM} -t $rootdir/library/pgm/clist_unquote.sas";
+    echo "    ${PROGRAM} -t $rootdir/library/pgm/quantile.sas";
     echo "";
-    echo "* Actually generate (after the test) that file and store it in a dedicated folder:";
-    echo "    ${PROGRAM} -v -d $rootdir/documentation/md/library";
-    echo "                     $rootdir/z/library/pgm/clist_unquote.sas";
+    echo "* Actually generate (after the test) the file `quantile.md` and store it in a";
+    echo "  dedicated folder:";
+    echo "    ${PROGRAM} -v -d $rootdir/docs/md/library";
+    echo "                     $rootdir/library/pgm/quantile.sas";
     echo "";
-    echo "* Similarly with a R file:";
-    echo "    ${PROGRAM} -v -d $rootdir/documentation/md/library/5.3_Validation "; 
-    echo "                     $rootdir/5.3_Validation/pgm/generate_docs.R";
+    echo "* Similarly with a R file, also adding the 'r_' to the name of the output file,";
+    echo "  i.e. generating the file r_quantile.md:";
+    echo "    ${PROGRAM} -v -d $rootdir/docs/md/library/pgm "; 
+    echo "                     $rootdir/library/pgm/quantile.R";
     echo "";
-    echo "* Automatically generate markdown files with suffix \"doc\" (i.e., list_quote.sas";
-    echo "  will be associated to the file list_quote_doc.md) from all existing SAS files";
-    echo "  in a given directory:";
-    echo "    ${PROGRAM} -v -d $rootdir/documentation/md/library/";
+    echo "* Automatically generate markdown files with suffix \"doc\" (i.e., quantile.sas";
+    echo "  will be associated to the file sas_quantile_doc.md) from all existing source";
+    echo "  files in a given directory:";
+    echo "    ${PROGRAM} -v -p -d $rootdir/documentation/md/library/";
     echo "                     -f doc";
     echo "                     $rootdir/library/pgm/";
     echo "";

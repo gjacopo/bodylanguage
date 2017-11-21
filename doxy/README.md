@@ -1,7 +1,7 @@
 doxy@ESTAT
 ===========
 
-Guidelines and script for generic code documentation of various languages (`R`/`SAS`/`Stata`/`Python`/`bash`/`DOS`/...).
+Guidelines and script for generic code documentation of various languages (`R`/`SAS`/`Stata`/`Python`/`Matlab`/`bash`/`DOS`/...).
 ---
 
 **About**
@@ -24,6 +24,8 @@ In practice, the source code documentation will be made available not only as an
 * **human-readable language [_markdown_](https://daringfireball.net/projects/markdown/) is adopted** for writing the source code documentation,
 * **a (`bash`) script, namely [`src2mddoc.sh`](src2mddoc.sh),** for the automatic extraction of the formatted documentation header from the source files,
 * **documentation generator [_Doxygen_](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
+
+Note that this way, it is not necessary to "group" the source code that is documented (it can be left as is, in its original location), instead it is enough to "centralise" the _markdown_ generated files (though this could be avoided as well).
 
 <table>
 <tr>
