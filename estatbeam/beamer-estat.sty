@@ -1,0 +1,146 @@
+
+%% This file may be distributed and/or modified
+%%
+%% 1. under the LaTeX Project Public License and/or
+%% 2. under the GNU Public License.
+%%
+%% Beamer: https://en.wikibooks.org/wiki/LaTeX/Presentations
+%%
+%% Adapted from imperial-beamer-style.sty style template by Till Tantau/James Keirstead
+%% source: https://github.com/keirstead-group/imperial-latex/blob/master/tex/latex/imperial/imperial-beamer-style.sty
+
+% H:/Desktop/estat-beamer/beamer-estat.sty
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{estat-beamer}[2017/11/17 v0.9 ESTAT beamer style]
+
+%% \documentclass[unknownkeysallowed]{beamer}
+
+%\DeclareGraphicsRule{.png}{eps}{.bb}{'convert #1 eps:-} %no longer necessary
+
+
+%%% colors
+
+%% Eurostat colors
+% Yellow=(255,214,36)
+% Blue = (15,84,148)
+\definecolor{estattitleyellow}{RGB}{255,214,36}
+\definecolor{estatblue}{RGB}{15,84,148}
+\definecolor{white}{RGB}{255,255,255}
+\definecolor{ectextblue}{RGB}{0,68,148}
+\definecolor{ecbannerblue}{RGB}{55,172,222}
+
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+
+\usefonttheme{structurebold}
+
+\setbeamercolor{normal text}{fg=estatblue}
+\setbeamercolor{title}{fg=estattitleyellow}
+\setbeamercolor{subtitle}{fg=white}
+\setbeamercolor{structure}{fg=ectextblue}
+\setbeamercolor{page number in head/foot}{fg=white}
+
+
+\setbeamerfont{normal text}{}
+\setbeamerfont{page number in head/foot}{series=\normalfont,size=\Tiny}
+
+% does anyone actually use the nav symbols?
+\setbeamertemplate{navigation symbols}{}
+% post-it: used to highlight boxes when I want to see how big they
+% really are on the slide:
+\setbeamercolor{postit}{fg=black,bg=yellow}
+
+%% template title 1
+\setbeamerfont{title}{size=\Large,series=\bfseries}
+\setbeamerfont{subtitle}{series=\normalfont}
+\setbeamertemplate{title page}{%
+\vskip0pt
+\begin{beamercolorbox}[wd=\textwidth,ht=2.5cm,dp=1ex,center]{title}%{postit}%
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
+    \par
+    \vspace{0.2cm}
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}
+    \par
+    \vspace{0.2cm}
+    \par
+    {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor}
+\end{beamercolorbox}
+\vskip0pt plus 1filll
+\begin{flushright}
+\begin{minipage}[t][4.0cm][t]{0.4\textwidth}
+  \vspace{0pt}%
+    {\bfseries ec.europa.eu/eurostat}
+    \vskip0pt plus 1filll
+    {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}
+    \vskip0pt plus 1filll
+    {\textit\large Providing high quality statistics for Europe}
+    \vskip0pt plus 1filll
+\end{minipage}
+\end{flushright}
+\vskip0pt plus 1filll
+}
+
+%% template title 2
+\setbeamerfont{title}{size=\Huge,series=\bfseries}
+\setbeamerfont{subtitle}{series=\normalfont}
+\setbeamertemplate{title page}{%
+\vskip0pt
+\begin{beamercolorbox}[wd=0.9\textwidth,ht=4cm,dp=1ex,right]{title}%{postit}%
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
+    \par
+    \vspace{0.2cm}
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}
+    \par
+    \vspace{0.2cm}
+    \par
+    {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor}
+\end{beamercolorbox}
+\vskip0pt plus 1filll
+\begin{flushright}
+\begin{minipage}[t][4.0cm][t]{0.4\textwidth}
+  \vspace{0pt}%
+    {\bfseries ec.europa.eu/eurostat}
+    \vskip0pt plus 1filll
+    {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}
+    \vskip0pt plus 1filll
+    {\textit\large Providing high quality statistics for Europe}
+    \vskip0pt plus 1filll
+\end{minipage}
+\end{flushright}
+\vskip0pt plus 1filll
+}
+
+% The headline is given by the background canvas - just skip over it
+\setbeamertemplate{headline}{
+  \vspace{1.6cm}
+}
+
+% The footline is given by the date on the left and the slide number
+% on the right
+\setbeamertemplate{footline}{%
+  \ifnum\c@framenumber=1
+  \else
+  \begin{beamercolorbox}{page number in head/foot}
+    \hspace{0.4cm}{\usebeamerfont{page number in head/foot}\insertdate
+      \hfill \insertpagenumber/\insertpresentationendpage
+      \hspace{0.4cm}} \vspace{0.2cm}
+  \end{beamercolorbox}%
+  \fi
+}
+
+% The background canvas gives us the running banner at the top, the EC logo
+\setbeamertemplate{background canvas}{%
+  \ifbeamer@plainframe
+  \else
+    \ifnum\c@framenumber=1%% On title page
+      \includegraphics[width=\paperwidth,height=\paperheight]{slide-title-background-estat.png}
+    \else%
+      \includegraphics[width=\paperwidth,height=\paperheight]{slide-background-estat.png}
+    \fi%
+  \fi
+}
+
+
+%%
+%% End of file `estat-beamer.sty'. 

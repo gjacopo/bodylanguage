@@ -1,7 +1,7 @@
 estatref
 ======
 
-Layout for browsable and searchable online references
+Layout for browsable and searchable online references.
 ---
 
 The layout files stored herein, namely: 
