@@ -21,8 +21,8 @@
 #	directory `/tmp/`; default: when not passed, `<dir>` is set to the same location 
 #	as the input(s);
 # * `-p` : (_option_) the name of the programming language is also added as a prefix to the
-#	name of the output file(s), e.g. the prefixes `r_`, `sas_`, `py_`, etc... will be 
-#	added to the name of the `markdown` files;
+#	name of the output file(s), e.g. the prefixes `r_`, `sas_`, `py_`, etc... are 
+#	inserted into the name of the `markdown` files;
 # * `-h` : (_option_) setting this option will display the help;
 # * `-v` : (_option_) setting this option will set the verbose mode (all kind of useless 
 #	comments);
@@ -157,7 +157,7 @@ function help() {
     echo "                set to the same location as the input(s);";
     echo " -p         :   the name of the programming language is also added as a prefix to;";
     echo "                the name of the output file(s), e.g. the prefixes \"r_\", \"sas_\",";
-    echo "                \"py_\", etc... will be added to the name of the markdown files";
+    echo "                \"py_\", etc... are inserted into the name of the markdown files";
     echo " -h         :   display this help;";
     echo " -v         :   verbose mode (all kind of useless comments…);";
     echo " -t         :   test mode; a temporary output will be generated and displayed;";

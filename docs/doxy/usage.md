@@ -8,7 +8,7 @@ where the parameters are:
 * `<input>`    :   input defined as either the filename storing the source code, or the directory containing this(ese) file(s);
 * `-f <name>`  :   (_option_) output name; it is either the name of the output file (with or without extension) when the parameter `<input>` (see above) is passed as a file, or a generic suffix to be added to the  output filenames otherwise; when a suffix is passed, the `_` symbol is added prior to the suffix; by default, an empty suffix (_i.e._ no suffix) is used;
 * `-d <dir>`  :   (_option_) output directory for storing the output formatted files; in the case of test mode (see option `-t` below), this is overwritten by the temporary directory `/tmp/`; default: when not passed, `<dir>` is set to the same location as the input(s);
-* `-p` : (_option_) the name of the programming language is also added as a prefix to the	name of the output file(s), e.g. the prefixes `r_`, `sas_`, `py_`, etc... will be added to the name of the `markdown` files;
+* `-p` : (_option_) the name of the programming language is also added as a prefix to the	name of the output file(s), _e.g._ the prefixes `r_`, `sas_`, `py_`, _etc_... are inserted into the name of the `markdown` file(s);
 * `-h`         :   (_option_) setting this option will display the help;
 * `-v`         :   (_option_) setting this option will set the verbose mode (all kind of useless comments);
 * ` -t`         :   (_option_) test mode; a temporary output will be generated and displayed; use it for checking purpose prior to the automatic generation.
