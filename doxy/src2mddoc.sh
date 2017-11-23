@@ -86,10 +86,12 @@ MDEXT=md
 SASEXT=sas
 STATAEXT=do
 REXT=r
+MEXT=m
 PYEXT=py
 SHEXT=sh
 DOSEXT=bat
 EXTS=("${SASEXT}" "${STATAEXT}" "${REXT}" "${PYEXT}" "${SHEXT}" "${DOSEXT}")
+SEP=_
 
 ## some basic global settings 
 
@@ -279,6 +281,7 @@ uSTATAEXT=`uppercase ${uSTATAEXT}`
 uPYEXT=`uppercase ${PYEXT}`
 uSHEXT=`uppercase ${SHEXT}`
 uDOSEXT=`uppercase ${DOSEXT}`
+uMEXT=`uppercase ${MEXT}`
 uEXTS=$(for i in ${EXTS[@]}; do uppercase $i; done)
 
 dirname=
@@ -368,7 +371,7 @@ else
     # define the default output directory path DIRNAME (when not passed with the
     # '-d' option) as the name of the directory storing the first file PROGNAME[0],
     # or PROGNAME[0] itself if it is a directory
-    [ -z "${dirname}" ] && dirname=`dirname ${progname[0]}`
+    [ -z "${dirname}" ] && dirname=`dirname ${prog0}`
   
     # we define a generic name FNAME for the output markdown files as:
     #  - the generic string passed with the option '-f' when a directory or multiple
@@ -382,20 +385,19 @@ echo before fname=$fname
 
 if [ ${nprogs} -eq 1 ]; then
 	# in case a single file PROG0 is provided and FNAME is not passed, force it
-	! [ -d "${prog0}" ] && [ -z "${fname}" ] && fname=${prog0%.*}
+	! [ -d "${prog0}" ] && [ -z "${fname}" ] && fname=`basename ${prog0}` # ${prog0%.*}
 	# in the case FNAME is actually a filename: some practical issue here: ensure
 	# that we do not put any extension in the string defined by FNAME (this is added 
 	# later on)
-	[ -n "${fname}" ] &&  fname=${fname%.*} #`basename ${fname} .${MDEXT}`
+	[ -n "${fname}" ] && fname=${fname%.*} 
 fi
 ## note that at this stage, FNAME can be empty iif [ ${nprogs} -gt 1 ] || [ -d "${prog0}" ]
 
 # in the case FNAME is used as a prefix: if it is not empty and does not start with a '_' 
 # character, then add it
 [ ${nprogs} -gt 1 -o -d "${prog0}" ] 		\
-	&& [ -n "${fname}" ] && [ ${fname} != _* ]  	
-	\
-    && fname=_${fname}
+    && [ -n "${fname}" ] && [ ${fname} != ${SEP}* ]  		\
+    && fname=${SEP}${fname}
 
 [ ${test} -eq 1 -o ${verb} -eq 1 ]                                        		\
     && echo "* Setting parameters: input/output filenames and directories..."   
@@ -411,18 +413,18 @@ if [ ${test} -eq 1 ] || [ ${verb} -eq 1 ];    then
     for (( i=0; i<${nprogs}; i++ )); do
 		inp=${progname[$i]}
 		[ -d "$inp" ]                                                                   \
-	    && (echo "    - for every program f.ext of ${inp}/, a documentation";           \
-	       [ ${pref} -eq 1 ]                                                          	\
-	       && echo "      will be stored in a file named \$ext_\$f${fname}.${MDEXT}"    \
-	       || echo "      will be stored in a file named \$f${fname}.${MDEXT}")         \
-	    || (echo "    - the documentation of ${inp} program will be stored";            \
-	       [ ${pref} -eq 1 ]                                                            \
-	       && ([ ${nprogs} -eq 1 -a -n ${fname} ]                                       \
-	          && echo "      in the file ${inp##*.}_${fname}.${MDEXT}"                  \
-	          || echo "      in the file ${inp##*.}_${inp%.*}${fname}.${MDEXT}")        \
-	       || ([ ${nprogs} -eq 1 -a -n ${fname} ]                                       \
-	          && echo "      in the file ${fname}.${MDEXT}"                             \
-	          || echo "      in the file ${inp%.*}${fname}.${MDEXT}") )
+		    && (echo "    - for every program f.ext of ${inp}/, a documentation";           \
+		        [ ${pref} -eq 1 ]                                                          	\
+		        && echo "      will be stored in a file named \$ext_\$f${fname}.${MDEXT}"    \
+		        || echo "      will be stored in a file named \$f${fname}.${MDEXT}")         \
+		    || (echo "    - the documentation of ${inp} program will be stored";            \
+		        [ ${pref} -eq 1 ]                                                            \
+		        && ([ ${nprogs} -eq 1 -a -n ${fname} ]                                       \
+	                    && echo "      in the file ${inp##*.}${SEP}${fname}.${MDEXT}"                  \
+	                    || echo "      in the file ${inp##*.}${SEP}${inp%.*}${fname}.${MDEXT}")        \
+		        || ([ ${nprogs} -eq 1 -a -n ${fname} ]                                       \
+	                    && echo "      in the file ${fname}.${MDEXT}"                             \
+	                    || echo "      in the file ${inp%.*}${fname}.${MDEXT}") )
     done
 fi
 
@@ -437,31 +439,30 @@ for (( i=0; i<${nprogs}; i++ )); do
     #  - ${progname[$i]} itself when it is a file,
     #  - all the files in ${progname[$i]} when it is a directory.
     for file in `find $inp -type f`; do
+echo 
+echo - look at file=$file
 		# get the file basename 
 		base=`basename "$file"`
 		# get the extension
-        ext=`lowercase ${base##*.}`
+		ext=`lowercase ${base##*.}`
 		# check that it is one of the types (i.e. programming languages) whose
 		# documentation is actually supported
 		! `contains ${ext} ${EXTS[@]}` && continue
 		# retrieve the desired output name based on generic FNAME and the MDEXT extension: 
 		# this will actually depend only on whether one single file was passed or not
 		[ ${nprogs} -eq 1 -a ! -d ${prog0} ]                               		\
-			&& filename=${base%.*}${fname}.${MDEXT}                                 	\
-			|| filename=${fname}.${MDEXT} 
+		    && filename=${fname}.${MDEXT} \
+		    || filename=${base%.*}${fname}.${MDEXT}                                      
 		# by convention, avoid occurrences of "__" in the output filename (note the presence
-		# of the parentheses)
-		[ ${pref} -eq 1 ]                                                               \
-			&& (regexMatch "${filename}" "^_.*"                                         \
-			&& filename=${ext}${filename}                                               \
-			|| filename=${ext}_${filename})
+		# of double brackets [[ and ]] )
+		# we could also have tested `regexMatch "${filename}" "^${SEP}.*"`
+		[[ ${pref} -eq 1 && ${filename} == ${SEP}* ]]                         \
+		        && filename=${ext}${filename}                                               \
+			|| filename=${ext}${SEP}${filename}
 		# finally add the output DIRNAME to the FILENAME
 		filename=${dirname}/${filename}
 		[ ${verb} -eq 1 -a ! ${test} -eq 1 ]                                     		\
 			&& echo "    + processing $ext file $f => MD file $filename ..."
-			
-echo filename=$filename
-exit
 		# run the extraction, e.g. for SAS and Stata files we do the following:
 		#   (i) keep only the first lines between /** and */
 		#   (ii) get rid of lines starting with /**
@@ -470,14 +471,15 @@ exit
 		#     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
 		#     awk -F"\/\*\*" '{print $2}' $1  | awk -F"\*\/" '{print $1}' - > test2.txt
 		[ "${ext}" = "${SASEXT}" -o "${ext}" = "${STATAEXT}" ]                       	\
-			&& ${AWK} 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' ${file} \
+			&& ${AWK} 'NF==0&&s==0{NR=0} NR==1&&$1=="/**"{s=1} s==1{print $0} $NF=="*/"{s=-1}' ${file} \
 			| ${AWK} '!/^ *\/\*\*/ { print; }' -                                           \
 			| ${AWK} '!/^ *\*\// { print; }' - > $filename 
-		# for R (and bash) files, the extraction rule differs a bit since the patterns used as markers 
-		# of the beginning and the end of the documentation header are identical (##)
+		# for R (and bash) files, the extraction rule differs a bit since the patterns used as markers of
+		# the beginning and the end of the documentation header are identical (##) and the first field (#)
+		# must be replaced
 		[ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" ]                                                              \
-			&& ${AWK} 'NF==0&&s==0{NR=0}NR==1&&$1=="##"{if (s==0) s=1; next} s==1 {print $0} $NF=="##"{if (s==1) s=-1}' ${file} \
-			| ${AWK} '!/^ *\#\#/ { print; }' -  - > $filename 
+			&& ${AWK} 'NF==0&&s==0{NR=0} NR==1&&$1=="##"{if (s==0) s=1; next} $NF=="##"{if (s==1) s=-1} s==1 {sub($1,""); print $0} ' ${file} > $filename 
+			#| ${AWK} '!/^*\# / { print; }' - > $filename 
 			# | ${AWK} '!/^ *\#\#/ { print substr($0,2); }' - > $filename
 		# for Python files, ibid R approach
 		[ "${ext}" = "${PYEXT}" ]                                                        \

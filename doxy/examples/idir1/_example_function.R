@@ -1,11 +1,11 @@
 ## 
 # ## _example_function {#r__example_function}
 # Does a great job (in `R`).
-# 
+#
 #      ~~~r
 #      >  c <- _example_function(data, a, b, d=, e=1, f=lib);
 #      ~~~
-# 
+#      
 # ### Arguments
 # * `data` : some beautiful data that looks like a nice table
 # 

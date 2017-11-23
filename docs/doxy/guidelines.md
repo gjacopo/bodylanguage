@@ -59,7 +59,7 @@ Here is how a dummy example would look like  (see for instance [`_example_macro.
 
 ~~~
 /**
-## _example_macro {#sas_example_macro}
+## _example_macro {#sas__example_macro}
 Does a great job.
 
      ~~~sas
@@ -90,9 +90,10 @@ Visit the [address](http://www.some_macro.html) that certainly does not
 exist.
 
 ### See also
-[_example_method](@ref py_example_method), 
-[_example_script](@ref sh_example_script), 
-[_example_function](@ref R_example_function).
+[_example_method](@ref py__example_method), 
+[_example_script](@ref sh__example_script), 
+[_example_function](@ref m__example_function), 
+[_example_function](@ref r__example_function).
 */ 
 ~~~
 
@@ -115,7 +116,7 @@ Here is a similar example of inline documentation in a `R` function (see for ins
 
 ~~~
 ## 
-# _example_function {#r_example_function}
+# ##_example_function {#r__example_function}
 # Does a great job (in `R`).
 # 
 #      ~~~r
@@ -148,9 +149,10 @@ Here is a similar example of inline documentation in a `R` function (see for ins
 # ~~~
 #
 # ### See also
-# [_example_method](@ref py_example_method), 
-# [_example_script](@ref sh_example_script), 
-# [_example_macro](@ref sas_example_macro).
+# [_example_method](@ref py__example_method), 
+# [_example_script](@ref sh__example_script), 
+# [_example_function](@ref m__example_function), 
+# [_example_macro](@ref sas__example_macro).
 ##
 ~~~
 
@@ -166,7 +168,7 @@ A similar example of inline documentation in a `bash` script (see for instance [
 
 ~~~
 ## 
-# _example_script {#sh_example_script}
+# ## _example_script {#sh__example_script}
 # Does a great job (in `bash`).
 # 
 #      ~~~sh
@@ -199,9 +201,10 @@ A similar example of inline documentation in a `bash` script (see for instance [
 # ~~~
 #
 # ### See also
-# [_example_method](@ref py_example_method), 
-# [_example_function](@ref r_example_function), 
-# [_example_macro](@ref sas_example_macro).
+# [_example_method](@ref py__example_method), 
+# [_example_function](@ref r__example_function), 
+# [_example_function](@ref m__example_function), 
+# [_example_macro](@ref sas__example_macro).
 ##
 ~~~
 
