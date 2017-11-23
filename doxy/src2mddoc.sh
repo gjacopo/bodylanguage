@@ -100,10 +100,6 @@ BASHVERS=${BASH_VERSION%.*}
 
 # requirements
 
-hash find 2>/dev/null || { echo >&2 " !!! Command FIND required but not installed - Aborting !!! "; exit 1; }
-hash awk 2>/dev/null || { echo >&2 " !!! Command AWK required but not installed - Aborting !!! "; exit 1; }
-hash cat 2>/dev/null || { echo >&2 " !!! Command CAT required but not installed - Aborting !!! "; exit 1; }
-
 case "$(uname -s)" in
     Linux*)     MACHINE=Linux;;
     Darwin*)    MACHINE=Mac;;
@@ -114,6 +110,13 @@ case "$(uname -s)" in
     SunOS*)     MACHINE=SunOS;;
     *)          MACHINE="UNKNOWN:${OSTYPE}"
 esac
+
+[ "${MACHINE}" = "Mac" ] && AWK=gawk || AWK=awk
+[ "${MACHINE}" = "Mac" ] && SED=gsed || SED=sed
+
+hash find 2>/dev/null || { echo >&2 " !!! Command FIND required but not installed - Aborting !!! "; exit 1; }
+hash ${AWK} 2>/dev/null || { echo >&2 " !!! Command ${AWK} required but not installed - Aborting !!! "; exit 1; }
+hash cat 2>/dev/null || { echo >&2 " !!! Command CAT required but not installed - Aborting !!! "; exit 1; }
 
 ## usage and help
 
@@ -207,7 +210,7 @@ function  greaterorequal (){
 	# returns:	 	0 when argument $1 >= $2
 	#				1 otherwise
 	# note: 0 is the normal bash "success" return value (to be used in a "if...then" test)
-	return `awk -vv1="$1" -vv2="$2" 'BEGIN { print (v1 >= v2) ? 0 : 1 }'`
+	return `${AWK} -vv1="$1" -vv2="$2" 'BEGIN { print (v1 >= v2) ? 0 : 1 }'`
 	# hash bc 2>/dev/null && 	return $(bc <<< "$1 < $2") # we test the opposite, see the note above
 	# if [ ${1%.*} -eq ${2%.*} ] && [ ${1#*.} \> ${2#*.} ] || [ ${1%.*} -gt ${2%.*} ]; then
 	#	return 0
@@ -262,7 +265,7 @@ function regexMatch() { # (string, regex)
 		local replacement="\1\n\2\n\3\n\4\n\5\n\6\n\7\n\8\n\9\n"
 		local oIFS=${IFS}
 		IFS=$'\n'
-		REMATCH=($(echo "$string" | /bin/sed -rn "s/$regex/$replacement/p" | while read -r; do echo "${REPLY}"; done))
+		REMATCH=($(echo "$string" | ${SED} -rn "s/$regex/$replacement/p" | while read -r; do echo "${REPLY}"; done))
 		IFS=${oIFS}
 		[[ $REMATCH ]] && return 0 || return 1
 	fi
@@ -322,9 +325,14 @@ shift $((OPTIND-1))
 [ $# -lt 1 ] && usage "!!! Missing input PROGNAME argument - Exiting !!!"
 # [ $# -gt 1 ] && usage "!!! Only one argument can be passed - Exiting !!!"
 
+# in the case the -p option is passed, check the availability of SED command
+[ ${pref} -eq 1 ] &&	\
+	hash ${SED} 2>/dev/null ||  { echo >&2 " !!! Command ${SED} required but not installed - Aborting !!! "; exit 1; }
+
 # retrieve the input progname(s): all the arguments left
 progname=("$@")
 nprogs=${#progname[@]}
+prog0=${progname[0]}
 
 # new=()
 
@@ -369,51 +377,66 @@ else
     # nothing to do: [ -n "${fname}" ] && [ ${nprogs} -gt 1 ] && fname=...as is
 fi
 
-# some practical issue here: ensure that we do not put any extension in the string
-# defined by FNAME (this is added later on)
-[ -n "${fname}" ] && [ ${nprogs} -eq 1 ]                    							\
-    && fname=${fname%.*} #`basename ${fname} .${MDEXT}`
+echo nprogs=$nprogs
+echo before fname=$fname
 
-# if FNAME is not empty and does not start with a '_' character, then add it
-[ -n "${fname}" ] && [ ${fname} != _* ]                     							\
-    && ([ ${nprogs} -gt 1 ] || [ -d "${progname[0]}" ])     							\
+if [ ${nprogs} -eq 1 ]; then
+	# in case a single file PROG0 is provided and FNAME is not passed, force it
+	! [ -d "${prog0}" ] && [ -z "${fname}" ] && fname=${prog0%.*}
+	# in the case FNAME is actually a filename: some practical issue here: ensure
+	# that we do not put any extension in the string defined by FNAME (this is added 
+	# later on)
+	[ -n "${fname}" ] &&  fname=${fname%.*} #`basename ${fname} .${MDEXT}`
+fi
+## note that at this stage, FNAME can be empty iif [ ${nprogs} -gt 1 ] || [ -d "${prog0}" ]
+
+# in the case FNAME is used as a prefix: if it is not empty and does not start with a '_' 
+# character, then add it
+[ ${nprogs} -gt 1 -o -d "${prog0}" ] 		\
+	&& [ -n "${fname}" ] && [ ${fname} != _* ]  	
+	\
     && fname=_${fname}
 
-([ ${test} -eq 1 ] || [ ${verb} -eq 1 ])                                        		\
+[ ${test} -eq 1 -o ${verb} -eq 1 ]                                        		\
     && echo "* Setting parameters: input/output filenames and directories..."   
-
+	
+echo pref=$pref
+echo after fname=$fname
+	
 if [ ${test} -eq 1 ] || [ ${verb} -eq 1 ];    then
     echo ""
     [ ${verb} -eq 1 ] && echo "* Program configuration..."
     echo " `basename $0` will run with the following arguments:"
     echo "    - the output directory is: $dirname"
     for (( i=0; i<${nprogs}; i++ )); do
-	inp=${progname[$i]}
-	[ -d "$inp" ]                                                                   	\
-	    && (echo "    - for any program f.ext of ${inp}/, a documentation";             \
+		inp=${progname[$i]}
+		[ -d "$inp" ]                                                                   \
+	    && (echo "    - for every program f.ext of ${inp}/, a documentation";           \
 	       [ ${pref} -eq 1 ]                                                          	\
 	       && echo "      will be stored in a file named \$ext_\$f${fname}.${MDEXT}"    \
 	       || echo "      will be stored in a file named \$f${fname}.${MDEXT}")         \
 	    || (echo "    - the documentation of ${inp} program will be stored";            \
 	       [ ${pref} -eq 1 ]                                                            \
-	       && ([ ${nprogs} -eq 1 ]                                                      \
+	       && ([ ${nprogs} -eq 1 -a -n ${fname} ]                                       \
 	          && echo "      in the file ${inp##*.}_${fname}.${MDEXT}"                  \
 	          || echo "      in the file ${inp##*.}_${inp%.*}${fname}.${MDEXT}")        \
-	       || ([ ${nprogs} -eq 1 ]                                                      \
+	       || ([ ${nprogs} -eq 1 -a -n ${fname} ]                                       \
 	          && echo "      in the file ${fname}.${MDEXT}"                             \
 	          || echo "      in the file ${inp%.*}${fname}.${MDEXT}") )
     done
 fi
 
+
 ## actual operation
-([ ${test} -eq 1 ] || [ ${verb} -eq 1 ])                                        		\
+[ ${test} -eq 1 -o ${verb} -eq 1 ]                                        		\
     && echo "* Actual operation: extraction of files headers..."
 
 for (( i=0; i<${nprogs}; i++ )); do
+ 	inp=${progname[$i]}
     # note that, as desired, the 'find' instruction below will return:
     #  - ${progname[$i]} itself when it is a file,
     #  - all the files in ${progname[$i]} when it is a directory.
-    for file in `find ${progname[$i]} -type f`; do
+    for file in `find $inp -type f`; do
 		# get the file basename 
 		base=`basename "$file"`
 		# get the extension
@@ -423,7 +446,7 @@ for (( i=0; i<${nprogs}; i++ )); do
 		! `contains ${ext} ${EXTS[@]}` && continue
 		# retrieve the desired output name based on generic FNAME and the MDEXT extension: 
 		# this will actually depend only on whether one single file was passed or not
-		[ ${nprogs} -eq 1 -a ! -d ${progname[0]} ]                               		\
+		[ ${nprogs} -eq 1 -a ! -d ${prog0} ]                               		\
 			&& filename=${base%.*}${fname}.${MDEXT}                                 	\
 			|| filename=${fname}.${MDEXT} 
 		# by convention, avoid occurrences of "__" in the output filename (note the presence
@@ -436,6 +459,9 @@ for (( i=0; i<${nprogs}; i++ )); do
 		filename=${dirname}/${filename}
 		[ ${verb} -eq 1 -a ! ${test} -eq 1 ]                                     		\
 			&& echo "    + processing $ext file $f => MD file $filename ..."
+			
+echo filename=$filename
+exit
 		# run the extraction, e.g. for SAS and Stata files we do the following:
 		#   (i) keep only the first lines between /** and */
 		#   (ii) get rid of lines starting with /**
@@ -444,19 +470,19 @@ for (( i=0; i<${nprogs}; i++ )); do
 		#     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
 		#     awk -F"\/\*\*" '{print $2}' $1  | awk -F"\*\/" '{print $1}' - > test2.txt
 		[ "${ext}" = "${SASEXT}" -o "${ext}" = "${STATAEXT}" ]                       	\
-			&& awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' ${file} \
-			| awk '!/^ *\/\*\*/ { print; }' -                                           \
-			| awk '!/^ *\*\// { print; }' - > $filename 
+			&& ${AWK} 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' ${file} \
+			| ${AWK} '!/^ *\/\*\*/ { print; }' -                                           \
+			| ${AWK} '!/^ *\*\// { print; }' - > $filename 
 		# for R (and bash) files, the extraction rule differs a bit since the patterns used as markers 
 		# of the beginning and the end of the documentation header are identical (##)
 		[ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" ]                                                              \
-			&& awk 'NF==0&&s==0{NR=0}NR==1&&$1=="##"{if (s==0) s=1; next} s==1 {print $0} $NF=="##"{if (s==1) s=-1}' ${file} \
-			| awk '!/^ *\#\#/ { print; }' -  - > $filename 
-			# | awk '!/^ *\#\#/ { print substr($0,2); }' - > $filename
+			&& ${AWK} 'NF==0&&s==0{NR=0}NR==1&&$1=="##"{if (s==0) s=1; next} s==1 {print $0} $NF=="##"{if (s==1) s=-1}' ${file} \
+			| ${AWK} '!/^ *\#\#/ { print; }' -  - > $filename 
+			# | ${AWK} '!/^ *\#\#/ { print substr($0,2); }' - > $filename
 		# for Python files, ibid R approach
 		[ "${ext}" = "${PYEXT}" ]                                                        \
-			&& awk 'NF==0&&s==0{NR=0}NR==1&&$1=="\"\"\""{if (s==0) s=1; next} s==1 {print $0} $NF=="\"\"\""{if (s==1) s=-1}' ${file} \
-			| awk '!/^ *"""/ { print; }' - > $filename 
+			&& ${AWK} 'NF==0&&s==0{NR=0}NR==1&&$1=="\"\"\""{if (s==0) s=1; next} s==1 {print $0} $NF=="\"\"\""{if (s==1) s=-1}' ${file} \
+			| ${AWK} '!/^ *"""/ { print; }' - > $filename 
 		# check that the file is not empty
 		! [ -s ${filename} ] && rm -f  ${filename}
 		# display in case of test
