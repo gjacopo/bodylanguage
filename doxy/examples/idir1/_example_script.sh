@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 ## 
-# _example_script {#sh_example_script}
+# ## _example_script {#sh__example_script}
 # Does a great job (in `bash`).
 # 
 #      ~~~sh

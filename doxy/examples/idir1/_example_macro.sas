@@ -1,5 +1,5 @@
 /**
-## _example_macro {#sas_example_macro}
+## _example_macro {#sas__example_macro}
 Does a great job.
 
      ~~~sas

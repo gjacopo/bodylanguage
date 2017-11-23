@@ -1,5 +1,5 @@
 ## 
-# _example_function {#r_example_function}
+# ## _example_function {#r__example_function}
 # Does a great job (in `R`).
 # 
 #      ~~~r
