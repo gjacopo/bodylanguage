@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 
-## 
+## THIS LINE WILL BE IGNORED WHEN EXTRACTING THE DOCUMENTATION HEADER
 # ## _example_script {#sh__example_script}
-# Does a great job (in `bash`).
+# Does a great job (in [`bash`](https://www.gnu.org/software/bash/)).
 # 
 #      ~~~sh
 #      bash _example_script <data> <a> <b> [-d <d>] [-e <e>]  [-f <f>]
@@ -37,13 +37,17 @@
 # Visit the [address](http://www.some_macro.html) that certainly does not exist.
 #
 # ### See also
-# [_example_method](@ref py_example_method), [_example_function](@ref r_example_function), 
-# [_example_macro](@ref sas_example_macro).
-##
+# [_example_method](@ref py__example_method), [_example_function](@ref r__example_function), 
+# [_example_macro](@ref sas__example_macro), [_example_function](@ref m__example_function).
+## THIS LINE WILL ALSO BE IGNORED
 
 data=$1
 a=$2
 b=$3
+
+##
+# THIS DUMMY COMMENT SHOULD BE IGNORED
+##	
 
 ! [ -f $data ] && exit 1
 [ -z $d ] && d=$a
@@ -51,5 +55,9 @@ b=$3
 c=`bc &b / &e`
 [ $f ] && c=`bc $a + $c`
 c="$d$c"
+
+##
+# THIS DUMMY COMMENT SHOULD ALSO BE IGNORED
+##	
 
 echo c

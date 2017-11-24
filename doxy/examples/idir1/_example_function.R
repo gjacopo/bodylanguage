@@ -1,11 +1,11 @@
-## 
+## THIS LINE WILL BE IGNORED WHEN EXTRACTING THE DOCUMENTATION HEADER
 # ## _example_function {#r__example_function}
-# Does a great job (in `R`).
-#
+# Does a great job (in [`R`](https://www.r-project.org/)).
+# 
 #      ~~~r
-#      >  c <- _example_function(data, a, b, d=, e=1, f=lib);
+#      >  c <- _example_function(data, a, b, d=, e=1, f=FALSE);
 #      ~~~
-#      
+# 
 # ### Arguments
 # * `data` : some beautiful data that looks like a nice table
 # 
@@ -15,7 +15,7 @@
 # 0     |  no  | 1
 # * `a` : first input parameter;
 # * `b` : second input parameter;
-# * `d` : (_option_) some parameter; default: `d` is not used;
+# * `d` : (_option_) some parameter; default: `d=a` is converted to a string;
 # * `e` : (_option_) numeric parameter; default: `e=1`;
 # * `f` : (_option_) boolean parameter; default: `f=FALSE`.
 #
@@ -35,18 +35,27 @@
 # Visit the [address](http://www.some_macro.html) that certainly does not exist.
 #
 # ### See also
-# [_example_method](@ref py_example_method), [_example_script](@ref sh_example_script), 
-# [_example_macro](@ref sas_example_macro).
+# [_example_method](@ref py__example_method), [_example_script](@ref sh__example_script), 
+# [_example_macro](@ref sas__example_macro), [_example_function](@ref m__example_function), 
+# [_example_batch](@ref bat__example_batch).
+## THIS LINE WILL ALSO BE IGNORED
+
 ##
+# THIS DUMMY COMMENT SHOULD BE IGNORED
+##	
 
 '_example_function' <- function(data, a, b, d=NA, e=1, f=FALSE) {
 	if (is.null(data))
 		stop()
-	if (is.na(d))
-		d=a
+	if (d == "")
+		d <- toString(a)
 	c <- b / e
 	if (f)
 		c <- a + c
+
+##
+# THIS DUMMY COMMENT SHOULD ALSO BE IGNORED
+##	
 	
 	c <- paste(d, toString(c), sep="")
 	
