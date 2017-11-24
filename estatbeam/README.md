@@ -15,9 +15,9 @@ can be used to create presentation with Eurostat layout.
 
 See some [example](examples/example-beamer-estat.tex) and the [output presentation](examples/example-beamer-estat.pdf) in `pdf` format:
 <table>
-<tr>
-<td width="250px" height="250px" text-align="center" vertical-align="middle">
-<kbd><img src="examples/example-beamer-estat-frontpage.png" alt="Front page of ESTAT presentation" max-height="80%" max-width="80%"></kbd>
+<tr width="500px" height="500px" text-align="center" vertical-align="middle">
+<td>
+<kbd><img src="examples/example-beamer-estat-frontpage.png" alt="Front page of ESTAT presentation" max-height="100%" max-width="100%"></kbd>
 </td>
 </tr>
 </table>
