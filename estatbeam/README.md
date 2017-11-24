@@ -17,7 +17,7 @@ See some [example](examples/example-beamer-estat.tex) and the [output presentati
 <table>
 <tr width="500px" height="500px" text-align="center" vertical-align="middle">
 <td>
-<kbd><img src="examples/example-beamer-estat-frontpage.png" alt="Front page of ESTAT presentation" max-height="100%" max-width="100%"></kbd>
+<kbd><img src="examples/example-beamer-estat-frontpage.png" alt="Front page of ESTAT presentation" max-height="80%" max-width="80%"></kbd>
 </td>
 </tr>
 </table>
