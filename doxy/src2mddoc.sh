@@ -82,16 +82,31 @@
 
 ## extension of files of interest: what we deal with...
 
+# output format
 MDEXT=md
+# supported formats
 SASEXT=sas
 STATAEXT=do
 REXT=r
 MEXT=m
 PYEXT=py
 SHEXT=sh
+PLEXT=pl
 DOSEXT=bat
-EXTS=("${SASEXT}" "${STATAEXT}" "${REXT}" "${PYEXT}" "${SHEXT}" "${DOSEXT}")
+EXTS=("${SASEXT}" "${STATAEXT}" "${REXT}" "${PYEXT}" "${MEXT}" "${SHEXT}" "${DOSEXT}" "${PLEXT}")
+
+# special character
 SEP=_
+
+# documentation header anchor delimiters
+SASDELIM=("" "/**" "*/")
+STATADELIM=("" "/**" "*/")
+RDELIM=("#" "##" "##")
+MDELIM=("%" "%%" "%%")
+PYDELIM=("" "\"\"\"" "\"\"\"")
+SHDELIM=("#" "##" "##")
+PLDELIM=("#" "##" "##")
+DOSDELIM=("REM" "REM REM" "REM REM")
 
 ## some basic global settings 
 
@@ -275,13 +290,14 @@ function regexMatch() { # (string, regex)
 
 ## set global parameters
 
-uREXT=`uppercase ${REXT}`
-uSASEXT=`uppercase ${SASEXT}`
-uSTATAEXT=`uppercase ${uSTATAEXT}`
-uPYEXT=`uppercase ${PYEXT}`
-uSHEXT=`uppercase ${SHEXT}`
-uDOSEXT=`uppercase ${DOSEXT}`
-uMEXT=`uppercase ${MEXT}`
+#uSASEXT=`uppercase ${SASEXT}`
+#uREXT=`uppercase ${REXT}`
+#uSTATAEXT=`uppercase ${uSTATAEXT}`
+#uPYEXT=`uppercase ${PYEXT}`
+#uPLEXT=`uppercase ${PLEXT}`
+#uSHEXT=`uppercase ${SHEXT}`
+#uDOSEXT=`uppercase ${DOSEXT}`
+#uMEXT=`uppercase ${MEXT}`
 uEXTS=$(for i in ${EXTS[@]}; do uppercase $i; done)
 
 dirname=
@@ -330,7 +346,7 @@ shift $((OPTIND-1))
 
 # in the case the -p option is passed, check the availability of SED command
 [ ${pref} -eq 1 ] &&	\
-	hash ${SED} 2>/dev/null ||  { echo >&2 " !!! Command ${SED} required but not installed - Aborting !!! "; exit 1; }
+	{ hash ${SED} 2>/dev/null ||  { echo >&2 " !!! Command ${SED} required but not installed - Aborting !!! "; exit 1; } }
 
 # retrieve the input progname(s): all the arguments left
 progname=("$@")
@@ -444,10 +460,13 @@ echo - look at file=$file
 		# get the file basename 
 		base=`basename "$file"`
 		# get the extension
-		ext=`lowercase ${base##*.}`
+		ext=`lowercase ${base##*.}`	
 		# check that it is one of the types (i.e. programming languages) whose
 		# documentation is actually supported
 		! `contains ${ext} ${EXTS[@]}` && continue
+		# retrieve the delimiters associated to the file format
+		pDELIM=`uppercase ${ext}`DELIM[@]	
+		DELIM=${!pDELIM}												
 		# retrieve the desired output name based on generic FNAME and the MDEXT extension: 
 		# this will actually depend only on whether one single file was passed or not
 		[ ${nprogs} -eq 1 -a ! -d ${prog0} ]                               		\
@@ -456,14 +475,15 @@ echo - look at file=$file
 		# by convention, avoid occurrences of "__" in the output filename (note the presence
 		# of double brackets [[ and ]] )
 		# we could also have tested `regexMatch "${filename}" "^${SEP}.*"`
-		[[ ${pref} -eq 1 && ${filename} == ${SEP}* ]]                         \
-		        && filename=${ext}${filename}                                               \
-			|| filename=${ext}${SEP}${filename}
+		[ ${pref} -eq 1 ] \
+				&& { [ ${filename} == ${SEP}* ]                         \
+					&& filename=${ext}${filename}                     \
+					|| filename=${ext}${SEP}${filename} ; }
 		# finally add the output DIRNAME to the FILENAME
 		filename=${dirname}/${filename}
 		[ ${verb} -eq 1 -a ! ${test} -eq 1 ]                                     		\
 			&& echo "    + processing $ext file $f => MD file $filename ..."
-		# run the extraction, e.g. for SAS and Stata files we do the following:
+		# SAS and Stata files - run the extraction, e.g. do the following:
 		#   (i) keep only the first lines between /** and */
 		#   (ii) get rid of lines starting with /**
 		#   (iii) get rid of lines starting with */
@@ -471,27 +491,76 @@ echo - look at file=$file
 		#     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
 		#     awk -F"\/\*\*" '{print $2}' $1  | awk -F"\*\/" '{print $1}' - > test2.txt
 		[ "${ext}" = "${SASEXT}" -o "${ext}" = "${STATAEXT}" ]                       	\
-			&& ${AWK} 'NF==0&&s==0{NR=0} NR==1&&$1=="/**"{s=1} s==1{print $0} $NF=="*/"{s=-1}' ${file} \
+			&& ${AWK} 'NF==0 && s==0 {NR=0} 
+				NR==1 && $1=="/**" {s=1} 							# first line of documentation header
+				$NF=="*/" {s=-1}									# last line
+				s==1 {print $0} 				
+				' ${file} \
 			| ${AWK} '!/^ *\/\*\*/ { print; }' -                                           \
 			| ${AWK} '!/^ *\*\// { print; }' - > $filename 
-		# for R (and bash) files, the extraction rule differs a bit since the patterns used as markers of
-		# the beginning and the end of the documentation header are identical (##) and the first field (#)
-		# must be replaced
-		[ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" ]                                                              \
-			&& ${AWK} 'NF==0&&s==0{NR=0} NR==1&&$1=="##"{if (s==0) s=1; next} $NF=="##"{if (s==1) s=-1} s==1 {sub($1,""); print $0} ' ${file} > $filename 
-			#| ${AWK} '!/^*\# / { print; }' - > $filename 
-			# | ${AWK} '!/^ *\#\#/ { print substr($0,2); }' - > $filename
-		# for Python files, ibid R approach
+		# Python files - similar approach since the patterns used as markers of the beginning and the
+		# end of the documentation header (""") are identical 
 		[ "${ext}" = "${PYEXT}" ]                                                        \
-			&& ${AWK} 'NF==0&&s==0{NR=0}NR==1&&$1=="\"\"\""{if (s==0) s=1; next} s==1 {print $0} $NF=="\"\"\""{if (s==1) s=-1}' ${file} \
+			&& ${AWK} 'NF==0&&s==0 {NR=0}
+				NR==1 && $1=="\"\"\"" {if (s==0) s=1; next} 		# first line of documentation header
+				$0 ~ /"\"\"\"/ {if (s==1) s=-1}				# last line
+				s==1 {print $0} 
+				' ${file} \
 			| ${AWK} '!/^ *"""/ { print; }' - > $filename 
+		# R (and bash) files - the extraction rule differs a bit since the patterns used as markers of
+		# the beginning and the end of the documentation header are identical (##) and the first field
+		# (#) must be replaced
+		# [:alnum:]: alphanumeric characters: `[:alpha:]' and `[:digit:]'. 
+		# [:print:]: printable characters: `[:alnum:]', `[:punct:]', and space. 
+		# [:blank:]: blank characters: space and tab. 
+		[ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" -o "${ext}" = "${PLEXT}" ]                          \
+			&& ${AWK} -v cdelim="${DELIM[0]}" -v bdelim="${DELIM[1]}"  -v edelim="${DELIM[2]}"				\
+				'BEGIN {s=0; beg=bdelim"[[:alnum:]]*"; end=edelim"[[:alnum:]]*"; core=cdelim"[[:alnum:]]*"
+					}
+				NF==0 && s==0 {NR=0} 
+				NR==1 && $1 ~ beg 	{if (s==0) {s=1}; next}; 			# first line of documentation header
+				s==1 && $1 ~ end  	{s=-1; next}; 						# last line or: $NF==edelim
+				# writing the core of the documentation; note the $1=$1 to delete trailing space
+				s==1 {sub($1,""); $1=$1; print $0};  
+				' ${file} > $filename 
+echo pDELIM=$pDELIM
+echo DELIM=${DELIM[0]} ${DELIM[1]} ${DELIM[2]}
+		continue
+		[ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" -o "${ext}" = "${PLEXT}" ]                                \
+			&& ${AWK} 'NF==0&&s==0 {NR=0} 
+				NR==1 && $1=="##" 	{if (s==0) s=1; next} 			# first line of documentation header
+				s==1 && $1=="##"  	{s=-1; next} 					# last line or: $NF=="##"
+				s==1 { if($1 ~ /^\#/) {sub($1,""); $1=$1; print $0;} else {s=-1;} }  # note the $1=$1 to delete blanks
+				' ${file} > $filename 
+		# note that the following would also work: 
+		# [ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" ]                                                        
+		#	&& ${AWK} 'NF==0&&s==0{NR=0} 
+		#		NR==1 && $1=="##" {if (s==0) s=1; next} 
+		#		$NF=="##" {if (s==1) s=-1} 
+		#		s==1 {print $0} 
+		#		' ${file} | ${AWK} '!/^\#\#* / { print substr($0,2); }' - > ${filename}2
+		# Matlab files - approach similar to the R/bash one with the pattern %%
+		[ "${ext}" = "${MEXT}" ]                                                              \
+			&& ${AWK} 'NF==0&&s==0{NR=0} 
+				NR==1 && $1=="%%" 	{if (s==0) s=1; next} 			# first line of documentation header
+				s==1 && $1=="%%" 	{s=-1; next}					# last line
+				s==1 { if($1 ~ /^\%/) {sub($1,""); $1=$1; print $0;} else {s=-1;} } 
+				' ${file} > $filename 
+		# DOS files - approach similar to the R/bash one with the pattern REM
+		# (#) must be replaced
+		[ "${ext}" = "${DOSEXT}" ]                                                              \
+			&& ${AWK} 'NF==0&&s==0 {NR=0} 
+				NR==1 && $0 ~ /^REM REM*/ {if (s==0) s=1; next} 	# first line of documentation header
+				s==1 && $0 ~ /^REM REM*/ {s=-1} 					# last line
+				s==1 {sub($1,""); print $0} 
+				' ${file} > $filename 
 		# check that the file is not empty
-		! [ -s ${filename} ] && rm -f  ${filename}
+		! [ -s ${filename} ] && { echo "! empty output markdown file when processing $file !"; rm -f  ${filename}; }
 		# display in case of test
         if [ ${test} -eq 1 ];    then
 			echo ""
 			echo "Result of automatic Markdown extraction from test input file $f"
-			echo "(first found in $progname directory)"
+			[ ${nprogs} -gt 1 ] && echo "(first found in $progname directory)"
 			echo "------------------------------------------"
 			cat ${filename}
 			echo "------------------------------------------"
