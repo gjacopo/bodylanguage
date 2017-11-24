@@ -16,6 +16,6 @@ can be used to create presentation with Eurostat layout.
 See some [example](examples/example-beamer-estat.tex) and the [output presentation](examples/example-beamer-estat.pdf) in `pdf` format:
 <table>
 <tr>
-<td><kbd><img src="examples/example-beamer-estat-frontpage.png" alt="Front page of ESTAT presentation" style="height:80%;width:80%;"></kbd></td>
+<td><kbd><img src="examples/example-beamer-estat-frontpage.png" alt="Front page of ESTAT presentation" style="height:60%;width:60%;"></kbd></td>
 </tr>
 </table>
