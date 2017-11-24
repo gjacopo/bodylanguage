@@ -1,108 +1,66 @@
-/** \cond */  /* (this line shall be deleted) */
-/** (!!! keep this line free !!!)
-## your_macro {#sas_your_macro}
-(Put here a brief description of the macro/program purpose, for instance:)
-Does a great job.
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-~~~sas
-	%your_macro(a, b, _c_, d=, e=1, f=lib);
-~~~
+""" THIS LINE WILL BE IGNORED WHEN EXTRACTING THE DOCUMENTATION HEADER
+## _example_method {#py__example_method}
+Does a great job (in [`Python`](https://www.python.org/)).
+
+     ~~~py
+     c = _example_method(data, a, b, d=, e=1, f=False);
+     ~~~
 
 ### Arguments
-(Put below the description of the main input arguments, for instance:)
+* `data` : some beautiful data that looks like a nice table
+
+ var1 | var2 | var3 
+-----:|:----:|----:
+1     |  yes | 0
+0     |  no  | 1
 * `a` : first input parameter;
 * `b` : second input parameter;
-* `d` : (_option_) some parameter; default: `d` is not used;
+* `d` : (_option_) some parameter; default: `d=a` is converted to a string;
 * `e` : (_option_) numeric parameter; default: `e=1`;
-* `f` : (_option_) library parameter; default: `f=lib`.
+* `f` : (_option_) boolean parameter (`True`/`False`); default: `f=False`.
 
 ### Returns
-(Ibid, with output arguments, for instance:)
-`_c_` : output parameter.
+`c` : output string parameter.
 
 ### Examples
-(Provide some practical example of use, including some sample code, for instance:)
-Run macro `%%_example_your_macro`.
+# See if any, for instance:
+#
+# ~~~py
+# data = np.rand(1,2)
+# c = _example_method(data, 3, 2, d="aaa", f=TRUE)
+# ~~~
 
 ### Note
-(Additional notes/comments/issues to point out, for instance:)
-Visit the link <http://www.your_macro.html>.
+Visit the [address](http://www.some_macro.html) that certainly does not exist.
 
 ### See also
-(Mention here other related macros/programs, for instance:) 
-[another_macro](@ref sas_another_macro), [another_program](@ref sas_another_program).
-(!!! Keep the line below as it appears !!!)
-*/ /** \cond */ 
+[_example_macro](@ref sas__example_macro), [_example_script](@ref sh__example_script), 
+[_example_function](@ref r__example_function), [_example_function](@ref m__example_function), 
+[_example_batch](@ref bat__example_batch).
+"""  # THIS LINE WILL ALSO BE IGNORED
 
-/* main macro your_macro */
-%macro your_macro(/*input*/	 a, b, 
-				  /*output*/ _c_, 
-				  /*option*/ d=, e=1, f=lib);
-	/* various checkings */
-	%if %error_handle(ErrorInputParameter, 
-			%macro_isblank(_c_) EQ 1,		
-			txt=!!! Output macro variable %upcase(_c_) not set !!!) %then
-		%goto exit;
+from os import path as path
+import numpy as np
 
-	/* some default settings */
-	%if %macro_isblank(d) %then 	%let d=a; 
+"""
+THIS DUMMY COMMENT SHOULD BE IGNORED
+"""
 
-	/*
-	 * core of your macro: whatever you want to do
-	 */
-	%local _c;
-	%let _c=%eval(&a + &b/&e);
-	%let _c = &d.&_c;
+def c = _example_method(data, a, b, d=, e=1, f=False):
+	if path.isfile(data): 
+		return
+	if not d:
+		d=str(a)
+	c = b / e
+	if f: 
+		c = a + c
 
-	/* return some output */
-	data _null_;
-		call symput("&_c_","&_c");
-	run;
-
-	%exit:
-%mend your_macro;
-
-/* example of use of macro your_macro */
-%macro _example_your_macro;
-	/* specify the working path. When running separately, the example may not "access"
-	 * all environment settings that are generally passed through an autoexec. Therefore,
-	 * it needs to be set here if not earlier. Plus, we make some arbitrary decision here
-	 * about where to look for the setup file */
-	%if %symexist(G_PING_ROOTPATH) EQ 0 %then %do; 
-		%if %symexist(G_PING_SETUPPATH) EQ 0 %then 	%let G_PING_SETUPPATH=/ec/prod/server/sas/0eusilc/PING; 
-		%include "&G_PING_SETUPPATH/library/autoexec/_setup_.sas";
-		%_default_setup_;
-	%end;
-
-	/* inputs: set some local parameters of your own */
-	%local a b e f;
-	%let a=1;
-	%let b=2;
-	%let d=b;
-	%let e=1;
-	%let f=dummy;
-	/* output: define the expected results */
-	%local o_cres cres;
-
-	/* run and test your macro with these parameters */
-	%let o_cres=b1;
-	%put;
-	%put (i) Show some example with selecte input &a, &b, &d, &e, &f, and expected result &o_cres;
-	%your_macro(&a, &b, _c_=cres, d=&d, e=&e, f=&f);
-	%if &cres EQ &o_cres %then 	%put OK: TEST PASSED - result &o_cres returned;
-	%else 						%put ERROR: TEST FAILED - wrong result returned;
-
-	/* note that in the case of the '_c_' parameter, we passed the name of the macro
-	variable (c) and not its value (&c) */
-	%put display your result: c=&cres;
-
-%mend _example_your_macro;
-
-/* (You will uncomment this line when you run your example) */
-/* 
-options NOSOURCE MRECALL MLOGIC MPRINT NOTES;
-%_example_your_macro;  
-*/
-
-/* (!!! Keep the line below as it appears !!!) */
-/** \endcond */
+"""
+THIS DUMMY COMMENT SHOULD ALSO BE IGNORED
+"""
+		
+	return '{0}.{1}'.format(d, str(c))
+	
