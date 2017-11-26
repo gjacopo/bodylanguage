@@ -2,7 +2,7 @@
 
 <hr size="5" style="color:black;background-color:black;" />
 
-###### <a name="Generic_rules"></a>Generic rules
+###### <a name="Generic_template"></a>Generic template
 
 In order to automatically generate the documentation (see  [usage](usage.md)), we adopt a common template for documentation, with the following rules:
 * A level-2 header (with the `##` mark) is inserted in the first line of the documentation with the name of the program (function/macro/script/...).
