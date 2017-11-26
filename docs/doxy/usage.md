@@ -14,6 +14,7 @@ where the parameters are:
 * ` -t`         :   (_option_) test mode; a temporary output will be generated and displayed; use it for checking purpose prior to the automatic generation.
 
 so as to extract the documentation header(s) from the source file(s) and create one (or several) `markdown` formatted file(s) containing the documentation alone. 
+Practical examples of usage are presented in the [examples page](examples.md) of this documentation.
 
 This(ese) file(s) will look exactly like the header(s) in the program(s) if you except the markers of the specific language comment and can then be used to generate the online/browsable documentation. [`Doxygen`](http://www.doxygen.org) is the tool used to actually generate the documentation.  The full set of guidelines/best practices for running this software is available in the 
 [dedicated section](http://www.stack.nl/~dimitri/doxygen/manual/starting.html) of the `Doxygen` website.
