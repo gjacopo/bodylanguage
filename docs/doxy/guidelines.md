@@ -60,7 +60,7 @@ Here is how a dummy example would look like  (see for instance [`_example_macro.
 ~~~
 /** 
 ## _example_macro {#sas__example_macro}
-Does a great job (in [`SAS`](https://www.sas.com/)).
+Does a great job (in `SAS`).
 
      ~~~sas
      %_example_macro(data, a, b, _c_=, d=, e=1, f=False);
@@ -117,7 +117,7 @@ Here is an example of inline documentation in a `R` function (see for instance [
 ~~~
 ## 
 # ## _example_function {#r__example_function}
-# Does a great job (in [`R`](https://www.r-project.org/)).
+# Does a great job (in `R`).
 # 
 #      ~~~r
 #      >  c <- _example_function(data, a, b, d=, e=1, f=FALSE);
@@ -168,7 +168,7 @@ Here is an example of inline documentation in a `Python` method (see for instanc
 ~~~
 """ 
 ## _example_method {#py__example_method}
-Does a great job (in [`Python`](https://www.python.org/)).
+Does a great job (in `Python`).
 
      ~~~py
      c = _example_method(data, a, b, d=, e=1, f=False);
@@ -218,7 +218,7 @@ An example of inline documentation in a `bash` script (see for instance [`_examp
 ~~~
 ##
 # ## _example_script {#sh__example_script}
-# Does a great job (in [`bash`](https://www.gnu.org/software/bash/)).
+# Does a great job (in `bash`).
 # 
 #      ~~~sh
 #      bash _example_script <data> <a> <b> [-d <d>] [-e <e>]  [-f <f>]
@@ -269,7 +269,7 @@ Here is an example of inline documentation in a `Matlab` function (see for insta
 ~~~
 %% 
 % ## _example_function {#m__example_function}
-% Does a great job (in [`Matlab`](https://www.mathworks.com/products/matlab.html)).
+% Does a great job (in `Matlab`).
 % 
 %      ~~~matlab
 %      c = _example_function(data, a, b);
