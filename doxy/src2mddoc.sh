@@ -95,18 +95,18 @@ PLEXT=pl
 DOSEXT=bat
 EXTS=("${SASEXT}" "${STATAEXT}" "${REXT}" "${PYEXT}" "${MEXT}" "${SHEXT}" "${DOSEXT}" "${PLEXT}")
 
-# special character
-SEP=_
-
 # documentation header anchor delimiters
-SASDELIM=("" "/**" "*/")
-STATADELIM=("" "/**" "*/")
+SASDELIM=("" "/**" "*/") #("" "/**" "**/") 
+STATADELIM=("" "/**" "*/") #("" "/**" "**/") 
 RDELIM=("#" "##" "##")
 MDELIM=("%" "%%" "%%")
 PYDELIM=("" "\"\"\"" "\"\"\"")
 SHDELIM=("#" "##" "##")
 PLDELIM=("#" "##" "##")
-DOSDELIM=("REM" "REM REM" "REM REM")
+BATDELIM=("REM" "REM REM" "REM REM")
+
+# special character
+SEP=_
 
 ## some basic global settings 
 
@@ -290,14 +290,6 @@ function regexMatch() { # (string, regex)
 
 ## set global parameters
 
-#uSASEXT=`uppercase ${SASEXT}`
-#uREXT=`uppercase ${REXT}`
-#uSTATAEXT=`uppercase ${uSTATAEXT}`
-#uPYEXT=`uppercase ${PYEXT}`
-#uPLEXT=`uppercase ${PLEXT}`
-#uSHEXT=`uppercase ${SHEXT}`
-#uDOSEXT=`uppercase ${DOSEXT}`
-#uMEXT=`uppercase ${MEXT}`
 uEXTS=$(for i in ${EXTS[@]}; do uppercase $i; done)
 
 dirname=
@@ -360,13 +352,10 @@ for (( i=0; i<${nprogs}; i++ )); do
     #     && usage "!!! Input not defined - Exiting !!!"
     ! [ -e "${progname[$i]}" ]                                                  	\
 	&& usage "!!! Input file/directory ${progname[$i]} does not exist - Exiting !!!"
-    # in case a program file was passed, check that its format (i.e. the programming language
-    # used for its development) is actually supported for documentation
-#    ([ -f "${progname[$i]}" ]                                                   	\
-#	&& ext=`uppercase  ${progname[$i]##*.}`                                 		\
-#	&& ! `contains ${ext} ${uEXTS[@]}`)                                      		\
-#	&& usage "!!! Format of input file ${progname[$i]} not supported - Exiting !!!"
-#        # || new+=progname[$i]
+    # # in case a program file was passed, check that its format (i.e. the programming language
+    # # used for its development) is actually supported for documentation
+    # [ -f "${progname[$i]}" -a ext=`uppercase  ${progname[$i]##*.}` -a ! `contains ${ext} ${uEXTS[@]}`] \
+    #	&& usage "!!! Format of input file ${progname[$i]} not supported - Exiting !!!"
 done
 
 # nprogs=${#new[@]}
@@ -382,8 +371,8 @@ if [ ${test} -eq 1 ]; then
 
 else
     # similar settings for testing
-	ECHOSTART=
-	ECHOEND=
+    ECHOSTART=
+    ECHOEND=
     # define the default output directory path DIRNAME (when not passed with the
     # '-d' option) as the name of the directory storing the first file PROGNAME[0],
     # or PROGNAME[0] itself if it is a directory
@@ -395,9 +384,6 @@ else
     #  - an empty string otherwise.
     # nothing to do: [ -n "${fname}" ] && [ ${nprogs} -gt 1 ] && fname=...as is
 fi
-
-echo nprogs=$nprogs
-echo before fname=$fname
 
 if [ ${nprogs} -eq 1 ]; then
 	# in case a single file PROG0 is provided and FNAME is not passed, force it
@@ -418,10 +404,7 @@ fi
 [ ${test} -eq 1 -o ${verb} -eq 1 ]                                        		\
     && echo "* Setting parameters: input/output filenames and directories..."   
 	
-echo pref=$pref
-echo after fname=$fname
-	
-if [ ${test} -eq 1 ] || [ ${verb} -eq 1 ];    then
+if [ ${test} -eq 1 -o ${verb} -eq 1 ];    then
     echo ""
     [ ${verb} -eq 1 ] && echo "* Program configuration..."
     echo " `basename $0` will run with the following arguments:"
@@ -450,122 +433,79 @@ fi
     && echo "* Actual operation: extraction of files headers..."
 
 for (( i=0; i<${nprogs}; i++ )); do
- 	inp=${progname[$i]}
+    inp=${progname[$i]}
     # note that, as desired, the 'find' instruction below will return:
     #  - ${progname[$i]} itself when it is a file,
     #  - all the files in ${progname[$i]} when it is a directory.
     for file in `find $inp -type f`; do
-echo 
-echo - look at file=$file
-		# get the file basename 
-		base=`basename "$file"`
-		# get the extension
-		ext=`lowercase ${base##*.}`	
-		# check that it is one of the types (i.e. programming languages) whose
-		# documentation is actually supported
-		! `contains ${ext} ${EXTS[@]}` && continue
-		# retrieve the delimiters associated to the file format
-		pDELIM=`uppercase ${ext}`DELIM[@]	
-		DELIM=${!pDELIM}												
-		# retrieve the desired output name based on generic FNAME and the MDEXT extension: 
-		# this will actually depend only on whether one single file was passed or not
-		[ ${nprogs} -eq 1 -a ! -d ${prog0} ]                               		\
-		    && filename=${fname}.${MDEXT} \
-		    || filename=${base%.*}${fname}.${MDEXT}                                      
-		# by convention, avoid occurrences of "__" in the output filename (note the presence
-		# of double brackets [[ and ]] )
-		# we could also have tested `regexMatch "${filename}" "^${SEP}.*"`
-		[ ${pref} -eq 1 ] \
-				&& { [ ${filename} == ${SEP}* ]                         \
-					&& filename=${ext}${filename}                     \
-					|| filename=${ext}${SEP}${filename} ; }
-		# finally add the output DIRNAME to the FILENAME
-		filename=${dirname}/${filename}
-		[ ${verb} -eq 1 -a ! ${test} -eq 1 ]                                     		\
-			&& echo "    + processing $ext file $f => MD file $filename ..."
-		# SAS and Stata files - run the extraction, e.g. do the following:
-		#   (i) keep only the first lines between /** and */
-		#   (ii) get rid of lines starting with /**
-		#   (iii) get rid of lines starting with */
-		# which uses mostly the awk command like in the example below:
-		#     awk 'NF==0&&s==0{NR=0}NR==1&&$1=="/**"{s=1}s==1{print $0}$NF=="*/"{s=-1}' $1 | awk '!/^ *\/\*\*/ { print; }' - | \*\/awk '!/^ *\*\// { print; }' - > test1.txt
-		#     awk -F"\/\*\*" '{print $2}' $1  | awk -F"\*\/" '{print $1}' - > test2.txt
-		[ "${ext}" = "${SASEXT}" -o "${ext}" = "${STATAEXT}" ]                       	\
-			&& ${AWK} 'NF==0 && s==0 {NR=0} 
-				NR==1 && $1=="/**" {s=1} 							# first line of documentation header
-				$NF=="*/" {s=-1}									# last line
-				s==1 {print $0} 				
-				' ${file} \
-			| ${AWK} '!/^ *\/\*\*/ { print; }' -                                           \
-			| ${AWK} '!/^ *\*\// { print; }' - > $filename 
-		# Python files - similar approach since the patterns used as markers of the beginning and the
-		# end of the documentation header (""") are identical 
-		[ "${ext}" = "${PYEXT}" ]                                                        \
-			&& ${AWK} 'NF==0&&s==0 {NR=0}
-				NR==1 && $1=="\"\"\"" {if (s==0) s=1; next} 		# first line of documentation header
-				$0 ~ /"\"\"\"/ {if (s==1) s=-1}				# last line
-				s==1 {print $0} 
-				' ${file} \
-			| ${AWK} '!/^ *"""/ { print; }' - > $filename 
-		# R (and bash) files - the extraction rule differs a bit since the patterns used as markers of
-		# the beginning and the end of the documentation header are identical (##) and the first field
-		# (#) must be replaced
-		# [:alnum:]: alphanumeric characters: `[:alpha:]' and `[:digit:]'. 
-		# [:print:]: printable characters: `[:alnum:]', `[:punct:]', and space. 
-		# [:blank:]: blank characters: space and tab. 
-		[ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" -o "${ext}" = "${PLEXT}" ]                          \
-			&& ${AWK} -v cdelim="${DELIM[0]}" -v bdelim="${DELIM[1]}"  -v edelim="${DELIM[2]}"				\
-				'BEGIN {s=0; beg=bdelim"[[:alnum:]]*"; end=edelim"[[:alnum:]]*"; core=cdelim"[[:alnum:]]*"
-					}
-				NF==0 && s==0 {NR=0} 
-				NR==1 && $1 ~ beg 	{if (s==0) {s=1}; next}; 			# first line of documentation header
-				s==1 && $1 ~ end  	{s=-1; next}; 						# last line or: $NF==edelim
-				# writing the core of the documentation; note the $1=$1 to delete trailing space
-				s==1 {sub($1,""); $1=$1; print $0};  
-				' ${file} > $filename 
-echo pDELIM=$pDELIM
-echo DELIM=${DELIM[0]} ${DELIM[1]} ${DELIM[2]}
-		continue
-		[ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" -o "${ext}" = "${PLEXT}" ]                                \
-			&& ${AWK} 'NF==0&&s==0 {NR=0} 
-				NR==1 && $1=="##" 	{if (s==0) s=1; next} 			# first line of documentation header
-				s==1 && $1=="##"  	{s=-1; next} 					# last line or: $NF=="##"
-				s==1 { if($1 ~ /^\#/) {sub($1,""); $1=$1; print $0;} else {s=-1;} }  # note the $1=$1 to delete blanks
-				' ${file} > $filename 
-		# note that the following would also work: 
-		# [ "${ext}" = "${REXT}" -o "${ext}" = "${SHEXT}" ]                                                        
-		#	&& ${AWK} 'NF==0&&s==0{NR=0} 
-		#		NR==1 && $1=="##" {if (s==0) s=1; next} 
-		#		$NF=="##" {if (s==1) s=-1} 
-		#		s==1 {print $0} 
-		#		' ${file} | ${AWK} '!/^\#\#* / { print substr($0,2); }' - > ${filename}2
-		# Matlab files - approach similar to the R/bash one with the pattern %%
-		[ "${ext}" = "${MEXT}" ]                                                              \
-			&& ${AWK} 'NF==0&&s==0{NR=0} 
-				NR==1 && $1=="%%" 	{if (s==0) s=1; next} 			# first line of documentation header
-				s==1 && $1=="%%" 	{s=-1; next}					# last line
-				s==1 { if($1 ~ /^\%/) {sub($1,""); $1=$1; print $0;} else {s=-1;} } 
-				' ${file} > $filename 
-		# DOS files - approach similar to the R/bash one with the pattern REM
-		# (#) must be replaced
-		[ "${ext}" = "${DOSEXT}" ]                                                              \
-			&& ${AWK} 'NF==0&&s==0 {NR=0} 
-				NR==1 && $0 ~ /^REM REM*/ {if (s==0) s=1; next} 	# first line of documentation header
-				s==1 && $0 ~ /^REM REM*/ {s=-1} 					# last line
-				s==1 {sub($1,""); print $0} 
-				' ${file} > $filename 
-		# check that the file is not empty
-		! [ -s ${filename} ] && { echo "! empty output markdown file when processing $file !"; rm -f  ${filename}; }
-		# display in case of test
+	# get the file basename 
+	base=`basename "$file"`
+	# get the extension
+	ext=`lowercase ${base##*.}`
+	[ "$ext" == "bash" -o "$ext" == "csh" ] && ext=sh
+	[ "$ext" == "perl" ]                    && ext=pl
+	# check that it is one of the types (i.e. programming languages) whose
+	# documentation is actually supported
+	! `contains ${ext} ${EXTS[@]}` && continue
+	# retrieve the delimiters associated to the file format
+	pDELIM=`uppercase ${ext}`DELIM[@]	
+	DELIM=("${!pDELIM}")												
+	# retrieve the desired output name based on generic FNAME and the MDEXT extension: 
+	# this will actually depend only on whether one single file was passed or not
+	[ ${nprogs} -eq 1 -a ! -d ${prog0} ]             \
+	    && filename=${fname}.${MDEXT}                \
+	    || filename=${base%.*}${fname}.${MDEXT}                                      
+	# by convention, avoid occurrences of "__" in the output filename (note the presence
+	# of double brackets [[ and ]] )
+	# we could also have tested `regexMatch "${filename}" "^${SEP}.*"`
+	[ ${pref} -eq 1 ]                                \
+	    && { [ ${filename} == ${SEP}* ]              \
+	    && filename=${ext}${filename}                \
+	    || filename=${ext}${SEP}${filename} ; }
+	# finally add the output DIRNAME to the FILENAME
+	filename=${dirname}/${filename}
+	[ ${verb} -eq 1 -a ! ${test} -eq 1 ]             \
+	    && echo "    + processing $ext file $f => MD file $filename ..."
+	# R, Perl, Matlab, bash and Dos files - the patterns used as markers of the beginning and the end of the
+	# documentation header are identical (## or %%) and each comment line must start with a marker in the first 
+	# field (#) must be replaced
+	# SAS, Python and Stata files - everything in between the beginning and end anchor patterns is regarded as 
+	# a comment, so there is no need to use a marker for commenting lines
+	# Run the extraction as follows:
+	#   (i) look for the pattern marking the beginning of the documentation (e.g., ##, %%, """, or /**)
+	#   (ii) check in all following lines whether the pattern marking the end of the documentation (e.g., ##, 
+	#        %%, """, or */) is present; if not, print the line, possibly deleting the pattern at the beginning
+	#        of the line
+	#   (iii) when the end pattern is found, skip the rest of the code
+	${AWK} -v cdelim="${DELIM[0]}" -v bdelim="${DELIM[1]}"  -v edelim="${DELIM[2]}"	   \
+	    'BEGIN {s=0; beg="^"bdelim; end="^"edelim;
+	        # [:alnum:]: alphanumeric characters: [:alpha:] and [:digit:] 
+	        # [:print:]: printable characters: [:alnum:], [:punct:], and space. 
+	        # [:blank:]: blank characters: space and tab. 
+	        # beg="^"bdelim"[[:alnum:]]*"; end="^"edelim"[[:alnum:]]*"; core="^"cdelim"[[:alnum:]]*"
+	        }
+	    # start whith the first occurence of the anchor patterns, ignoring whatever comes before
+	    NF==0 && s==0 {NR=0} 
+	    # first line of documentation header
+	    NR==1 && match($0, beg) {if (s==0) {s=1}; next} 			
+	    # last line
+	    s==1 && match($0, end)  {s=-1; next}					
+	    # writing the core of the documentation; note the $1=$1 to delete trailing space
+	    s==1 { if (cdelim != "") {sub($1,""); $1=$1}; print $0}
+	    ' ${file} > $filename 
+	# check that the file is not empty
+	! [ -s ${filename} ] && { echo "! empty output markdown file when processing $file !"; rm -f  ${filename}; }
+	# display in case of test
         if [ ${test} -eq 1 ];    then
-			echo ""
-			echo "Result of automatic Markdown extraction from test input file $f"
-			[ ${nprogs} -gt 1 ] && echo "(first found in $progname directory)"
-			echo "------------------------------------------"
-			cat ${filename}
-			echo "------------------------------------------"
-			rm -f ${filename}
-			break
+	    echo ""
+	    echo "Result of automatic Markdown extraction from test input file $f"
+	    [ ${nprogs} -gt 1 ] && echo "(first found in $progname directory)"
+	    echo "------------------------------------------"
+	    cat ${filename}
+	    echo "------------------------------------------"
+	    rm -f ${filename}
+	    break
         fi
     done
 done
+
