@@ -32,7 +32,7 @@ REM > _example_batch.bat data 10 2 -d aaa -f TRUE
 REM ~~~
 REM
 REM ### Note
-REM Visit the [address](http://www.some_macro.html) that certainly does not exist.
+REM Visit the [address](http://www.some_batch.html) that certainly does not exist.
 REM
 REM ### See also
 REM [_example_method](@ref py__example_method), [_example_function](@ref r__example_function), 

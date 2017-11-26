@@ -148,9 +148,6 @@ Here is an example of inline documentation in a `R` function (see for instance [
 # > `_example_function`(data,3,2,d="aaa",f=TRUE)
 # ~~~
 #
-# ### Note
-# Visit the [address](http://www.some_macro.html) that certainly does not exist.
-#
 # ### See also
 # [_example_method](@ref py__example_method), 
 # [_example_script](@ref sh__example_script), 
@@ -162,7 +159,7 @@ Here is an example of inline documentation in a `R` function (see for instance [
 
 <hr size="5" style="color:black;background-color:black;" />
 
-###### <a name="Python_rules"></a>`Python` programs
+###### <a name="Python_rules"></a>`Python` methods
 
 Though body comments can be inserted in two ways, using either `'''` or `"""`,  the latter shall be used for the header documentation. The string `py_` is the prefix used in method reference names.
 
@@ -201,9 +198,6 @@ See if any, for instance:
     c = _example_method(data, 3, 2, d="aaa", f=TRUE)
     ~~~
 
-### Note
-Visit the [address](http://www.some_macro.html) that certainly does not exist.
-
 ### See also
 [_example_macro](@ref sas__example_macro), 
 [_example_script](@ref sh__example_script), 
@@ -219,7 +213,7 @@ Visit the [address](http://www.some_macro.html) that certainly does not exist.
 
 Bash scripts can be documented the same way `R` functions are, except the prefix `sh_` shall be used when referencing them.
 
-A similar example of inline documentation in a `bash` script (see for instance [`_example_script.sh`](https://github.com/gjacopo/bodylanguage/blob/master/doxy/tests/idir1/_example_script.sh)) is given below:
+An example of inline documentation in a `bash` script (see for instance [`_example_script.sh`](https://github.com/gjacopo/bodylanguage/blob/master/doxy/tests/idir1/_example_script.sh)) is given below:
 
 ~~~
 ##
@@ -255,23 +249,73 @@ A similar example of inline documentation in a `bash` script (see for instance [
 # > `_example_function`(data,3,2,d="aaa",f=TRUE)
 # ~~~
 #
-# ### Note
-# Visit the [address](http://www.some_macro.html) that certainly does not exist.
-#
 # ### See also
-# [_example_method](@ref py__example_method), [_example_function](@ref r__example_function), 
-# [_example_macro](@ref sas__example_macro), [_example_function](@ref m__example_function), 
+# [_example_method](@ref py__example_method), 
+# [_example_function](@ref r__example_function), 
+# [_example_macro](@ref sas__example_macro), 
+# [_example_function](@ref m__example_function), 
 # [_example_batch](@ref bat__example_batch).
 ## 
 ~~~
 
 <hr size="5" style="color:black;background-color:black;" />
 
-###### <a name="Matlab_rules"></a>`Matlab` functions
+###### <a name="Matlab_rules"></a>`Matlab` programs
+
+The header documentation is identified through the use of the characters `%%` as both the beginning and end anchor patterns. All comment lines will start with the single character `%`. Furthermore, the prefix `m_` is used to reference the programs.
+
+Here is an example of inline documentation in a `Matlab` function (see for instance [`_example_function.m`](https://github.com/gjacopo/bodylanguage/blob/master/doxy/tests/idir2/_example_function.m)):
+
+~~~
+%% 
+% ## _example_function {#m__example_function}
+% Does a great job (in [`Matlab`](https://www.mathworks.com/products/matlab.html)).
+% 
+%      ~~~matlab
+%      c = _example_function(data, a, b);
+%      c = _example_function(data, a, b, d=, e=1, f=false);
+%      ~~~
+% 
+% ### Arguments
+% * `data` : some beautiful array that cab be inferred like a nice table
+% 
+%  var1 | var2 | var3 
+% -----:|:----:|----:
+% 1     |  yes | 0
+% 0     |  no  | 1
+% * `a` : first input parameter;
+% * `b` : second input parameter;
+% * `d` : (_option_) some parameter; default: `d=a` is converted to a string;
+% * `e` : (_option_) numeric parameter; default: `e=1`;
+% * `f` : (_option_) boolean parameter; default: `f=false`.
+%
+% ### Returns
+% `c` : output string parameter.
+% 
+% ### Example
+% See if any, for instance:
+%
+% ~~~matlab
+% data = false(1,2);
+% c = _example_function(data, 3, 2, d="aaa", f=true);
+% ~~~
+%
+% ### See also
+% [_example_method](@ref py__example_method), 
+% [_example_script](@ref sh__example_script), 
+% [_example_macro](@ref sas__example_macro), 
+% [_example_function](@ref r__example_function), 
+% [_example_batch](@ref bat__example_batch).
+%% 
+~~~
 
 <hr size="5" style="color:black;background-color:black;" />
 
 ###### <a name="DOS_rules"></a>`DOS` scripts
+
+The header documentation shall be inserted in between the anchor `REM REM`. All comments are inserted after the pattern `REM`. The prefix `bat_` is used for referencing the scripts.
+
+The following example displays the header documentation of the batch script [`_example_batch.bat`](https://github.com/gjacopo/bodylanguage/blob/master/doxy/tests/idir2/_example_batch.bat):
 
 ~~~
 REM REM
@@ -305,12 +349,11 @@ REM ~~~bat
 REM > _example_batch.bat data 10 2 -d aaa -f TRUE
 REM ~~~
 REM
-REM ### Note
-REM Visit the [address](http://www.some_macro.html) that certainly does not exist.
-REM
 REM ### See also
-REM [_example_method](@ref py__example_method), [_example_function](@ref r__example_function), 
-REM [_example_macro](@ref sas__example_macro), [_example_function](@ref m__example_function), 
+REM [_example_method](@ref py__example_method), 
+REM [_example_function](@ref r__example_function), 
+REM [_example_macro](@ref sas__example_macro), 
+REM [_example_function](@ref m__example_function), 
 REM [_example_script](@ref sh__example_macro).
 REM REM
 ~~~

@@ -32,7 +32,7 @@
 % ~~~
 %
 % ### Note
-% Visit the [address](http://www.some_macro.html) that certainly does not exist.
+% Visit the [address](http://www.some_function.html) that certainly does not exist.
 %
 % ### See also
 % [_example_method](@ref py__example_method), [_example_script](@ref sh__example_script), 

@@ -46,6 +46,7 @@ Note that this way, it is not necessary to "group" the source code that is docum
   + `R` rules,
   + `Python` rules,
   + `bash` rules,
+  + `Matlab` rules,
   + `DOS` rules;
 * [usage](https://github.com/gjacopo/bodylanguage/blob/master/docs/doxy/usage.md): Usage of the script for the extraction of the documentation;
 * [examples](https://github.com/gjacopo/bodylanguage/blob/master/docs/doxy/examples.md): Examples of generation of online browsable documentation.

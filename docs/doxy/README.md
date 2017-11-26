@@ -26,12 +26,13 @@ as well as the tools and commands to automatically [extract the inline documenta
 
 * [rationale](rationale.md): Rationale behind these choices (of documentation language, of documentation generator,...) that have been made.
 * [guidelines](guidelines.md): Set of guidelines used for the documentation of various programs (function/macro/script/...) in different languages.
-  + [generic rules](guidelines.md#Generic_rules).
+  + [generic template](guidelines.md#Generic_template).
   + [`SAS` rules](guidelines.md#SAS_rules).
   + [`Stata` rules](guidelines.md#Stata_rules).
   + [`R` rules](guidelines.md#R_rules).
   + [`Python` rules](guidelines.md#Python_rules).
   + [`bash` rules](guidelines.md#bash_rules).
+  + [`Matlab` rules](guidelines.md#Matlab_rules).
   + [`DOS` rules](guidelines.md#DOS_rules).
 * [usage](usage.md): Usage of the script for the extraction of the documentation.
 * [examples](examples.md): Examples of generation of online browsable documentation.

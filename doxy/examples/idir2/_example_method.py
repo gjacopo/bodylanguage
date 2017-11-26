@@ -34,7 +34,7 @@ c = _example_method(data, 3, 2, d="aaa", f=TRUE)
 ~~~
 
 ### Note
-Visit the [address](http://www.some_macro.html) that certainly does not exist.
+Visit the [address](http://www.some_method.html) that certainly does not exist.
 
 ### See also
 [_example_macro](@ref sas__example_macro), [_example_script](@ref sh__example_script), 

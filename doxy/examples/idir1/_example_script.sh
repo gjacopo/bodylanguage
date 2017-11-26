@@ -34,7 +34,7 @@
 # ~~~
 #
 # ### Note
-# Visit the [address](http://www.some_macro.html) that certainly does not exist.
+# Visit the [address](http://www.some_script.html) that certainly does not exist.
 #
 # ### See also
 # [_example_method](@ref py__example_method), [_example_function](@ref r__example_function), 

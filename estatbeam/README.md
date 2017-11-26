@@ -1,7 +1,7 @@
 estatbeam
 ========
 
-Eurostat layout style/template for `LaTeX` beamer presentation.
+ESTAT layout style/template for `LaTeX` beamer presentation.
 ---
 
 The `LaTeX` style file stored herein: 
