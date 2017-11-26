@@ -38,7 +38,8 @@
 #
 # ### See also
 # [_example_method](@ref py__example_method), [_example_function](@ref r__example_function), 
-# [_example_macro](@ref sas__example_macro), [_example_function](@ref m__example_function).
+# [_example_macro](@ref sas__example_macro), [_example_function](@ref m__example_function), 
+# [_example_batch](@ref bat__example_batch).
 ## THIS LINE WILL ALSO BE IGNORED
 
 data=$1
