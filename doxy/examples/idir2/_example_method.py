@@ -26,12 +26,12 @@ Does a great job (in [`Python`](https://www.python.org/)).
 `c` : output string parameter.
 
 ### Examples
-# See if any, for instance:
-#
-# ~~~py
-# data = np.rand(1,2)
-# c = _example_method(data, 3, 2, d="aaa", f=TRUE)
-# ~~~
+See if any, for instance:
+
+~~~py
+data = np.rand(1,2)
+c = _example_method(data, 3, 2, d="aaa", f=TRUE)
+~~~
 
 ### Note
 Visit the [address](http://www.some_macro.html) that certainly does not exist.
