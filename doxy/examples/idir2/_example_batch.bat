@@ -15,6 +15,7 @@ REM  var1 | var2 | var3
 REM -----:|:----:|----:
 REM 1     |  yes | 0
 REM 0     |  no  | 1
+REM
 REM * `a` : first input parameter;
 REM * `b` : second input parameter;
 REM * `-d <d>` : (_option_) some parameter; default: `d=a` is used;
