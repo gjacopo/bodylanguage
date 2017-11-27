@@ -509,3 +509,4 @@ for (( i=0; i<${nprogs}; i++ )); do
     done
 done
 
+[ ${test} -eq 1 -o ${verb} -eq 1 ]  && echo 
