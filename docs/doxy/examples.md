@@ -1,6 +1,7 @@
 ##### `doxy@ESTAT` Examples
 
-Some actual use of the script and related help for the implementation:
+Some actual use of the script (whose usage is described [here](usage.md))
+and related help for the implementation:
 
 * <a name="dummydoc"></a>in the 
 [`examples/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples)) folder, various 
