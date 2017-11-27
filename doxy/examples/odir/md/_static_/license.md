@@ -1,4 +1,4 @@
-### License  {#mainpage_license}
+### License  {#license}
 
 _European Union Public Licence_ ([EUPL](https://joinup.ec.europa.eu/community/eupl/og_page/eupl))
 
