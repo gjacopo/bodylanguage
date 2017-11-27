@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 ## THIS LINE WILL BE IGNORED WHEN EXTRACTING THE DOCUMENTATION HEADER
-# ## _example_script {#sh__example_script}
+# ## bash script {#sh__example_script}
 # Does a great job (in [`bash`](https://www.gnu.org/software/bash/)).
 # 
 #      ~~~sh

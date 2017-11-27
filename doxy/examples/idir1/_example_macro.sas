@@ -1,10 +1,10 @@
 /** THIS LINE WILL BE IGNORED WHEN EXTRACTING THE DOCUMENTATION HEADER
-## _example_macro {#sas__example_macro}
+## SAS macro {#sas__example_macro}
 Does a great job (in [`SAS`](https://www.sas.com/)).
 
-     ~~~sas
-     %_example_macro(data, a, b, _c_=, d=, e=1, f=False);
-     ~~~
+    ~~~sas
+    %_example_macro(data, a, b, _c_=, d=, e=1, f=False);
+    ~~~
 
 ### Arguments
 * `data` : some beautiful data that looks like a nice table

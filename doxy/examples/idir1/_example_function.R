@@ -1,5 +1,5 @@
 ## THIS LINE WILL BE IGNORED WHEN EXTRACTING THE DOCUMENTATION HEADER
-# ## _example_function {#r__example_function}
+# ## R function {#r__example_function}
 # Does a great job (in [`R`](https://www.r-project.org/)).
 # 
 #      ~~~r
