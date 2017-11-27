@@ -1,7 +1,7 @@
 bodylanguage
 ============
 
-Various (useless) supporting material and/or prototypes
+Various (useful or less) supporting material and/or prototypes
 ---
 
 **About**
