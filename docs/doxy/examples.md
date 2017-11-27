@@ -62,7 +62,10 @@ however you will not be able to browse the whole documentation from there.
 <td align="centre"><kbd><img src="example_dumb.png" alt="example dummy examples" width="700"  align="centre"> </kbd></td>
 </tr>
 <footer>
-<td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
+<td align="centre"><i>Shared documentation of various programming languages: in this example, 
+the documentation of different stand-alone programs (implemented in <code>SAS</code>, 
+<code>R</code>, <code>Python</code>, <code>Matlab</code>, etc...) is made available (and 
+browsable) from a common (single-entry) webpage.</i></td>
 </footer>
 </table>
 
@@ -96,6 +99,8 @@ with the `doxygen`-formatted configuration file
 <td align="centre"><kbd><img src="example_ping.png" alt="example PING quantile" width="700"  align="centre"> </kbd></td>
 </tr>
 <footer>
-<td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
+<td align="centre"><i>Statistical operations are documented regardless of the programming languages: 
+in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> 
+and <code>R</code> implementations.</i></td>
 </footer>
 </table>
