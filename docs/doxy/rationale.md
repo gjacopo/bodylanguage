@@ -1,6 +1,6 @@
 #### `doxy@ESTAT` -- Rationale for guidelines adoption 
 
-_Why documentng your code (if that's not already obvious)?_
+######  Why documenting your code (if that's not already obvious)?
 
 Beyond enabling the sharing and reuse of your code, the practical benefits of documenting it are in enabling reproducibility and verification, as well as possible extension and potential migration:
 * _"A critical barrier to reproducibility in many cases is that the computer code is [not] available."_ ([Peng, 2011](#References)): computational resources should facilitate the participation of all and the integration of any additional  contribution, 
@@ -12,7 +12,7 @@ Hence, a good documentation is not only useful for the users to run and (re)use 
 As stated in  ([Ince et al., 2011](#References)), _"with some exceptions, anything less than the release of source programs is intolerable for results that depend on computation"_. 
 Ultimately, we believe that one should _"provide public access to scripts, runs, and results"_ ([Sandve _et al._, 2013](#References)), hence not only the outcomes of a given analysis, but the whole processes, data and tools necessary to produce it should be open and shared. Source code documentation overall supports these objectives. 
 
-_Why adopting markdown for the documentation?_
+###### Why adopting markdown for the documentation?
 
 [Lightweight markup languages](https://en.wikipedia.org/wiki/Lightweight_markup_language), _e.g._ [_markdown_](https://daringfireball.net/projects/markdown/), [_AsciiDoc_](http://asciidoc.org), provide formats that are both **processable by documentation generators**, and easily **readable by human produsers** (see also comparison between languages).
 
@@ -58,7 +58,7 @@ Finally, _markdown_ language shall be adopted:
 
 Note that it is also important that the use of a specific documentation style (possibly associated to a given generator) does not alter the natural documentation of a language (intrinsic to the language itself). In many languages (like `SAS` or `Stata`), it does not represent an issue since the documentation is inserted as comments like in `C` language.
 
-_Why using Doxygen as the documentation generator?_
+###### Why using Doxygen as the documentation generator?
 
 In order to create portable documentation, documentation generators can be used, Such tools - _e.g._ well-known [_javadoc_](http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html) - generate software documentation from internal code comments.
 
