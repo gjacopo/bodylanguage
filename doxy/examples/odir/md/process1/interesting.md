@@ -3,8 +3,9 @@
 Contents:
 - @subpage sas__example_macro
 - @subpage py__example_method
-
-@defgroup Interesting
+- @subpage bat__example_batch
+ 
+@defgroup Interesting Interesting
 @addtogroup Interesting
 @copydoc sas__example_macro
 @{
