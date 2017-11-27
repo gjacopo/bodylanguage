@@ -3,11 +3,12 @@
 Some actual use of the script (whose usage is described [here](usage.md))
 and related help for the implementation:
 
-* <a name="dummydoc"></a>in the 
-[`examples/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples)) folder, various 
-dummy programs implemented in different programming languages are provided so as to illustrate the 
-use of the common template, _e.g._ `SAS`, `R`, `Python`, _etc... functions and scripts 
-under the 
+###### <a name="dummydoc"></a>Shared documentation of multiple languages
+
+In the [`examples/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples)) 
+folder, various dummy programs implemented in different programming languages are provided 
+so as to illustrate the use of the common template, _e.g._ `SAS`, `R`, `Python`, _etc... 
+functions and scripts under the 
 [`idir1/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples/idir1) and 
 [`idir2/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples/idir2)
  directories are documented. The script 
@@ -15,7 +16,7 @@ under the
 can be run to automatically extract the documentation from any of those files, _e.g._
 the command:
 
-	bash src2mddoc.sh -v -p -d examples/odir/md/process2/ 
+	bash src2mddoc.sh -v -p -d examples/odir/md/process2/
 		examples/idir1/_example_function.R
 
 will extract the header documentation from the source file `_example_function.R` in 
@@ -70,8 +71,10 @@ browsable) from a common (single-entry) webpage.</i></td>
 </footer>
 </table>
 
-* <a name="PINGdoc"></a>[`PING` software](https://github.com/gjacopo/PING) whose generated 
-documentation can be found [here](https://gjacopo.github.io/PING/).
+###### <a name="PINGdoc"></a>`PING` software documentation
+
+The documentation of [`PING` software](https://github.com/gjacopo/PING) has been generated
+automatically using this approach. It can be found [here](https://gjacopo.github.io/PING/).
 
 The _markdown_ files are again generated using the `src2mddoc.sh` script, _e.g._ run:
 
