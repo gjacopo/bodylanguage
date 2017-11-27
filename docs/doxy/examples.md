@@ -2,9 +2,9 @@
 
 Some actual use of the script and related help for the implementation:
 
-* <a name="dummydoc"></a>in the examples folder, various 
-[`dummy` programs](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples) 
-implemented in different programming languages are provided so as to illustrate the 
+* <a name="dummydoc"></a>in the 
+[`examples/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples)) folder, various 
+dummy programs implemented in different programming languages are provided so as to illustrate the 
 use of the common template, _e.g._ `SAS`, `R`, `Python`, _etc... functions and scripts 
 under the 
 [`idir1/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples/idir1) and 
@@ -56,6 +56,15 @@ the folder
 and can be launched from the `index.html` page. A preview is available in this 
 [page](https://cdn.rawgit.com/gjacopo/bodylanguage/1d8d4738/doxy/examples/odir/html/index.html), 
 however you will not be able to browse the whole documentation from there. 
+
+<table>
+<tr>
+<td align="centre"><kbd><img src="example_dumb.png" alt="example dummy examples" width="700"  align="centre"> </kbd></td>
+</tr>
+<footer>
+<td align="centre"><i>Statistical operations are documented regardless of the programming languages: in this example, the documentation of a quantile estimation is provided for both <code>SAS</code> and <code>R</code> implementations.</i></td>
+</footer>
+</table>
 
 * <a name="PINGdoc"></a>[`PING` software](https://github.com/gjacopo/PING) whose generated 
 documentation can be found [here](https://gjacopo.github.io/PING/).
