@@ -17,7 +17,7 @@ To do so, we suggest to adopt a common way for describing and documenting source
 
 Rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**. Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
 In this aspect, we hereby provide with the common guidelines and templates to inline document:
-* `SAS`, `R`, `Stata` and `Python` programs/functions,
+* `SAS`, `R`, `Stata`, `Matlab`, `Perl` and `Python` programs/functions,
 * `bash` and `DOS` scripts.
 
 as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations.  
