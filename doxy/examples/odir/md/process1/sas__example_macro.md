@@ -12,6 +12,7 @@ Does a great job (in [`SAS`](https://www.sas.com/)).
 -----:|:----:|----:
 1     |  yes | 0
 0     |  no  | 1
+
 * `a` : first input parameter;
 * `b` : second input parameter;
 * `d` : (_option_) some parameter; default: `d=a`;
