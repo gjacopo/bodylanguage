@@ -255,12 +255,14 @@ Our final choice is _Doxygen_ also because it provides [support to markdown](htt
 
 **<a name="References"></a>References**
 
-* Wikipedia comparison of document markup languages: https://en.wikipedia.org/wiki/Comparison_of_document_markup_languages.
-* Wikipedia comparison of documentation generators: https://en.wikipedia.org/wiki/Comparison_of_documentation_generators.
-* A beginner's guide to writing documentation: http://www.writethedocs.org/guide/writing/beginners-guide-to-docs/.
-* Mastering cheatsheet: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet and _markdown_ quick reference: https://en.support.wordpress.com/markdown-quick-reference/.
+* Google documentation [style reference and guidelines](https://developers.google.com/style/).
 * Goodman A. _et al._ (2014): [**Ten simple rules for the care and feeding of scientific data**](http://www.ploscollections.org/article/fetchObject.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.1003542&representation=PDF), _PLoS Computational Biology_, 10(4):e1003542, doi:[10.1371/journal.pcbi.1003542](https://dx.doi.org/10.1371/journal.pcbi.1003542).
 * Sandve G.K. _et al._ (2013): [**Ten simple rules for reproducible computational research**](http://www.ploscompbiol.org/article/fetchObject.action?uri=info%3Adoi%2F10.1371%2Fjournal.pcbi.1003285&representation=PDF), _PLoS Computational Biology_, 9(10):e1003285, doi:[10.1371/journal.pcbi.1003285](https://dx.doi.org/10.1371/journal.pcbi.1003285).
 * Peng R.D. (2011): [**Reproducible research in computational science**](http://www.sciencemag.org/content/334/6060/1226.full.pdf), _Science_, 6060(334):1226-1227, doi:[10.1126/science.1213847](https://dx.doi.org/10.1126/science.1213847).
 * Ince D.C., Hatton L., and Graham-Cumming J. (2011): [**The case for open computer programs**](http://www.nature.com/nature/journal/v482/n7386/pdf/nature10836.pdf), _Nature_, 482:485-488, doi:[10.1038/nature10836](https://dx.doi.org/10.1038/nature10836).
 * Barnes N. (2010): [**Publish your computer code: it is good enough**](http://www.nature.com/news/2010/101013/pdf/467753a.pdf), _Nature_, 467:753, doi:[10.1038/467753a](https://dx.doi.org/10.1038/467753a). 
+* Wikipedia [comparison of document markup languages](https://en.wikipedia.org/wiki/Comparison_of_document_markup_languages).
+* Wikipedia [comparison of documentation generators](https://en.wikipedia.org/wiki/Comparison_of_documentation_generators).
+* A [beginner's guide](http://www.writethedocs.org/guide/writing/beginners-guide-to-docs/) to writing documentation.
+* [Mastering cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) and _markdown_ 
+[quick reference](https://en.support.wordpress.com/markdown-quick-reference/).
