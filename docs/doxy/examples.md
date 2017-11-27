@@ -76,7 +76,7 @@ browsable) from a common (single-entry) webpage.</i></td>
 The documentation of [`PING` software](https://github.com/gjacopo/PING) has been generated
 automatically using this approach. It can be found [here](https://gjacopo.github.io/PING/).
 
-The _markdown_ files are again generated using the `src2mddoc.sh` script, _e.g._ run:
+The `markdown` files are again generated using the `src2mddoc.sh` script, _e.g._ run:
 
 	bash src2mddoc.sh -v -p -d PING/docs/md/library/ 
 		PING/library/pgm/*
