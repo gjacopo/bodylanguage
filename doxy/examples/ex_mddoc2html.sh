@@ -54,23 +54,23 @@ doxdir=0
 
 ohtml=0
 generate_html=YES
-html_output=./html # relative path... or absolute path: ${DIRDOC}/html? you choose...
+html_output=${output_directory}/html # relative path... or absolute path: ${DIRDOC}/html? you choose...
 
 olatex=0
 generate_latex=NO
-latex_output=./latex # relative path
+latex_output=${output_directory}/latex # relative path
 
 oxml=0
 generate_xml=NO
-xml_output=./xml # relative path
+xml_output=${output_directory}/xml # relative path
 
 oman=0
 generate_man=NO
-man_output=./man # relative path
+man_output=${output_directory}/man # relative path
 
 ortf=0
 generate_rtf=NO
-rtf_output=./rtf # relative path
+rtf_output=${output_directory}/rtf # relative path
 
 test=0
 verb=0

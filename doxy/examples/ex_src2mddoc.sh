@@ -35,15 +35,15 @@ extractor=${ROOTDIR}/${EXTRACTOR}
 echo Extract documentation from idir1/_example_macro.sas into process1/
 ${extractor} -v -p -d ${process1_directory}/ ${idir1_directory}/_example_macro.sas
 echo Extract documentation from idir1/_example_function.R into process2/
-${extractor} -v -p -d ${process2_director2}/ ${idir1_directory}/_example_function.R
+${extractor} -v -p -d ${process2_directory}/ ${idir1_directory}/_example_function.R
 echo Extract documentation from idir1/_example_script.sh into process2/
-${extractor} -v -p -d ${process2_director2}/ ${idir1_directory}/_example_script.sh
+${extractor} -v -p -d ${process2_directory}/ ${idir1_directory}/_example_script.sh
 
 # from input IDIR2
 echo Extract documentation from idir2/_example_method.py into process1/
-${extractor} -v -p -d ${process1_directory}/ ${idir1_directory}/_example_method.py
+${extractor} -v -p -d ${process1_directory}/ ${idir2_directory}/_example_method.py
 echo Extract documentation from idir1/_example_batch.bat into process1/
-${extractor} -v -p -d ${process1_director2}/ ${idir1_directory}/_example_batch.bat
+${extractor} -v -p -d ${process1_directory}/ ${idir2_directory}/_example_batch.bat
 echo Extract documentation from idir1/_example_function.m into process2/
-${extractor} -v -p -d ${process2_director2}/ ${idir1_directory}/_example_function.m
+${extractor} -v -p -d ${process2_directory}/ ${idir2_directory}/_example_function.m
 
