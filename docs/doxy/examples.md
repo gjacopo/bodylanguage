@@ -7,7 +7,7 @@ described [here](usage.md)), and also provide with all related help for the impl
 
 In the [`examples/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples)) 
 folder, various dummy programs implemented in different programming languages are provided 
-so as to illustrate the use of the common template, _e.g._ `SAS`, `R`, `Python`, _etc... 
+so as to illustrate the use of the common template, _e.g._ `SAS`, `R`, `Python`, _etc_... 
 functions and scripts under the 
 [`idir1/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples/idir1) and 
 [`idir2/`](https://github.com/gjacopo/bodylanguage/tree/master/doxy/examples/idir2)
