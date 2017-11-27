@@ -1,7 +1,7 @@
 @ECHO off
 
 REM REM THIS LINE WILL BE IGNORED WHEN EXTRACTING THE DOCUMENTATION HEADER
-REM ## _example_batch {#bat__example_batch}
+REM ## DOS batch {#bat__example_batch}
 REM Does a great job (in `DOS`).
 REM 
 REM      ~~~bat
@@ -37,7 +37,7 @@ REM
 REM ### See also
 REM [_example_method](@ref py__example_method), [_example_function](@ref r__example_function), 
 REM [_example_macro](@ref sas__example_macro), [_example_function](@ref m__example_function), 
-REM [_example_script](@ref sh__example_macro).
+REM [_example_script](@ref sh__example_script).
 REM REM THIS LINE WILL ALSO BE IGNORED
 
 SET data=%~1

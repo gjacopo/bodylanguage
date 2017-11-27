@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """ THIS LINE WILL BE IGNORED WHEN EXTRACTING THE DOCUMENTATION HEADER
-## _example_method {#py__example_method}
+## Python method {#py__example_method}
 Does a great job (in [`Python`](https://www.python.org/)).
 
      ~~~py

@@ -1,5 +1,5 @@
 %% THIS LINE WILL BE IGNORED WHEN EXTRACTING THE DOCUMENTATION HEADER
-% ## _example_function {#m__example_function}
+% ## Matlab function {#m__example_function}
 % Does a great job (in [`Matlab`](https://www.mathworks.com/products/matlab.html)).
 % 
 %      ~~~matlab
