@@ -31,7 +31,7 @@ REL_ROOTDIR=.
 DIRDOC=${REL_ROOTDIR}/odir
 
 CFG_DIR=${REL_ROOTDIR}/dox
-CFG_FILE=doxygen-test-config.cfg
+CFG_FILE=doxygen-dumb-config.cfg
 
 ## set output parameters
 input_directory=${DIRDOC}/md
