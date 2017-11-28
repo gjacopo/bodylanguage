@@ -11,6 +11,14 @@ The layout files stored herein, namely:
 
 enable to export bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org) bibliography reference manager. The files haven been created following the instructions and examples given in http://www.markschenk.com/tools/jabref/.
 
+<table align="center">
+    <tr> <td align="left"><i>documentation</i></td> <td align="left">see also: https://gjacopo.github.io/bodylanguage/estatref</td> </tr> 
+    <tr> <td align="left"><i>since</i></td> <td align="left">2016</td> </tr> 
+    <tr> <td align="left"><i>license</i></td> <td align="left"><a href="https://creativecommons.org/licenses/by/3.0/">EUPL</a>  <i>Creative Commons Attribution License</i> </td> </tr> 
+</table>
+
+**Description**
+
 Currently, the output `html` table contains the following fields (headers):
 
 | Link | Dataset | Project | Title | Keywords |	Source | Year | Lang. |
