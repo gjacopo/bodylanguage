@@ -13,7 +13,7 @@ These materials are meant as working solutions, prototypes or proofs of concept 
     <tr> <td align="left"><i>version</i></td> <td align="left"><i>active development</i> </td> </tr> 
 </table>
 
-**Description**
+**Contents**
 
 Here is a list of what is currently availalble:
 
