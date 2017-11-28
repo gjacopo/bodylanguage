@@ -16,11 +16,11 @@ To do so, we suggest to adopt a common way for describing and documenting source
 * **the documentation generator [`Doxygen`](http://www.stack.nl/~dimitri/doxygen/) is used** to generate a user-friendly browsable "online" documentation.
 
 Rather than describing IT tools, the purpose of the documentation is to **describe the underlying statistical processes**. Therefore, it is important that the documentation does not restrict to a single programming language or software, but instead supports various different implementations.
-In this aspect, we hereby provide with the common guidelines and templates to inline document:
+In this aspect, we hereby provide with the [common guidelines](guidelines.md) and templates to inline document:
 * `SAS`, `R`, `Stata`, `Matlab`, `Perl` and `Python` programs/functions,
 * `bash` and `DOS` scripts.
 
-as well as the tools and commands to automatically [extract the inline documentation and generate an online document](htmldoc) that merges the different documentations.  
+as well as the [tool](usage.md) to automatically extract the inline documentation, and the [commands](examples.md) to generate an online document that merges the different documentations.  
 
 ##### Table of Contents
 
