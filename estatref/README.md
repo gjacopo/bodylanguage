@@ -11,7 +11,7 @@ This material will enable you to export bibliographical references into a search
 <table align="center">
     <tr> <td align="left"><i>documentation</i></td> <td align="left">see also: https://gjacopo.github.io/bodylanguage/estatref</td> </tr> 
     <tr> <td align="left"><i>since</i></td> <td align="left">2016</td> </tr> 
-    <tr> <td align="left"><i>license</i></td> <td align="left"><a href="https://creativecommons.org/licenses/by/3.0/">EUPL</a>  <i>Creative Commons Attribution License</i> </td> </tr> 
+    <tr> <td align="left"><i>license</i></td> <td align="left"><a href="https://creativecommons.org/licenses/by/3.0/">  <i>Creative Commons Attribution License</a></i> </td> </tr> 
 </table>
 
 The following  files are provided: 
