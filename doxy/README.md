@@ -8,13 +8,13 @@ Guidelines and script for generic code documentation of various languages (`R`/`
 
 This material aims at **supporting the development, sharing and reuse of open IT components**, _e.g._, deployed in production environment, and **ensuring complete transparency of in-house computational resources**, _e.g._ regardless of the platform used for the implementation ([Grazzini and Pantisano, 2015; Grazzini and Lamarche, 2017](#References)). 
 
-We provide hereby a set of common guidelines and templates for a generic inline source code documentation (using `markdown` language) as well as a `bash` script for the automatic generation of a derived online documentation (using `Doxygen` generator). 
-
 <table align="center">
     <tr> <td align="left"><i>documentation</i></td> <td align="left">available at: https://gjacopo.github.io/bodylanguage/doxy/</td> </tr> 
     <tr> <td align="left"><i>since</i></td> <td align="left">2016</td> </tr> 
     <tr> <td align="left"><i>license</i></td> <td align="left"><a href="https://joinup.ec.europa.eu/sites/default/files/eupl1.1.-licence-en_0.pdfEUPL">EUPL</a> </td> </tr> 
 </table>
+
+We provide hereby a set of common guidelines and templates for a generic inline source code documentation (using `markdown` language) as well as a `bash` script for the automatic generation of a derived online documentation (using `Doxygen` generator). 
 
 **<a name="Description"></a>Description**
 
