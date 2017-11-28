@@ -4,18 +4,23 @@ estatref
 Layout for browsable and searchable online references.
 ---
 
-The layout files stored herein, namely: 
-* `tablerefs-estat.layout`, 
-* `tablerefs-estat.begin.layout`, and
-* `tablerefs-estat.end.layout`
+**About**
 
-enable to export bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org) bibliography reference manager. The files haven been created following the instructions and examples given in http://www.markschenk.com/tools/jabref/.
+This material will enable you to export bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org) bibliography reference manager.
 
 <table align="center">
     <tr> <td align="left"><i>documentation</i></td> <td align="left">see also: https://gjacopo.github.io/bodylanguage/estatref</td> </tr> 
     <tr> <td align="left"><i>since</i></td> <td align="left">2016</td> </tr> 
     <tr> <td align="left"><i>license</i></td> <td align="left"><a href="https://creativecommons.org/licenses/by/3.0/">EUPL</a>  <i>Creative Commons Attribution License</i> </td> </tr> 
 </table>
+
+The following  files are provided: 
+* `tablerefs-estat.layout`, 
+* `tablerefs-estat.begin.layout`, and
+* `tablerefs-estat.end.layout`
+
+for the managemagement of the bibliography layout. These files have been created/updated following the instructions and examples given in http://www.markschenk.com/tools/jabref/.
+
 
 **Description**
 
