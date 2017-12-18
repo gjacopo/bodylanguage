@@ -21,7 +21,6 @@ The following  files are provided:
 
 for the managemagement of the bibliography layout. These files have been created/updated following the instructions and examples given in http://www.markschenk.com/tools/jabref/.
 
-
 **Description**
 
 Currently, the output `html` table contains the following fields (headers):
@@ -41,3 +40,8 @@ Further, the `pub-CROS` page (`.htm` file and `_files` folder) was created so as
    ```
 
 since this creates issue when launching the search (table spans on 1 column only). 
+
+**References**
+
+* Wikipedia [comparison of reference management software](https://en.wikipedia.org/wiki/Comparison_of_reference_management_software)
+* Report on "Reference management software comparison" ([2016 update](https://mediatum.ub.tum.de/doc/1320978/1320978.pdf)), Technische Universität München.
