@@ -6,7 +6,7 @@ Layout for browsable and searchable online references.
 
 **About**
 
-This material will enable you to export bibliographical references into a searchable table using [`JabRef`](http://www.jabref.org) bibliography reference manager.
+This material will enable you to export bibliographical references into a `html`-formatted searchable table using [`JabRef`](http://www.jabref.org) bibliography reference manager.
 
 <table align="center">
     <tr> <td align="left"><i>documentation</i></td> <td align="left">see also: https://gjacopo.github.io/bodylanguage/estatref</td> </tr> 
@@ -19,7 +19,7 @@ The following  files are provided:
 * `tablerefs-estat.begin.layout`, and
 * `tablerefs-estat.end.layout`
 
-for the managemagement of the bibliography layout. These files have been created/updated following the instructions and examples given in http://www.markschenk.com/tools/jabref/.
+for the managemagement of the bibliography layout in the output `html` table. These files have been created/updated following the instructions and examples given in http://www.markschenk.com/tools/jabref/.
 
 **Description**
 
